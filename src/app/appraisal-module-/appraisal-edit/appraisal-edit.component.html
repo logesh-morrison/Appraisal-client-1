@@ -1,0 +1,221 @@
+<div>
+
+    <br>
+
+    <table id="commontableinputstyle">
+        <tr>
+            <td colspan="2">
+                <p class="heading">Employee</p>
+                <h2>&nbsp;&nbsp;&nbsp;Aswani</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Manager</p>
+            </td>
+            <td>
+                <mat-chip-list>
+                    <mat-chip>Aswani</mat-chip>
+                </mat-chip-list>
+            </td>
+            <td>
+                <p>Department</p>
+            </td>
+            <td>
+                <p>Administration</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Appraisal Date</p>
+            </td>
+            <td>
+                <mat-form-field class="employeename">
+
+                    <input matInput>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <mat-tab-group>
+        <mat-tab label="Appraisal">
+            <br>
+          <div class="row">
+            <div>
+                <table id="fullwidth">
+                    <tr>
+                        <td>
+    
+                            <p class="heading">Employee's Feedback</p>
+                        </td>
+                        <td>
+                            <mat-slide-toggle (change)="getfeedback($event)" >Not visible to Manager</mat-slide-toggle>
+    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Does my company recognize my value?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what are the element that would have the best impact on my work performance?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what are my achievement(s) since my last appraisal?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what do i like/dislike about my job, the company or the management?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>How can i improve (skills, attitude, etc)?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                   
+                </table>
+            </div>
+            <div *ngIf="managerviewshow" >
+                <table id="fullwidth">
+                    <tr>
+                        <td>
+    
+                            <p class="heading">Employee's Feedback</p>
+                        </td>
+                        <td>
+                            <mat-slide-toggle (change)="getfeedback($event)" >Not visible to Manager</mat-slide-toggle>
+    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Does my company recognize my value?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what are the element that would have the best impact on my work performance?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what are my achievement(s) since my last appraisal?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>what do i like/dislike about my job, the company or the management?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>How can i improve (skills, attitude, etc)?</p>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <!-- <mat-slide-toggle>Not visible to Manager</mat-slide-toggle> -->
+                            <mat-form-field class="appraisalquestioninput" >
+                                <textarea matInput></textarea>
+                            </mat-form-field>
+                        </td>   
+    
+                    </tr>
+                   
+                </table>
+            </div>
+          </div>
+
+        </mat-tab>
+        <!-- <mat-tab label="Private Note"> Content 2 </mat-tab> -->
+
+    </mat-tab-group>
+
+</div>

@@ -1,0 +1,96 @@
+<div *ngIf="appservice.loginstatus">
+
+    <mat-toolbar color="accent"  class="nav" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div (click)="drawer.toggle();menustylechanges()">
+            <mat-icon class="menuicon">menu</mat-icon><span class="currentmodulename"> {{currentmodulename}}</span>
+        </div>
+
+ 
+
+
+        <div (click)="logout()" fxLayout="row"  fxLayoutAlign="space-between center">
+
+            
+
+            <div class="mattoolflexend" >
+                <span [ngStyle]="{'color': adcolor}"
+                    style="margin-right: 10px;font-size: 18px;">{{idleState}}</span>
+
+            </div>
+
+            <div class="mattoolflexend" >
+                <span>({{sharedservice.username.value}})</span>
+            </div>
+
+            <div class="mattoolflexend" >
+                <a>Logout</a>
+            </div>
+        </div>
+
+    </mat-toolbar>
+
+
+
+
+
+
+
+    <mat-drawer-container class="drawer-container">
+
+
+
+        <mat-drawer #drawer class="drawer" mode="side" opened="true">
+
+            <mat-divider class="mat_divderstyle" ></mat-divider>
+
+
+            <mat-nav-list class="mat_navlist" *ngIf="transactionlistshow">
+
+                <a  [ngClass]="(currentselectedmodule == i )? 'activemodule':''" class="navlist"
+                    *ngFor="let modrow of sharedservice.transactionList;let i = index "
+                    (click)="transactionlist(modrow,i)" mat-list-item>{{modrow.name}}</a>
+                
+                 
+
+            </mat-nav-list>
+
+            <mat-nav-list *ngIf="mastershow">
+
+                <a [ngClass]="(currentselectedmodule == i )? 'activemodule':''" class="navlist"
+                    *ngFor="let modrow of sharedservice.masterList;let i = index " (click)="transactionlist(modrow,i)"
+                    mat-list-item>{{modrow.name}}</a>
+
+            </mat-nav-list>
+
+
+            <mat-nav-list id="navlistfooter" class="matnavlistfooter">
+
+                <a class="navlist" mat-list-item (click)="changetransaction()" (click)="transactionlist('modrow','2')" >Home</a>
+                <a class="navlist" mat-list-item (click)="changemaster()">Master</a>
+
+            </mat-nav-list>
+
+
+        </mat-drawer>
+
+        
+
+        <div class="main">
+            <!-- <app-header></app-header> -->
+            
+                <router-outlet *ngIf="appservice.loginstatus"></router-outlet>
+
+        
+
+        </div>
+
+
+
+    </mat-drawer-container>
+
+
+
+</div>
+<router-outlet *ngIf="!appservice.loginstatus"></router-outlet>
+

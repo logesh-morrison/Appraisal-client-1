@@ -1,0 +1,23 @@
+#commontableinputstyle{
+    width: 75%;
+  }
+#fullwidth{
+    width: 100%;
+}  
+  
+  .employeedetailinputwidth{
+    width:90%
+  }
+  
+
+  .employeename{
+      width: 450PX;
+  }
+
+  .heading{
+    font-weight: 500;
+  }
+
+  .appraisalquestioninput{
+    width: 500px;
+  }

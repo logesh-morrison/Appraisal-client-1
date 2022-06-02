@@ -1,0 +1,624 @@
+<div>
+    <br>
+    <table id="fullwidth" >
+        <tr>
+            <td colspan="4" >
+                <mat-form-field class="goalinputwidth" >
+                    <mat-label>Goal</mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Employee</p>
+            </td>
+            <td>
+                <mat-form-field class="employeewidth" >
+                    <input matInput>
+                </mat-form-field>
+
+                <button mat-icon-button (click)="opendialog(dialog)" ><mat-icon>open_in_new</mat-icon></button>
+
+            </td>
+            <td>
+                <p>Manager</p>
+            </td>
+            <td>
+                <mat-form-field class="employeewidth" >
+                    <input matInput>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Progress</p>
+            </td>
+            <td>
+                <mat-form-field class="employeewidth" >
+                    <input matInput>
+                </mat-form-field>
+            </td>
+            <td>
+                <p>Deadline</p>
+            </td>
+            <td>
+                <mat-form-field class="employeewidth" >
+                    <input matInput>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <mat-tab-group>
+        
+        <mat-tab label="Description"> Content 2 </mat-tab>
+
+    </mat-tab-group>
+
+
+
+
+    <ng-template #dialog >
+        <!-- <p>hii</p> -->
+        <div mat-dialog-title style="float: right; font-weight: 700; cursor: pointer;" (click)="close()">&#10060;</div>
+        <form [formGroup]="registrationform" >
+            <table id="commontableinputstyle">
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>Employee Name</mat-label>
+                            <input formControlName="emoployeename"  matInput>
+                        </mat-form-field>
+                    </td>
+                    <td rowspan="3" class="rowspanwidthchange" >
+                        <!-- <p>asdf</p> -->
+                        <div class="imagediv" [ngStyle]="backgroundfile()" >
+        
+                            <!-- <img [src]="imageSrc" class="fit"> -->
+                            <input  type="file" (change)="fileupload($event)" class="imageupload"  >
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>Job position</mat-label>
+                            <input formControlName="job_position" matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>Tags</mat-label>
+                            <mat-select formControlName="tags" >
+                                <mat-option *ngFor="let tag of tags" value="tag" >
+                                    {{tag}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                
+                </tr>
+            </table>
+        
+            <table id="commontableinputstyle">
+                <tr>
+                    <td>
+                        <label>Work Mobile</label>
+                        <mat-form-field class="employeeworkmobile">
+                            <input formControlName="work_Mobile" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>Department</label>
+                        <mat-form-field class="employeedepartment">
+                            <mat-select formControlName="department" >
+                                <mat-option *ngFor="let tag of tags" value="tag" >
+                                    {{tag}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Work Phone</label>
+                        <mat-form-field class="employeeworkphone">
+                            <input formControlName="work_phone"  matInput>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>Manager</label>
+                        <mat-form-field class="employeemanager">
+                            <mat-select formControlName="manager" >
+                                <mat-option *ngFor="let tag of tags" value="tag" >
+                                    {{tag}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Work Email</label>
+                        <mat-form-field class="employeeworkemail">
+                            <input formControlName="work_email" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>coach</label>
+                        <mat-form-field class="employeecoach">
+                            <mat-select formControlName="coach" >
+                                <mat-option *ngFor="let tag of tags" value="tag" >
+                                    {{tag}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        
+            <br>
+        
+            <mat-tab-group  >
+                <mat-tab label="Work Information">
+                    <table id="tabgrouptablewidth" >
+        
+                        <br>
+                        <tr>
+                            <td>
+                                <p class="heading" >Location</p>
+                             
+                                <label>Work Address</label>
+                            </td>
+                            <td>
+                                <mat-form-field class="locationworkaddress" >
+                                    <mat-select formControlName="work_address" >
+                                        <mat-option *ngFor="let tag of tags" value="tag" >
+                                            {{tag}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            
+                             <td>   
+                                <label>Work Location</label>
+                              </td>
+                              <td>  
+                                <mat-form-field class="locationworkaddress" >
+                                    <mat-select formControlName="work_location" >
+                                        <mat-option *ngFor="let tag of tags" value="tag" >
+                                            {{tag}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                            </td>
+                        </tr>
+                    </table>    
+                </mat-tab>
+        
+        
+                
+        
+                <mat-tab label="Private Information"  > 
+                    <br>
+                    
+        
+                    <table id="commontableinputstyle" >
+                        <tr>
+                            <td colspan="2" >
+                                <p class="heading" >Private Content</p>
+                            </td>
+                            <td colspan="2" >
+                                <p class="heading" >Citizenship</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Address</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Nationality (country)</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Email</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Identification No</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Phone</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Passport No</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Language</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Gender</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Bank Account Number</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Date Of birth</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Home Work Distance</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <p>Place Of birth</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="emptycellshow" ></td>
+                            <td class="emptycellshow" ></td>
+                            <td>
+                                <p>Country Of birth</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td colspan="2" >
+                                <p class="heading" >Martial Status</p>
+        
+                            </td>
+                            <td colspan="2" >
+                                <p class="heading" >Dependant</p>
+        
+        
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td>
+                                <p>Martial Status</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+        
+                            <td>
+                                <p>Number of children</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <br>
+                        <tr>
+                            <td colspan="2" >
+                                <p class="heading" >Emergency</p>
+        
+                            </td>
+                            <td colspan="2" >
+                                <p class="heading" >Work Permit</p>
+        
+        
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td>
+                                <p>Emergency Contact</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+        
+                            <td>
+                                <p>Visa No</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td>
+                                <p>Emergency Phone</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+        
+                            <td>
+                                <p>Work Permit No</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td class="emptycellshow" >
+                                
+                            </td>
+                            <td class="emptycellshow" >
+                               
+                            </td>
+        
+                            <td>
+                                <p>Visa Expiry Date</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td class="emptycellshow" >
+                                
+                            </td>
+                            <td class="emptycellshow" >
+                               
+                            </td>
+        
+                            <td>
+                                <p>Work Permit Expiration Date</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td class="emptycellshow" >
+                                
+                            </td>
+                            <td class="emptycellshow" >
+                               
+                            </td>
+        
+                            <td>
+                                <p>Work </p>
+                            </td>
+                            <td>
+                                <input type="file">
+                            </td>
+                        </tr>
+        
+                        <br>
+        
+                        <tr>
+                            <td>
+                                <p class="heading" >Education</p>
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <td>
+                                <p>Certificate Level</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Field of Study</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>School</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        
+                    </table>
+        
+                </mat-tab>
+                <mat-tab label="HR setting"> 
+                    <table id="commontableinputstyle" >
+                        <br>
+                        <tr>
+                            <td colspan="2" >
+                                <p class="heading" >Status</p>
+        
+                            </td>
+                            <td colspan="2" >
+                                <p class="heading" >Attendance/Point of Sale</p>
+        
+        
+                            </td>
+        
+                        </tr>
+                        
+                        <tr>
+        
+                            <td>
+                                <p  >Emergency Type</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+        
+                            <td>
+                                <p>PIN code</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                            <td>
+                                <p class="heading" >Related User</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+        
+                            <td>
+                                <p>Badge Id</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <br>
+        
+                        <tr>
+                            <td>
+                                <p> Payroll</p>
+                            </td>
+                        </tr>
+        
+                        <tr>
+        
+                           
+        
+                            <td>
+                                <p>Job position</p>
+                            </td>
+                            <td>
+                                <mat-form-field class="privateinformationinputtag" >
+                                    <input matInput>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+        
+        
+                        
+        
+                    </table>
+                </mat-tab>
+            </mat-tab-group>
+        
+        
+        </form>
+
+
+    </ng-template>
+
+</div>

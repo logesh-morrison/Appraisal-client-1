@@ -1,0 +1,33 @@
+.disable_a {
+    pointer-events: none;
+    cursor: default;
+    color: grey;
+}
+
+.navigation{
+    padding: 10px 12px;
+   
+    background-color: #eee !important;
+    border-radius: 10px;
+}
+
+.navigationitem{
+    display: inline;
+    font-size: 12px;
+}
+
+.navigationitem:before{
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+.navigationatag{
+    color: #0275d8;
+    text-decoration: none;
+}
+
+.navigationatag:hover{
+    color: #01447e;
+    text-decoration: underline;
+}

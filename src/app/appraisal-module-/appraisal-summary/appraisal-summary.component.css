@@ -1,0 +1,139 @@
+#commontableinputstyle{
+    width: 100%;
+  }
+  
+  .employeedetailinputwidth{
+    width:90%
+  }
+  
+  .address{
+    width:830px;
+  }
+
+  .employeecontactdetail{
+    width:70%
+  }
+
+  .employeedepartment{
+    width: 70%;
+    margin-left: 10px;
+  }
+
+  .employeemanager{
+    width: 70%;
+    margin-left: 28px;
+  }
+
+  .employeecoach{
+    width: 70%;
+    margin-left: 45px;
+  }
+
+  .employeeworkmobile{
+    width: 70%;
+    margin-left: 10px;
+  }
+
+  .employeeworkphone{
+    width: 70%;
+    margin-left: 12px;
+  }
+
+  .employeeworkemail{
+    width: 70%;
+    margin-left: 18px;
+  }
+
+  .locationworkaddress{
+    width: 70%;
+    margin-left: 30px;
+  }
+
+  #tabgrouptablewidth{
+    width: 75%;
+  }
+
+  .imagediv{
+    border:1px solid black;
+    width:120px;
+    height:120px;
+  }
+  
+  .fit{
+    width:100%;
+    height:auto;
+  }
+
+  .imageupload{
+    opacity: 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .rowspanwidthchange{
+    width: 0px;
+  }
+
+  .privateinformationinputtag{
+    width: 400px;
+  }
+
+  .emptycellshow{
+    empty-cells: show;
+  }
+
+  .heading{
+    font-weight: 500;
+  }
+
+  .tdpadding{
+    padding-left: 50px;
+  }
+
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+} 
+
+.styled-table  th {
+  background-color: grey;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    font-size: 16px;
+}
+
+.styled-table  tr {
+  border-bottom: 1px solid #dddddd;
+
+}
+
+.styled-table  tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+
+
+.displayend{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.linkclass{
+  color: blue;
+}
+
+.linkclass:hover{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+
+}

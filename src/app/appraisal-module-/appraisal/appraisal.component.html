@@ -1,0 +1,68 @@
+<div  >
+  <ul class="navigation">
+    <li *ngFor="let breadcrumb of shareservice.breadcrumbsurl;let i = index" class="navigationitem">
+      <a routerLink="{{breadcrumb.path}}" class="navigationatag" [ngClass]="disablefinalpath(i)? 'disable_a':''">
+        {{ breadcrumb.name }} 
+      </a>
+    </li>
+  </ul>
+  <!-- <button mat-flat-button color="accent" style="text-align: center" (click)="routeto()">appraisal summary</button>
+  <button mat-flat-button color="primary" style="text-align: center" routerLink="appraisal_create" >appraisal create</button>
+  <button mat-flat-button color="warn" style="text-align: center" routerLink="appraisal_edit" >appraisal edit</button>
+  <button mat-flat-button color="warn" style="text-align: center" routerLink="goal_create" >Goal create</button> -->
+
+  <nav mat-tab-nav-bar>
+
+    <a mat-tab-link (click)="routeto()" >appraisal summary</a>
+
+    <a mat-tab-link routerLink="employee_form" >Employee Create</a>
+
+
+    <a mat-tab-link routerLink="appraisal_create" >appraisal_create</a>
+
+    <a mat-tab-link routerLink="appraisal_edit" >appraisal edit</a>
+
+    <a mat-tab-link routerLink="goal_create" >Goal create</a>
+
+
+
+</nav>
+
+
+</div>
+<div *ngIf="shareservice.breadcrumbsurl.length == 0" >
+  <br>
+ 
+  <mat-grid-list cols="6" rowHeight="150px" gutterSize="15px" >
+    <mat-grid-tile fxLayout="row" fxLayoutAlign="start stretch" style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;"
+        *ngFor="let tile of tiles" 
+        
+        [colspan]="2"
+        [rowspan]="1"
+        (click)="routeto()"
+        >
+      <div fxFlex="1 1 35%" fxLayout="column" fxLayoutAlign="center center" >
+        <div class="imagediv"  >
+          <img class="imagediv" src=".\assets\images\passport-photo-of-young-handsome-man-close-up-vector-21284053 (1).jpg" >
+        </div>
+        
+      </div>
+      <div fxFlex="1 1 65%" class="contentdiv" fxLayout="column" fxLayoutAlign="start start"  >
+
+        <div>
+        <p class="heading" >{{tile.name}}</p>
+
+        </div>
+        <div>
+          <p class="heading" >Meeting Date:{{tile.meeting_date}}</p>
+        </div>
+
+        <div class="rotatecontent" [ngStyle]="appraisalstatusstyle(tile.appraisal_status)" >
+          <p>{{tile.appraisal_status}}</p>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+<router-outlet></router-outlet>

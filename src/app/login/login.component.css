@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 150px;
+  /* background-image: linear-gradient(#714B67, white); */
+  background: linear-gradient(to bottom, #714B67 0%,#714B67 50%,#714B67 50%,white 50%,white 100%); /* W3C */
+
+}
+
+mat-card {
+  padding: 80px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+  /* border: 5px solid #714B67; */
+    border-radius: 20px 100px 20px 100px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  /* width: 80%; */
+}
+
+.buttonlogin {
+  width: 80%;
+  background-color: #714B67 !important;
+  color: white;
+  height: 50px;
+}

@@ -1,0 +1,19 @@
+#commontableinputstyle{
+    width: 55%;
+  }
+#fullwidth{
+    width: 100%;
+}  
+  
+  .employeedetailinputwidth{
+    width:90%
+  }
+  
+
+  .employeename{
+      width: 450PX;
+  }
+
+  .heading{
+    font-weight: 500;
+  }

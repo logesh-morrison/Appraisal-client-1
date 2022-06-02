@@ -1,0 +1,41 @@
+<!-- <p>hello buddy</p> -->
+<!-- <div *ngFor="let modrow of modules; let i = index">
+    <div title="{{modrow.name}} " class="module_text">
+        <span class="sideNav-title">{{modrow.name}}</span>
+    </div>
+</div> -->
+<div *ngIf="transactionlistshow" >
+<div  *ngFor="let modrow of modules; let i = index"
+   >
+    <div title="{{modrow.name}} " (click)="transactionlist(modrow,i)" class="module_text" ><i class={{modrow.logo}}></i>
+        <span class="sideNav-title" >{{modrow.name}}</span>
+    </div>
+</div>
+</div> 
+
+<div  *ngIf="mastershow" >
+<div *ngFor="let modrow of masters; let i = index"
+   >
+    <div title="{{modrow.name}} " (click)="transactionlist(modrow,i)" class="module_text" ><i class={{modrow.logo}}></i>
+        <span class="sideNav-title" >{{modrow.name}}</span>
+    </div>
+</div>
+</div>
+
+<div class="footer row" > 
+    <div class="module_text" (click)="changetransaction()"  > 
+        <span>Home</span>
+    </div>
+    <div class="module_text" (click)="changemaster()" >
+        <span>Master</span>
+    </div>
+</div>
+
+<!-- <ul *ngFor="let modrow of modules; let i = index" >
+    <li>
+        <div title="{{modrow.name}} " class="module_text" ><i class={{modrow.logo}}></i>
+            <span class="sideNav-title" >{{modrow.name}}</span>
+        </div>
+    </li>
+    
+</ul> -->

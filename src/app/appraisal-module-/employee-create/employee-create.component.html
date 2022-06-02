@@ -1,0 +1,664 @@
+<!-- <div>
+    <form>
+    <table id="fullwidth" >
+        <tr>
+            <td>
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Midlle Name</mat-label>
+                    <input matInput formControlName="middle_name" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name" >
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <mat-label>Employee Code</mat-label>
+                    <input matInput formControlName="code" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Role</mat-label>
+                    <input matInput formControlName="role" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput formControlName="dob" >
+                </mat-form-field>
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <mat-label>Date of Joining</mat-label>
+                    <input matInput formControlName="doj" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Email Id</mat-label>
+                    <input matInput formControlName="email_id" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Date of Joining</mat-label>
+                    <input matInput formControlName="doj" >
+                </mat-form-field>
+            </td>
+
+        </tr>
+    </table>
+</form>
+</div> -->
+
+
+<mat-card class="contentcard">
+
+    <div class=" p-3 my-3 ">
+        <!-- <app-appraisal></app-appraisal> -->
+        <form [formGroup]="employeeform">
+            <table id="commontableinputstyle">
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>First Name</mat-label>
+                            <input formControlName="first_name" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td rowspan="3" class="rowspanwidthchange">
+                        <!-- <p>asdf</p> -->
+                        <div class="imagediv" [ngStyle]="backgroundfile()">
+                            <mat-icon class="editphoto">edit</mat-icon>
+                            <mat-icon class="deletephoto" (click)="deleteprofilepic()">delete</mat-icon>
+
+                            <!-- <img [src]="imageSrc" class="fit"> -->
+                            <input type="file" id="profilepic" (change)="fileupload($event)" class="imageupload">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>Midlle Name</mat-label>
+                            <input formControlName="middle_name" matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="employeedetailinputwidth">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="last_name">
+                            <!-- <mat-select formControlName="tags" >
+                        <mat-option *ngFor="let tag of tags" value="tag" >
+                            {{tag}}
+                        </mat-option>
+                    </mat-select> -->
+                        </mat-form-field>
+                    </td>
+
+                </tr>
+            </table>
+
+            <table id="commontableinputstyle">
+                <tr>
+                    <!-- <td>
+                    <label>Code</label>
+                </td>
+                <td>
+                    <mat-form-field class="employeeworkmobile">
+                        <input formControlName="code" matInput>
+                    </mat-form-field>
+                </td> -->
+                    <td>
+                        <label>Gender</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeeworkemail">
+                            <mat-select formControlName="gender" matInput>
+                                <mat-option *ngFor="let tile of genderlist" (click)="getgender()" [value]="tile.value">
+                                    {{tile.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>Employee Type</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeedepartment">
+
+                            <mat-select formControlName="employee_type">
+                                <mat-option *ngFor="let tile of employeetypedatas" [value]="tile.value">
+                                    {{tile.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Department</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeeworkemail">
+                            <input formControlName="department" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>Manager</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeeworkemail">
+                            <input formControlName="manager" matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Date of Birth</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeeworkphone">
+                            <!-- <input formControlName="dob"  matInput> -->
+                            <input matInput readonly [matDatepicker]="dobpicker" autocomplete="off"
+                                formControlName="dob" aria-readonly="true">
+                            <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                            <mat-datepicker #dobpicker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <label>Date of Joining</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeemanager">
+                            <input matInput readonly [matDatepicker]="dojpicker" autocomplete="off"
+                                formControlName="doj" aria-readonly="true">
+                            <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+                            <mat-datepicker #dojpicker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <label>Role</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeedepartment">
+                            <input matInput formControlName="role">
+                            <!-- <mat-select formControlName="role">
+                            <mat-option *ngFor="let tag of tags" value="tag">
+                                {{tag}}
+                            </mat-option>
+                        </mat-select> -->
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <label>Email</label>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeeworkemail">
+                            <input formControlName="email_id" matInput>
+                        </mat-form-field>
+                    </td>
+
+
+                </tr>
+            </table>
+
+
+
+            <br>
+
+            <mat-tab-group #matTabGroup>
+                <mat-tab label="Address">
+
+                    <div formArrayName="address">
+                        <div *ngFor="let item of employeeform.controls.address['controls'];let i = index"
+                            [formGroupName]="i">
+                            <table id="commontableinputstyle">
+                                <br>
+
+                                <h2 *ngIf=" employeeform.value.address[i].type == 1 ">Permanent Address</h2>
+                                <h2 *ngIf=" employeeform.value.address[i].type == 2 ">Current Address</h2>
+
+                                <tr>
+
+                                    <td>
+                                        <p>Line 1</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="line1"></textarea>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <p>Line 2</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="line2"></textarea>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        <p>Line 3</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="line3"></textarea>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <p>Pincode Id</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="pincode_id">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <p>City Id</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="city_id">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <p>District Id</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="district_id">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <p>State Id</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="state_id">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <br>
+                                <tr>
+                                    <td *ngIf="i == 0">
+                                        <mat-checkbox (change)="copytopermanent($event.checked,i)"
+                                            class="example-margin">
+                                            Copy permanent address
+                                        </mat-checkbox>
+                                    </td>
+                                </tr>
+                                <br>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+
+                <mat-tab label="Personal Info">
+                    <div formArrayName="personal_info">
+                        <div *ngFor="let item of employeeform.controls.personal_info['controls'];let j = index"
+                            [formGroupName]="j">
+
+                            <table id="commontableinputstyle">
+                                <br>
+
+                                <tr>
+                                    <td>
+                                        <p>Nationality</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="nationality"></textarea>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <p>Martial Status</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="martial_status"></textarea>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <p>Wedding Date</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput readonly [matDatepicker]="wedpicker"
+                                                placeholder="Wedding Date" autocomplete="off"
+                                                formControlName="wedding_date" aria-readonly="true">
+                                            <mat-datepicker-toggle matSuffix [for]="wedpicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #wedpicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+
+
+                                    <td>
+                                        <p>Emergency Person</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="emc_contact_person">
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        <p>Emergency Contact Person Number</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="emc_contact_person_number">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+
+
+                                <br>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                </mat-tab>
+
+                <mat-tab label="Education">
+
+                    <div formArrayName="education">
+                        <div *ngFor="let item of employeeform.controls.education['controls'];let k = index"
+                            [formGroupName]="k">
+                            <table id="commontableinputstyle">
+                                <br>
+
+                                <tr>
+
+                                    <td>
+                                        <p>Institute Name</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <textarea matInput formControlName="inst_name"></textarea>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <p>Passing Year</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="passing_year">
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+
+                                <tr>
+
+
+                                    <td>
+                                        <p>Degree</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="title">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <p>Qualification</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="qualification">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+
+
+                                    <td>
+                                        <p>Percentage</p>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="privateinformationinputtag">
+                                            <input matInput formControlName="percentage">
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+
+                                <br>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </mat-tab>
+
+
+                <mat-tab label="Experience">
+
+                    <div formArrayName="experience">
+                        <div *ngFor="let item of employeeform.controls.experience['controls'];let l = index"
+                            [formGroupName]="l">
+                            <table id="commontableinputstyle">
+                                <tr>
+                                    <td>
+                                        <label>Company Name</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeeworkmobile">
+                                            <input formControlName="company" matInput>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <label>Work Experience</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeedepartment">
+                                            <input matInput formControlName="work_experience">
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>From</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeeworkphone">
+
+                                            <input matInput readonly [matDatepicker]="frompicker"
+                                                placeholder="From Date" autocomplete="off" formControlName="period_from"
+                                                aria-readonly="true">
+                                            <mat-datepicker-toggle matSuffix [for]="frompicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #frompicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <label>To</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeemanager">
+                                            <input matInput readonly [matDatepicker]="topicker" placeholder="To Date"
+                                                autocomplete="off" formControlName="period_to" aria-readonly="true">
+                                            <mat-datepicker-toggle matSuffix [for]="topicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #topicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Role</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeeworkemail">
+                                            <input formControlName="exp_role" matInput>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <label>City</label>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="employeeworkemail">
+                                            <input matInput formControlName="city">
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mat-tab>
+
+
+            </mat-tab-group>
+            <br>
+
+            <div>
+                <input type="file" (change)="onfileuploadchanges($event)" multiple="multiple">
+            </div>
+
+
+        </form>
+        <br>
+        <table *ngIf="employeecreatefiles.length != 0" style="width: 70%;">
+            <tr>
+                <th>File name</th>
+                <th>View</th>
+                <th>Delete</th>
+
+
+            </tr>
+            <tr *ngFor="let files of employeecreatefiles;let i=index">
+                <td>{{files.name}}</td>
+                <td>
+                    <button mat-icon-button (click)="viewfile(files);opendialog(fileview)">
+                        <mat-icon matTooltip="View File">visibility
+                        </mat-icon>
+                    </button>
+                </td>
+
+                <td>
+                    <button mat-icon-button (click)="deletefile(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+
+        <table *ngIf="uploadeddocument.length != 0" style="width: 70%;">
+            <tr>
+                <th>File name</th>
+                <th>View</th>
+                <th>Download</th>
+                <th>Delete</th>
+
+
+            </tr>
+            <tr *ngFor="let files of uploadeddocument;let i=index">
+                <td>{{files.file_name}}</td>
+                <td>
+                    <button mat-icon-button (click)="uploadedfileview(files);opendialog(fileview)">
+                        <mat-icon matTooltip="View File">visibility
+                        </mat-icon>
+                    </button>
+                </td>
+
+                <td>
+                    <button mat-icon-button (click)="uploadedfiledownload(files)" >
+                        <mat-icon>download</mat-icon>
+                    </button>
+                </td>
+
+                <td>
+                    <button mat-icon-button (click)="deleteuploadedfile(files,i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+        <!-- <button mat-flat-button color="accent" style="text-align: center" (click)="routeget()">appraisalmake</button> -->
+        <div class="centerdiv">
+            <button color="primary" class="marginbuttons" routerLink="appraisal_create" (click)="employeecreate()"
+                mat-raised-button>Submit</button>
+            <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
+
+        </div>
+    </div>
+
+    <pre>
+    {{employeeform.value | json}}
+</pre>
+</mat-card>
+
+
+<ng-template #fileview>
+    <div class=" ng2-pdf-viewer-container" *ngIf="pdfviewboolean">
+        <pdf-viewer src="{{previewpdfsrc}}" [src]="src" [rotation]="0" [original-size]="false" [show-all]="true"
+            [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+            [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false" class="previewimagestyle">
+        </pdf-viewer>
+
+    </div>
+    <div class="previewimgdiv " *ngIf="imageviewboolean">
+        <img src="{{previewimagesrc}}" class="previewimagestyle">
+
+    </div>
+</ng-template>
