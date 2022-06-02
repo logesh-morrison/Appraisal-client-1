@@ -55,6 +55,8 @@ export class AppraisalSummaryComponent implements OnInit {
   searchedemployeename: any;
   searchedemployeecode: any;
 
+  showhtmlcontent=false;
+
   constructor(private appraisalservice: AppraisalServiceService, private datepipe: DatePipe, private formbuilder: FormBuilder, public shareservice: SharedserviceService, private rout: Router, private route: ActivatedRoute, private location: Location) {
 
 
@@ -68,6 +70,7 @@ export class AppraisalSummaryComponent implements OnInit {
       empname: [''],
       code: ['']
     })
+    
 
     this.registrationform = this.formbuilder.group({
       emoployeename: ['', Validators.required],

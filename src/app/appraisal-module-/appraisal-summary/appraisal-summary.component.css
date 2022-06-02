@@ -137,3 +137,8 @@
   cursor: pointer;
 
 }
+
+.mat-fab-color{
+  background-color: white;
+  color: black;
+}

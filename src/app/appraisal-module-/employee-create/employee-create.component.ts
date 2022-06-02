@@ -33,7 +33,9 @@ export class EmployeeCreateComponent implements OnInit {
   pdfviewboolean: boolean;
   previewimagesrc: any;
   previewpdfsrc: any;
-  uploadeddocument: any;
+  uploadeddocument: any = [];
+
+  htmlcontentshow=false;
 
   constructor(private notification: NotificationServiceService, private datePipe: DatePipe, private formbuilder: FormBuilder,
     private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) {
@@ -45,6 +47,12 @@ export class EmployeeCreateComponent implements OnInit {
 
     console.log('employee id', this.employeeidget)
 
+    if(this.employeeidget){
+      this.htmlcontentshow=false
+    }
+    else{
+      this.htmlcontentshow=true
+    }
 
     this.employeeform = this.formbuilder.group({
 
@@ -64,14 +72,14 @@ export class EmployeeCreateComponent implements OnInit {
       email_id: ['', Validators.required],
       gender: ['', Validators.required],
 
-      address: new FormArray([this.addressform(), this.currentaddressform(),]),
+      address: new FormArray([]),
 
-      personal_info: new FormArray([this.addpersonal_info()]),
+      personal_info: new FormArray([]),
 
-      education: new FormArray([this.addeducationformarray()]),
+      education: new FormArray([]),
 
-      experience: new FormArray([this.addexperienceformarray()])
-
+      experience: new FormArray([]),
+      id:['']
 
     });
 
@@ -81,8 +89,27 @@ export class EmployeeCreateComponent implements OnInit {
     if (this.employeeidget) {
       this.appraisalservice.getappraisalform(this.employeeidget).subscribe(result => {
         console.log('res')
+        this.htmlcontentshow=true
 
-        this.uploadeddocument = result.document
+        // while (this.addressformarray().length) {
+        //   this.addressformarray().removeAt(0);
+        // }
+
+        // while (this.personalinfoformarray().length) {
+        //   this.personalinfoformarray().removeAt(0);
+        // }
+
+        // while (this.educationformarray().length) {
+        //   this.educationformarray().removeAt(0);
+        // }
+
+        // while (this.experienceformarray().length) {
+        //   this.experienceformarray().removeAt(0);
+        // }
+
+
+        this.uploadeddocument = result.document[0].file2
+        let profilepicture=result.document[0].file1
 
         this.employeeform.patchValue({
           first_name: result.first_name,
@@ -91,22 +118,21 @@ export class EmployeeCreateComponent implements OnInit {
 
 
           role: result.role,
-          // department:result.data.department,
-          // manager:result.data.manager,
+          department: result.department,
+          manager: result.manager,
           employee_type: result.employee_type.value,
 
           dob: result.dob,
           doj: result.doj,
           email_id: result.email_id,
           gender: result.gender.id,
+          id:this.employeeidget
           // address:this.patchingaddress(result.address)
 
         });
 
         for (let data of result.address) {
-          while (this.addressformarray().length) {
-            this.addressformarray().removeAt(0);
-          }
+
           this.addressformarray().push(new FormGroup({
             line1: new FormControl(data.line1),
             line2: new FormControl(data.line2),
@@ -129,9 +155,7 @@ export class EmployeeCreateComponent implements OnInit {
 
         for (let data of result.personal_info) {
 
-          while (this.personalinfoformarray().length) {
-            this.personalinfoformarray().removeAt(0);
-          }
+
 
           this.personalinfoformarray().push(new FormGroup({
             nationality: new FormControl(data.nationality),
@@ -149,9 +173,7 @@ export class EmployeeCreateComponent implements OnInit {
 
         for (let data of result.education) {
 
-          while (this.educationformarray().length) {
-            this.educationformarray().removeAt(0);
-          }
+
 
           this.educationformarray().push(new FormGroup({
             inst_name: new FormControl(data.inst_name),
@@ -168,9 +190,6 @@ export class EmployeeCreateComponent implements OnInit {
 
         for (let data of result.experience) {
 
-          while (this.experienceformarray().length) {
-            this.experienceformarray().removeAt(0);
-          }
 
 
           this.experienceformarray().push(new FormGroup({
@@ -188,6 +207,18 @@ export class EmployeeCreateComponent implements OnInit {
 
 
       })
+
+    }
+    else{
+      // this.addressformarray().push({})
+      let control = this.employeeform.get('address') as FormArray
+      control.push(this.addressform())
+      control.push( this.currentaddressform())
+
+      this.personalinfoformarray().push(this.addpersonal_info())
+      this.educationformarray().push(this.addeducationformarray())
+      this.experienceformarray().push(this.addexperienceformarray())
+
 
     }
     this.employeetypedropdown()
@@ -212,7 +243,7 @@ export class EmployeeCreateComponent implements OnInit {
 
 
   addressform() {
-    // if (typeof this.employeeidget == "undefined") {
+ 
     let fg = this.formbuilder.group({
       line1: ['', Validators.required],
       line2: ['', Validators.required],
@@ -225,10 +256,12 @@ export class EmployeeCreateComponent implements OnInit {
       state_id: ['', Validators.required],
     })
     return fg
-    // }
+
   }
 
   currentaddressform() {
+ 
+
     let fg = this.formbuilder.group({
       line1: ['', Validators.required],
       line2: ['', Validators.required],
@@ -241,11 +274,13 @@ export class EmployeeCreateComponent implements OnInit {
       state_id: ['', Validators.required],
     })
     return fg
+  
   }
 
 
   addpersonal_info() {
-    // if(typeof this.employeeidget == "undefined"){
+    // if (typeof this.employeeidget == "undefined") {
+  
     let personal = this.formbuilder.group({
       nationality: ['', Validators.required],
       martial_status: ['', Validators.required],
@@ -255,7 +290,7 @@ export class EmployeeCreateComponent implements OnInit {
 
     })
     return personal
-    // }
+  // }
   }
 
   addeducationformarray() {
@@ -355,191 +390,453 @@ export class EmployeeCreateComponent implements OnInit {
 
   employeecreate() {
 
-    // if (this.employeeform.value.first_name == '') {
-    //   this.notification.showError('Please enter First name')
-    //   return false
-    // }
-    // if (this.employeeform.value.middle_name == '') {
-    //   this.notification.showError('Please enter Middle name')
-    //   return false
+    if (this.employeeform.value.first_name == '') {
+      this.notification.showError('Please enter First name')
+      return false
+    }
+    if (this.employeeform.value.middle_name == '') {
+      this.notification.showError('Please enter Middle name')
+      return false
 
-    // }
-    // if (this.employeeform.value.last_name == '') {
-    //   this.notification.showError('Please enter Last name')
-    //   return false
+    }
+    if (this.employeeform.value.last_name == '') {
+      this.notification.showError('Please enter Last name')
+      return false
 
-    // }
-    // if (this.employeeform.value.gender == '') {
-    //   this.notification.showError('Please select Gender')
-    //   return false
+    }
+    if (this.employeeform.value.gender == '') {
+      this.notification.showError('Please select Gender')
+      return false
 
-    // }
-    // if (this.employeeform.value.role == '') {
-    //   this.notification.showError('Please enter Role')
-    //   return false
+    }
+    if (this.employeeform.value.role == '') {
+      this.notification.showError('Please enter Role')
+      return false
 
-    // }
-    // if (this.employeeform.value.dob == '') {
-    //   this.notification.showError('Please enter Date of birth')
-    //   return false
+    }
+    if (this.employeeform.value.dob == '') {
+      this.notification.showError('Please enter Date of birth')
+      return false
 
-    // }
-    // if (this.employeeform.value.doj == '') {
-    //   this.notification.showError('Please enter Date of Joining')
-    //   return false
+    }
+    if (this.employeeform.value.doj == '') {
+      this.notification.showError('Please enter Date of Joining')
+      return false
 
-    // }
-    // if (this.employeeform.value.email_id == '') {
-    //   this.notification.showError('Please enter Email Id')
-    //   return false
+    }
+    if (this.employeeform.value.email_id == '') {
+      this.notification.showError('Please enter Email Id')
+      return false
 
-    // }
-
-
-    // let val = this.employeeform.value.address
-    // for (let j = 0; j < val.length; j++) {
-
-    //   if (val[j].type == '1') {
-    //     if (this.employeeform.value.address[j].line1 == '') {
-    //       this.notification.showError('Please enter address')
-    //       return false
-
-    //     }
-    //     if (this.employeeform.value.address[j].pincode_id == '') {
-    //       this.notification.showError('Please enter Pincode ID')
-    //       return false
-
-    //     }
-    //     if (this.employeeform.value.address[j].city_id == '') {
-    //       this.notification.showError('Please enter City ID')
-    //       return false
-
-    //     }
-    //     if (this.employeeform.value.address[j].district_id == '') {
-    //       this.notification.showError('Please enter District ID')
-    //       return false
-
-    //     }
-    //     if (this.employeeform.value.address[j].state_id == '') {
-    //       this.notification.showError('Please enter State ID')
-    //       return false
-
-    //     }
-    //   }
-    //   else {
-    //     if (val[j].line1 == '' && val[j].pincode_id == '' && val[j].city_id == '' && val[j].district_id == '' && val[j].state_id == '') {
-    //       // (<FormArray>this.employeeform.get('address')).removeAt(j)
-    //       console.log('delete permanent address')
-    //     }
-    //     else {
-    //       if (this.employeeform.value.address[j].line1 == '') {
-    //         this.notification.showError('Please enter address')
-    //         return false
-
-    //       }
-    //       if (this.employeeform.value.address[j].pincode_id == '') {
-    //         this.notification.showError('Please enter Pincode ID')
-    //         return false
-
-    //       }
-    //       if (this.employeeform.value.address[j].city_id == '') {
-    //         this.notification.showError('Please enter City ID')
-    //         return false
-
-    //       }
-    //       if (this.employeeform.value.address[j].district_id == '') {
-    //         this.notification.showError('Please enter District ID')
-    //         return false
-
-    //       }
-    //       if (this.employeeform.value.address[j].state_id == '') {
-    //         this.notification.showError('Please enter State ID')
-    //         return false
-
-    //       }
-
-    //     }
-    //   }
+    }
 
 
-    // }
+    let val = this.employeeform.value.address
+    for (let j = 0; j < val.length; j++) {
+
+      if (val[j].type == '1') {
+        if (this.employeeform.value.address[j].line1 == '') {
+          this.notification.showError('Please enter address')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].pincode_id == '') {
+          this.notification.showError('Please enter Pincode ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].city_id == '') {
+          this.notification.showError('Please enter City ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].district_id == '') {
+          this.notification.showError('Please enter District ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].state_id == '') {
+          this.notification.showError('Please enter State ID')
+          return false
+
+        }
+      }
+      else {
+        if (val[j].line1 == '' && val[j].pincode_id == '' && val[j].city_id == '' && val[j].district_id == '' && val[j].state_id == '') {
+          // (<FormArray>this.employeeform.get('address')).removeAt(j)
+          console.log('delete permanent address')
+        }
+        else {
+          if (this.employeeform.value.address[j].line1 == '') {
+            this.notification.showError('Please enter address')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].pincode_id == '') {
+            this.notification.showError('Please enter Pincode ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].city_id == '') {
+            this.notification.showError('Please enter City ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].district_id == '') {
+            this.notification.showError('Please enter District ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].state_id == '') {
+            this.notification.showError('Please enter State ID')
+            return false
+
+          }
+
+        }
+      }
+
+
+    }
 
 
 
 
-    // for (let i = 0; i < this.employeeform.value.personal_info.length; i++) {
-    //   if (this.employeeform.value.personal_info[i].martial_status == '') {
-    //     this.notification.showError('Please enter Martial status')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.personal_info[i].wedding_date == '') {
-    //     this.notification.showError('Please enter Wedding date')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.personal_info[i].emc_contact_person == '') {
-    //     this.notification.showError('Please enter Emergency person')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.personal_info[i].emc_contact_person_number == '') {
-    //     this.notification.showError('Please enter Emergency contact person number')
-    //     return false
-    //   }
-    // }
+    for (let i = 0; i < this.employeeform.value.personal_info.length; i++) {
+      if (this.employeeform.value.personal_info[i].martial_status == '') {
+        this.notification.showError('Please enter Martial status')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].wedding_date == '') {
+        this.notification.showError('Please enter Wedding date')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].emc_contact_person == '') {
+        this.notification.showError('Please enter Emergency person')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].emc_contact_person_number == '') {
+        this.notification.showError('Please enter Emergency contact person number')
+        return false
+      }
+    }
 
-    // for (let i = 0; i < this.employeeform.value.education.length; i++) {
-    //   if (this.employeeform.value.education[i].inst_name == '') {
-    //     this.notification.showError('Please enter Institute name')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.education[i].passing_year == '') {
-    //     this.notification.showError('Please enter Passing year')
-    //     return false
-    //   }
+    for (let i = 0; i < this.employeeform.value.education.length; i++) {
+      if (this.employeeform.value.education[i].inst_name == '') {
+        this.notification.showError('Please enter Institute name')
+        return false
+      }
+      if (this.employeeform.value.education[i].passing_year == '') {
+        this.notification.showError('Please enter Passing year')
+        return false
+      }
 
-    //   if (this.employeeform.value.education[i].title == '') {
-    //     this.notification.showError('Please enter Degree')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.education[i].qualification == '') {
-    //     this.notification.showError('Please enter Qualification')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.education[i].percentage == '') {
-    //     this.notification.showError('Please enter Percentage')
-    //     return false
-    //   }
+      if (this.employeeform.value.education[i].title == '') {
+        this.notification.showError('Please enter Degree')
+        return false
+      }
+      if (this.employeeform.value.education[i].qualification == '') {
+        this.notification.showError('Please enter Qualification')
+        return false
+      }
+      if (this.employeeform.value.education[i].percentage == '') {
+        this.notification.showError('Please enter Percentage')
+        return false
+      }
 
 
-    // }
+    }
 
-    // for (let i = 0; i < this.employeeform.value.experience.length; i++) {
-    //   if (this.employeeform.value.experience[i].company == '') {
-    //     this.notification.showError('Please enter Company name')
-    //     return false
-    //   }
+    for (let i = 0; i < this.employeeform.value.experience.length; i++) {
+      if (this.employeeform.value.experience[i].company == '') {
+        this.notification.showError('Please enter Company name')
+        return false
+      }
 
-    //   if (this.employeeform.value.experience[i].work_experience == '') {
-    //     this.notification.showError('Please enter Work experience')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.experience[i].period_from == '') {
-    //     this.notification.showError('Please enter From date')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.experience[i].period_to == '') {
-    //     this.notification.showError('Please enter To date')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.experience[i].exp_role == '') {
-    //     this.notification.showError('Please enter Role')
-    //     return false
-    //   }
-    //   if (this.employeeform.value.experience[i].city == '') {
-    //     this.notification.showError('Please enter City')
-    //     return false
-    //   }
+      if (this.employeeform.value.experience[i].work_experience == '') {
+        this.notification.showError('Please enter Work experience')
+        return false
+      }
+      if (this.employeeform.value.experience[i].period_from == '') {
+        this.notification.showError('Please enter From date')
+        return false
+      }
+      if (this.employeeform.value.experience[i].period_to == '') {
+        this.notification.showError('Please enter To date')
+        return false
+      }
+      if (this.employeeform.value.experience[i].exp_role == '') {
+        this.notification.showError('Please enter Role')
+        return false
+      }
+      if (this.employeeform.value.experience[i].city == '') {
+        this.notification.showError('Please enter City')
+        return false
+      }
 
-    // }
+    }
+
+    let addressdelete = this.employeeform.value.address
+    for (let j = 0; j < addressdelete.length; j++) {
+
+      if (addressdelete[j].type == '2') {
+
+        if (addressdelete[j].line1 == '' && addressdelete[j].pincode_id == '' && addressdelete[j].city_id == '' && addressdelete[j].district_id == '' && addressdelete[j].state_id == '') {
+          (<FormArray>this.employeeform.get('address')).removeAt(j)
+          console.log('delete permanent address')
+        }
+
+      }
+
+    }
+
+
+
+
+
+    this.employeeform.get('dob').setValue(this.datePipe.transform(this.employeeform.value.dob, 'yyyy-MM-dd'))
+    this.employeeform.get('doj').setValue(this.datePipe.transform(this.employeeform.value.doj, 'yyyy-MM-dd'))
+
+
+    for (let i = 0; i < this.employeeform.value.personal_info.length; i++) {
+
+      this.employeeform.get('personal_info')["controls"][i].get('wedding_date').setValue(this.datePipe.transform(this.employeeform.value.personal_info[i].wedding_date, 'yyyy-MM-dd'))
+    }
+
+    for (let i = 0; i < this.employeeform.value.experience.length; i++) {
+
+      this.employeeform.get('experience')["controls"][i].get('period_from').setValue(this.datePipe.transform(this.employeeform.value.experience[i].period_from, 'yyyy-MM-dd'))
+      this.employeeform.get('experience')["controls"][i].get('period_to').setValue(this.datePipe.transform(this.employeeform.value.experience[i].period_to, 'yyyy-MM-dd'))
+
+    }
+
+    // createfile
+
+
+    if(this.employeeidget){
+      this.appraisalservice.createemployee(this.employeeform.value, '', '').subscribe(res => {
+        console.log('res')
+  
+        if (res.message == "Successfully Created") {
+          this.notification.showSuccess('Successfully Created')
+          this.router.navigateByUrl('appraisal_module/appraisal_summary')
+  
+        } else {
+          this.notification.showError(res)
+        }
+  
+      }
+      )
+    }
+    else{
+      this.appraisalservice.createemployee(this.employeeform.value, this.employeecreatefiles, this.profilepic).subscribe(res => {
+        console.log('res')
+  
+        if (res.message == "Successfully Created") {
+          this.notification.showSuccess('Successfully Created')
+          this.router.navigateByUrl('appraisal_module/appraisal_summary')
+  
+        } else {
+          this.notification.showError(res)
+        }
+  
+      }
+      )
+    }
+
+
+    
+  }
+
+  Editform(){
+
+    if (this.employeeform.value.first_name == '') {
+      this.notification.showError('Please enter First name')
+      return false
+    }
+    if (this.employeeform.value.middle_name == '') {
+      this.notification.showError('Please enter Middle name')
+      return false
+
+    }
+    if (this.employeeform.value.last_name == '') {
+      this.notification.showError('Please enter Last name')
+      return false
+
+    }
+    if (this.employeeform.value.gender == '') {
+      this.notification.showError('Please select Gender')
+      return false
+
+    }
+    if (this.employeeform.value.role == '') {
+      this.notification.showError('Please enter Role')
+      return false
+
+    }
+    if (this.employeeform.value.dob == '') {
+      this.notification.showError('Please enter Date of birth')
+      return false
+
+    }
+    if (this.employeeform.value.doj == '') {
+      this.notification.showError('Please enter Date of Joining')
+      return false
+
+    }
+    if (this.employeeform.value.email_id == '') {
+      this.notification.showError('Please enter Email Id')
+      return false
+
+    }
+
+
+    let val = this.employeeform.value.address
+    for (let j = 0; j < val.length; j++) {
+
+      if (val[j].type == '1') {
+        if (this.employeeform.value.address[j].line1 == '') {
+          this.notification.showError('Please enter address')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].pincode_id == '') {
+          this.notification.showError('Please enter Pincode ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].city_id == '') {
+          this.notification.showError('Please enter City ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].district_id == '') {
+          this.notification.showError('Please enter District ID')
+          return false
+
+        }
+        if (this.employeeform.value.address[j].state_id == '') {
+          this.notification.showError('Please enter State ID')
+          return false
+
+        }
+      }
+      else {
+        if (val[j].line1 == '' && val[j].pincode_id == '' && val[j].city_id == '' && val[j].district_id == '' && val[j].state_id == '') {
+          // (<FormArray>this.employeeform.get('address')).removeAt(j)
+          console.log('delete permanent address')
+        }
+        else {
+          if (this.employeeform.value.address[j].line1 == '') {
+            this.notification.showError('Please enter address')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].pincode_id == '') {
+            this.notification.showError('Please enter Pincode ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].city_id == '') {
+            this.notification.showError('Please enter City ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].district_id == '') {
+            this.notification.showError('Please enter District ID')
+            return false
+
+          }
+          if (this.employeeform.value.address[j].state_id == '') {
+            this.notification.showError('Please enter State ID')
+            return false
+
+          }
+
+        }
+      }
+
+
+    }
+
+
+
+
+    for (let i = 0; i < this.employeeform.value.personal_info.length; i++) {
+      if (this.employeeform.value.personal_info[i].martial_status == '') {
+        this.notification.showError('Please enter Martial status')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].wedding_date == '') {
+        this.notification.showError('Please enter Wedding date')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].emc_contact_person == '') {
+        this.notification.showError('Please enter Emergency person')
+        return false
+      }
+      if (this.employeeform.value.personal_info[i].emc_contact_person_number == '') {
+        this.notification.showError('Please enter Emergency contact person number')
+        return false
+      }
+    }
+
+    for (let i = 0; i < this.employeeform.value.education.length; i++) {
+      if (this.employeeform.value.education[i].inst_name == '') {
+        this.notification.showError('Please enter Institute name')
+        return false
+      }
+      if (this.employeeform.value.education[i].passing_year == '') {
+        this.notification.showError('Please enter Passing year')
+        return false
+      }
+
+      if (this.employeeform.value.education[i].title == '') {
+        this.notification.showError('Please enter Degree')
+        return false
+      }
+      if (this.employeeform.value.education[i].qualification == '') {
+        this.notification.showError('Please enter Qualification')
+        return false
+      }
+      if (this.employeeform.value.education[i].percentage == '') {
+        this.notification.showError('Please enter Percentage')
+        return false
+      }
+
+
+    }
+
+    for (let i = 0; i < this.employeeform.value.experience.length; i++) {
+      if (this.employeeform.value.experience[i].company == '') {
+        this.notification.showError('Please enter Company name')
+        return false
+      }
+
+      if (this.employeeform.value.experience[i].work_experience == '') {
+        this.notification.showError('Please enter Work experience')
+        return false
+      }
+      if (this.employeeform.value.experience[i].period_from == '') {
+        this.notification.showError('Please enter From date')
+        return false
+      }
+      if (this.employeeform.value.experience[i].period_to == '') {
+        this.notification.showError('Please enter To date')
+        return false
+      }
+      if (this.employeeform.value.experience[i].exp_role == '') {
+        this.notification.showError('Please enter Role')
+        return false
+      }
+      if (this.employeeform.value.experience[i].city == '') {
+        this.notification.showError('Please enter City')
+        return false
+      }
+
+    }
+
+    
 
     let addressdelete = this.employeeform.value.address
     for (let j = 0; j < addressdelete.length; j++) {
@@ -579,11 +876,24 @@ export class EmployeeCreateComponent implements OnInit {
 
 
 
-    this.appraisalservice.createtourmaker(this.employeeform.value, this.employeecreatefiles, this.profilepic).subscribe(res => {
+    this.appraisalservice.employeeeditsubmit(this.employeeidget,this.employeeform.value,).subscribe(res => {
       console.log('res')
+
+      if (res.message == "Successfully Created") {
+        this.notification.showSuccess('Successfully Created')
+        this.router.navigateByUrl('appraisal_module/appraisal_summary')
+
+      } else {
+        this.notification.showError(res)
+      }
+
     }
     )
+ 
+
   }
+
+
 
   copytopermanent(boolean, i) {
     if (boolean) {
@@ -621,32 +931,15 @@ export class EmployeeCreateComponent implements OnInit {
     }
   }
 
-  getgender() {
-
-    console.log('gender', this.employeeform.value.gender)
-  }
-
-
-  validationforloopfunction(i, lengthdata) {
-
-
-
-
-  }
 
 
   onfileuploadchanges(event) {
-
-
-
 
     if (event.target.files) {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.employeecreatefiles.push(event.target.files[i])
-
         console.log('specific', event.target.files[i], 'type1')
-
       }
     }
 
@@ -658,8 +951,6 @@ export class EmployeeCreateComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         data.append('file2', event.target.files[i])
         // data.append('file1', event.target.files[i])
-
-
       }
 
       this.appraisalservice.employeeformupload(this.employeeidget, data).subscribe(result => {
@@ -673,32 +964,13 @@ export class EmployeeCreateComponent implements OnInit {
 
 
 
-  onfilesubmit() {
-    const formdata = new FormData();
-    if (this.employeecreatefiles.length > 0) {
-
-      for (let i = 0; i < this.employeecreatefiles.length; i++) {
-        formdata.append('file', this.employeecreatefiles[i])
-      }
-
-
-
-    }
-    // createfile
-
-    this.appraisalservice.createfile(formdata).subscribe(res => {
-      console.log('res')
-    }
-    )
-  }
-
   routingto() {
     // this.router.navigate(['appraisal_summary'])
     this.router.navigateByUrl('appraisal_module/appraisal_summary')
 
 
   }
-  // employeetype
+
 
   employeetypedropdown() {
     this.appraisalservice.employeetype(this.employeeform.value.employee_type).subscribe(res => {
@@ -748,36 +1020,7 @@ export class EmployeeCreateComponent implements OnInit {
 
 
 
-  getemployeeform() {
-  }
-
-
-
-  patchingaddress(datavalue) {
-    console.log(datavalue)
-    let arr = new FormArray([]);
-
-    for (let data of datavalue) {
-      arr.push(new FormGroup({
-        line1: new FormControl(data.line1),
-        line2: new FormControl(data.line2),
-        line3: new FormControl(data.line3),
-        type: new FormControl(data.type),
-
-        pincode_id: new FormControl(data.pincode_id),
-        city_id: new FormControl(data.city_id),
-        district_id: new FormControl(data.district_id),
-        state_id: new FormControl(data.state_id),
-
-      })
-
-      )
-    }
-    return arr
-
-  }
-
-  deletefile(i){
+  deletefile(i) {
     this.employeecreatefiles.splice(i, 1)
   }
 
@@ -787,14 +1030,14 @@ export class EmployeeCreateComponent implements OnInit {
       // this.appraisalservice.employeetype(this.employeeform.value.employee_type).subscribe(res => {
       this.appraisalservice.employeeuploadedfiledelete(files.id).subscribe(res => {
         console.log('res')
-        if(res.status == "success"){
+        if (res.status == "success") {
           this.notification.showSuccess('Successfully Deleted')
           this.uploadeddocument.splice(i, 1)
         }
-        else{
+        else {
           this.notification.showError(res)
         }
-       
+
 
       }
       )
@@ -807,7 +1050,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   }
 
-  uploadedfileview(files){
+  uploadedfileview(files) {
     this.previewpdfsrc = null;
     this.previewimagesrc = null;
     console.log("file data to view ", files)
@@ -816,11 +1059,11 @@ export class EmployeeCreateComponent implements OnInit {
       this.imageviewboolean = true
       this.pdfviewboolean = false
 
-      this.previewimagesrc=environment.apiURL+"empserv/view_attachment/"+files.id
+      this.previewimagesrc = environment.apiURL + "empserv/view_attachment/" + files.id
 
       this.appraisalservice.getuploadedfileview(files.id).subscribe(results => {
 
-          // BinarytoBase64
+        // BinarytoBase64
         let binaryData = [];
         binaryData.push(results)
         let downloadUrl = window.URL.createObjectURL(new Blob(binaryData));
@@ -845,19 +1088,19 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
 
-  uploadedfiledownload(files){
+  uploadedfiledownload(files) {
 
 
-this.appraisalservice.getuploadedfileview(files.id).subscribe(results => {
-    let binaryData = [];
-        binaryData.push(results)
-        let downloadUrl = window.URL.createObjectURL(new Blob(binaryData));
-        let link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = files.file_name;
-        link.click();
-  })
-}
+    this.appraisalservice.getuploadedfileview(files.id).subscribe(results => {
+      let binaryData = [];
+      binaryData.push(results)
+      let downloadUrl = window.URL.createObjectURL(new Blob(binaryData));
+      let link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = files.file_name;
+      link.click();
+    })
+  }
 
 }
 

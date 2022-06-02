@@ -1,75 +1,81 @@
-<div *ngIf="shareservice.currenturl == '/appraisal_module/appraisal_summary'" >
+<div *ngIf="shareservice.currenturl == '/appraisal_module/appraisal_summary'">
     <br>
-    <form [formGroup]="summaryform">
-        <table >
-            <tr>
-                <td>
-                    <mat-form-field>
-                        <mat-label>Employee Name</mat-label>
-                        <input matInput formControlName="empname">
-                    </mat-form-field>
-                </td>
-                <td class="tdpadding" >
-                    <mat-form-field>
-                        <mat-label>Employee Code</mat-label>
-                        <input matInput formControlName="code">
-                    </mat-form-field>
-                </td>
-                <td class="tdpadding" >
-                    <button (click)="searchsummary()" mat-icon-button>
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </td>
-                <td class="tdpadding" >
-                    <button (click)="clear()" mat-icon-button>
-                        <mat-icon>clear</mat-icon>
-                    </button>
-                </td>
-            </tr>
-        </table>
+    <div>
+        <form [formGroup]="summaryform">
+            <table>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Employee Name</mat-label>
+                            <input matInput formControlName="empname">
+                        </mat-form-field>
+                    </td>
+                    <td class="tdpadding">
+                        <mat-form-field>
+                            <mat-label>Employee Code</mat-label>
+                            <input matInput formControlName="code">
+                        </mat-form-field>
+                    </td>
+                    <td class="tdpadding">
+                        <button (click)="searchsummary()" class="mat-fab-color" mat-fab>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </td>
+                    <td class="tdpadding">
+                        <button (click)="clear()" class="mat-fab-color" mat-fab>
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </td>
+                    <td class="tdpadding">
+                        <button routerLink="employee_form" class="mat-fab-color" mat-fab>
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
 
 
 
-        <table class="styled-table" id="commontableinputstyle" >
-            <tr>
-                <th>S.No</th>
-                <th>Employee Name</th>
-                <th>Employee Code</th>
-                <th>Gender</th>
-                <th>Date Of Birth</th>
-                <th>Date Of Joining</th>
-                <th>Email Id</th>
-                <th>Department</th>
-                <th>Manager</th>
-                <th>Role</th>
-                <th>Edit</th>
+            <table class="styled-table" id="commontableinputstyle">
+                <tr>
+                    <th>S.No</th>
+                    <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th>Gender</th>
+                    <th>Date Of Birth</th>
+                    <th>Date Of Joining</th>
+                    <th>Email Id</th>
+                    <th>Department</th>
+                    <th>Manager</th>
+                    <th>Role</th>
+                    <th>Edit</th>
 
 
 
-            </tr>
-            <tr *ngFor="let data of appraisalsummarydata;let i= index" >
-                <td>{{((currentpage-1)*10)+i+1}}</td>
-                <td>{{data.first_name}}</td>
-                <td>{{data.code}}</td>
-                <td>{{data.gender.text}}</td>
-                <td>{{data.dob}}</td>
+                </tr>
+                <tr *ngFor="let data of appraisalsummarydata;let i= index">
+                    <td>{{((currentpage-1)*10)+i+1}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.code}}</td>
+                    <td>{{data.gender.text}}</td>
+                    <td>{{data.dob}}</td>
 
-                <td>{{data.doj}}</td>
-                <td>{{data.email_id}}</td>
-                <td>{{data.department}}</td>
-                <td>{{data.manager}}</td>
-                <td>{{data.role}}</td>
-                <td (click)="routing(data.id)" class="linkclass" >Edit</td>
+                    <td>{{data.doj}}</td>
+                    <td>{{data.email_id}}</td>
+                    <td>{{data.department}}</td>
+                    <td>{{data.manager}}</td>
+                    <td>{{data.role}}</td>
+                    <td (click)="routing(data.id)" class="linkclass">Edit</td>
 
 
-            </tr>
-        </table>
-        
+                </tr>
+            </table>
+
             <div *ngIf="appraisalsummarydata ?.length == 0; else paginationpage1">
                 <h3>Sorry data not found!.. </h3>
             </div>
             <ng-template #paginationpage1>
-                <div class="displayend" >
+                <div class="displayend">
                     <div>
                         <button mat-icon-button [disabled]="has_previous === false" color="primary"
                             (click)="previousappraisalsummary()">
@@ -82,10 +88,10 @@
                         </button>
 
                     </div>
-                    <!-- <pagination-controls id="page" (pageChange)="pagination($event)"></pagination-controls> -->
+
                 </div>
             </ng-template>
-    </form>
-
+        </form>
+    </div>
 </div>
 <router-outlet></router-outlet>

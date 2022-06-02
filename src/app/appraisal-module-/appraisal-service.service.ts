@@ -28,7 +28,7 @@ export class AppraisalServiceService {
   constructor(private http: HttpClient, private idle: Idle,) { }
 
 
-  public createtourmaker(CreateList: any,files,profilefile): Observable<any> {
+  public createemployee(CreateList: any,files,profilefile): Observable<any> {
     this.reset();
     const getToken = localStorage.getItem("sessionData")
 
@@ -69,7 +69,28 @@ export class AppraisalServiceService {
     // const body = JSON.stringify(CreateList)
     // const headers = { 'Authorization': 'Token ' + token }
     
+
+
+    
     return this.http.post<any>(url + "empserv/employee/5/employee_doc", CreateList)
+  }
+
+  // empserv/update_emplpoyee/97
+
+  public employeeeditsubmit(id,CreateList): Observable<any> {
+    this.reset();
+    const getToken = localStorage.getItem("sessionData")
+
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const body = JSON.stringify(CreateList)
+    // const headers = { 'Authorization': 'Token ' + token }
+
+    let tourjson = Object.assign({}, CreateList)
+    let formData = new FormData();
+    formData.append('data', JSON.stringify(tourjson));
+    
+    return this.http.post<any>(url + "empserv/update_emplpoyee/"+id, formData)
   }
 
   public getgendertype(): Observable<any> {
