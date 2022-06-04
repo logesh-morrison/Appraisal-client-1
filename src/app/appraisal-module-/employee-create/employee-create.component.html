@@ -2,7 +2,7 @@
     <div>
         <mat-card class="contentcard">
 
-            <div class=" p-3 my-3 ">
+            <div >
                 <!-- <app-appraisal></app-appraisal> -->
                 <form [formGroup]="employeeform">
                     <table id="commontableinputstyle">
@@ -91,7 +91,12 @@
                             </td>
                             <td>
                                 <mat-form-field class="employeeworkemail">
-                                    <input formControlName="department" matInput>
+                                    <!-- <input formControlName="department" matInput> -->
+                                    <mat-select formControlName="department" >
+                                        <mat-option *ngFor="let dept of departmentdropdowndata" [value]="dept"  >
+                                            {{dept.name}}
+                                        </mat-option>
+                                    </mat-select> 
                                 </mat-form-field>
                             </td>
                             <td>
@@ -212,7 +217,20 @@
                                             </td>
                                             <td>
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="pincode_id">
+                                                    <!-- <input matInput formControlName="pincode_id"> -->
+                                                    
+
+                                                    <!-- <mat-select formControlName="pincode_id" >
+                                                        <mat-option *ngFor="let pin of pincodedropdowndata" [value]="pin"  >
+                                                            {{pin.no}}
+                                                        </mat-option>
+                                                    </mat-select>  -->
+                                                    <input formControlName="pincode_id" (keyup)="pincodedropdown($event.target.value,1)" matInput [matAutocomplete]="pincodeautocomplete">
+                                                    <mat-autocomplete #pincodeautocomplete="matAutocomplete"  [displayWith]="displayFncity" >
+                                                       <mat-option *ngFor="let city of citydropdowndata" [value]="city">
+                                                         {{city.name}}
+                                                       </mat-option>
+                                                     </mat-autocomplete>
                                                 </mat-form-field>
                                             </td>
                                         </tr>
@@ -222,8 +240,22 @@
                                                 <p>City Id</p>
                                             </td>
                                             <td>
+                                                
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="city_id">
+                                                    <!-- <input matInput formControlName="city_id"> -->
+
+                                                    <mat-select formControlName="city_id" >
+                                                        <mat-option *ngFor="let city of citydropdowndata" [value]="city"  >
+                                                            {{city.name}}
+                                                        </mat-option>
+                                                    </mat-select> 
+
+                                                    <input formControlName="city_id" (keyup)="citydropdown($event.target.value,1)" matInput [matAutocomplete]="cityautocomplete">
+                                                    <mat-autocomplete #cityautocomplete="matAutocomplete"  [displayWith]="displayFnpincode" >
+                                                       <mat-option *ngFor="let pin of pincodedropdowndata" [value]="pin">
+                                                         {{pin.no}}
+                                                       </mat-option>
+                                                     </mat-autocomplete>
                                                 </mat-form-field>
                                             </td>
 
@@ -232,7 +264,12 @@
                                             </td>
                                             <td>
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="district_id">
+                                                    <!-- <input matInput formControlName="district_id"> -->
+                                                    <mat-select formControlName="district_id" >
+                                                        <mat-option *ngFor="let district of districtdropdowndata" [value]="district"  >
+                                                            {{district.name}}
+                                                        </mat-option>
+                                                    </mat-select> 
                                                 </mat-form-field>
                                             </td>
                                         </tr>
@@ -243,7 +280,12 @@
                                             </td>
                                             <td>
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="state_id">
+                                                    <!-- <input matInput formControlName="state_id">-->
+                                                       <mat-select formControlName="state_id" >
+                                                        <mat-option *ngFor="let state of statedropdowndata" [value]="state"  >
+                                                            {{state.name}}
+                                                        </mat-option>
+                                                    </mat-select> 
                                                 </mat-form-field>
                                             </td>
                                         </tr>
@@ -283,7 +325,12 @@
                                             </td>
                                             <td>
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="nationality"></textarea>
+                                                    <!-- <textarea matInput formControlName="nationality"></textarea> -->
+                                                    <mat-select formControlName="nationality" >
+                                                        <mat-option *ngFor="let country of countrydropdowndata" [value]="country"  >
+                                                            {{country.name}}
+                                                        </mat-option>
+                                                    </mat-select>
                                                 </mat-form-field>
                                             </td>
 
@@ -597,6 +644,8 @@
     </div>
 </div>
 <ng-template #fileview>
+    <div mat-dialog-title class="matdialogheader" (click)="close()">&#10060;</div>
+
     <div class=" ng2-pdf-viewer-container" *ngIf="pdfviewboolean">
         <pdf-viewer src="{{previewpdfsrc}}" [src]="src" [rotation]="0" [original-size]="false" [show-all]="true"
             [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"

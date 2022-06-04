@@ -55,7 +55,7 @@ export class AppComponent {
 
   timed: boolean = false;
   adcolor: string;
-
+  isExpanded=false;
 
 
 
@@ -286,12 +286,15 @@ export class AppComponent {
     if(this.sidenavbool){
       
       document.getElementById("navlistfooter").style.width = "0px";
+      // document.getElementById("drawer1").style.width="70px"
 
 
     }
     else{
       
       document.getElementById("navlistfooter").style.width = "185px";
+      // document.getElementById("drawer1").style.width="200px"
+
 
 
     }

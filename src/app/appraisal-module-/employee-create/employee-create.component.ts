@@ -7,6 +7,17 @@ import { NotificationServiceService } from 'src/app/notification-service.service
 import { environment } from 'src/environments/environment';
 import { AppraisalServiceService } from '../appraisal-service.service';
 
+export interface pincode {
+  no: number;
+  id: number;
+}
+
+export interface city {
+  name: string;
+  id: number;
+}
+
+
 @Component({
   selector: 'app-employee-create',
   templateUrl: './employee-create.component.html',
@@ -35,7 +46,13 @@ export class EmployeeCreateComponent implements OnInit {
   previewpdfsrc: any;
   uploadeddocument: any = [];
 
-  htmlcontentshow=false;
+  htmlcontentshow = false;
+  countrydropdowndata: any;
+  statedropdowndata: any;
+  districtdropdowndata: any;
+  citydropdowndata: any;
+  pincodedropdowndata: any;
+  departmentdropdowndata: any;
 
   constructor(private notification: NotificationServiceService, private datePipe: DatePipe, private formbuilder: FormBuilder,
     private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) {
@@ -47,11 +64,11 @@ export class EmployeeCreateComponent implements OnInit {
 
     console.log('employee id', this.employeeidget)
 
-    if(this.employeeidget){
-      this.htmlcontentshow=false
+    if (this.employeeidget) {
+      this.htmlcontentshow = false
     }
-    else{
-      this.htmlcontentshow=true
+    else {
+      this.htmlcontentshow = true
     }
 
     this.employeeform = this.formbuilder.group({
@@ -79,7 +96,7 @@ export class EmployeeCreateComponent implements OnInit {
       education: new FormArray([]),
 
       experience: new FormArray([]),
-      id:['']
+      id: ['']
 
     });
 
@@ -89,7 +106,7 @@ export class EmployeeCreateComponent implements OnInit {
     if (this.employeeidget) {
       this.appraisalservice.getappraisalform(this.employeeidget).subscribe(result => {
         console.log('res')
-        this.htmlcontentshow=true
+        this.htmlcontentshow = true
 
         // while (this.addressformarray().length) {
         //   this.addressformarray().removeAt(0);
@@ -109,7 +126,7 @@ export class EmployeeCreateComponent implements OnInit {
 
 
         this.uploadeddocument = result.document[0].file2
-        let profilepicture=result.document[0].file1
+        let profilepicture = result.document[0].file1
 
         this.employeeform.patchValue({
           first_name: result.first_name,
@@ -126,7 +143,7 @@ export class EmployeeCreateComponent implements OnInit {
           doj: result.doj,
           email_id: result.email_id,
           gender: result.gender.id,
-          id:this.employeeidget
+          id: this.employeeidget
           // address:this.patchingaddress(result.address)
 
         });
@@ -209,11 +226,11 @@ export class EmployeeCreateComponent implements OnInit {
       })
 
     }
-    else{
+    else {
       // this.addressformarray().push({})
       let control = this.employeeform.get('address') as FormArray
       control.push(this.addressform())
-      control.push( this.currentaddressform())
+      control.push(this.currentaddressform())
 
       this.personalinfoformarray().push(this.addpersonal_info())
       this.educationformarray().push(this.addeducationformarray())
@@ -223,6 +240,15 @@ export class EmployeeCreateComponent implements OnInit {
     }
     this.employeetypedropdown()
 
+
+    //dropdowns
+
+    this.countrydropdown('',1)
+    this.statedropdown('',1)
+    this.districtdropdown('',1)
+    this.citydropdown('',1)
+    this.pincodedropdown('',1)
+    this.departmentdropdown('',1)
   }
 
   addressformarray() {
@@ -243,7 +269,7 @@ export class EmployeeCreateComponent implements OnInit {
 
 
   addressform() {
- 
+
     let fg = this.formbuilder.group({
       line1: ['', Validators.required],
       line2: ['', Validators.required],
@@ -260,7 +286,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   currentaddressform() {
- 
+
 
     let fg = this.formbuilder.group({
       line1: ['', Validators.required],
@@ -274,13 +300,13 @@ export class EmployeeCreateComponent implements OnInit {
       state_id: ['', Validators.required],
     })
     return fg
-  
+
   }
 
 
   addpersonal_info() {
     // if (typeof this.employeeidget == "undefined") {
-  
+
     let personal = this.formbuilder.group({
       nationality: ['', Validators.required],
       martial_status: ['', Validators.required],
@@ -290,7 +316,7 @@ export class EmployeeCreateComponent implements OnInit {
 
     })
     return personal
-  // }
+    // }
   }
 
   addeducationformarray() {
@@ -613,42 +639,42 @@ export class EmployeeCreateComponent implements OnInit {
     // createfile
 
 
-    if(this.employeeidget){
+    if (this.employeeidget) {
       this.appraisalservice.createemployee(this.employeeform.value, '', '').subscribe(res => {
         console.log('res')
-  
+
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Created')
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
-  
+
         } else {
           this.notification.showError(res)
         }
-  
+
       }
       )
     }
-    else{
+    else {
       this.appraisalservice.createemployee(this.employeeform.value, this.employeecreatefiles, this.profilepic).subscribe(res => {
         console.log('res')
-  
+
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Created')
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
-  
+
         } else {
           this.notification.showError(res)
         }
-  
+
       }
       )
     }
 
 
-    
+
   }
 
-  Editform(){
+  Editform() {
 
     if (this.employeeform.value.first_name == '') {
       this.notification.showError('Please enter First name')
@@ -836,7 +862,7 @@ export class EmployeeCreateComponent implements OnInit {
 
     }
 
-    
+
 
     let addressdelete = this.employeeform.value.address
     for (let j = 0; j < addressdelete.length; j++) {
@@ -876,7 +902,7 @@ export class EmployeeCreateComponent implements OnInit {
 
 
 
-    this.appraisalservice.employeeeditsubmit(this.employeeidget,this.employeeform.value,).subscribe(res => {
+    this.appraisalservice.employeeeditsubmit(this.employeeidget, this.employeeform.value,).subscribe(res => {
       console.log('res')
 
       if (res.message == "Successfully Created") {
@@ -889,7 +915,7 @@ export class EmployeeCreateComponent implements OnInit {
 
     }
     )
- 
+
 
   }
 
@@ -1012,7 +1038,7 @@ export class EmployeeCreateComponent implements OnInit {
   opendialog(templateref: TemplateRef<any>) {
     this.dialog.open(templateref, {
       width: '80%',
-      maxHeight: '90vh',
+      maxHeight: '95vh',
       // disableClose: true,
       closeOnNavigation: true,
     })
@@ -1101,6 +1127,67 @@ export class EmployeeCreateComponent implements OnInit {
       link.click();
     })
   }
+
+  close(): void {
+    this.dialog.closeAll();
+  }
+
+  countrydropdown(value,page) {
+    this.appraisalservice.getcountrydropdown(value,page).subscribe(results => {
+      this.countrydropdowndata = results['data']
+    })
+
+  }
+
+  statedropdown(value,page) {
+    this.appraisalservice.getstatedropdown(value,page).subscribe(results => {
+      this.statedropdowndata = results['data']
+    })
+
+  }
+
+
+
+  districtdropdown(value,page) {
+    this.appraisalservice.getdistrictdropdown(value,page).subscribe(results => {
+      this.districtdropdowndata = results['data']
+    })
+
+  }
+
+
+
+  citydropdown(value,page) {
+    this.appraisalservice.getcitydropdown(value,page).subscribe(results => {
+      this.citydropdowndata = results['data']
+    })
+
+  }
+
+
+  pincodedropdown(value,page) {
+    this.appraisalservice.getpincodedropdown(value,page).subscribe(results => {
+      this.pincodedropdowndata = results['data']
+    })
+
+  }
+
+  departmentdropdown(value,page) {
+    this.appraisalservice.departmentdropdown(value,page).subscribe(results => {
+      this.departmentdropdowndata = results['data']
+    })
+
+  }
+
+  displayFnpincode(pincode: pincode): number {
+    return pincode.no;
+  }
+
+  displayFncity(city:city): string{
+    return city.name
+  }
+
+
 
 }
 

@@ -1,29 +1,28 @@
 <div *ngIf="appservice.loginstatus">
 
-    <mat-toolbar color="accent"  class="nav" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-toolbar color="accent" class="nav" fxLayout="row" fxLayoutAlign="space-between center">
 
         <div (click)="drawer.toggle();menustylechanges()">
             <mat-icon class="menuicon">menu</mat-icon><span class="currentmodulename"> {{currentmodulename}}</span>
         </div>
 
- 
 
 
-        <div (click)="logout()" fxLayout="row"  fxLayoutAlign="space-between center">
 
-            
+        <div (click)="logout()" fxLayout="row" fxLayoutAlign="space-between center">
 
-            <div class="mattoolflexend" >
-                <span [ngStyle]="{'color': adcolor}"
-                    style="margin-right: 10px;font-size: 18px;">{{idleState}}</span>
+
+
+            <div class="mattoolflexend">
+                <span [ngStyle]="{'color': adcolor}" style="margin-right: 10px;font-size: 18px;">{{idleState}}</span>
 
             </div>
 
-            <div class="mattoolflexend" >
+            <div class="mattoolflexend">
                 <span>({{sharedservice.username.value}})</span>
             </div>
 
-            <div class="mattoolflexend" >
+            <div class="mattoolflexend">
                 <a>Logout</a>
             </div>
         </div>
@@ -36,22 +35,31 @@
 
 
 
-    <mat-drawer-container class="drawer-container">
+    <mat-drawer-container class="drawer-container"  >
 
 
 
-        <mat-drawer #drawer class="drawer" mode="side" opened="true">
+        <mat-drawer #drawer id="drawer1" class="drawer" mode="side" opened="true">
 
-            <mat-divider class="mat_divderstyle" ></mat-divider>
+            <mat-divider class="mat_divderstyle"></mat-divider>
 
 
             <mat-nav-list class="mat_navlist" *ngIf="transactionlistshow">
 
-                <a  [ngClass]="(currentselectedmodule == i )? 'activemodule':''" class="navlist"
+                <!-- <a  [ngClass]="(currentselectedmodule == i )? 'activemodule':''" class="navlist"
                     *ngFor="let modrow of sharedservice.transactionList;let i = index "
-                    (click)="transactionlist(modrow,i)" mat-list-item>{{modrow.name}}</a>
-                
-                 
+                    (click)="transactionlist(modrow,i)" mat-list-item>{{modrow.name}}</a> -->
+                    <!-- <mat-icon matListIcon >receipt_long</mat-icon>
+
+                <a mat-list-item matLine [ngClass]="(currentselectedmodule == 0 )? 'activemodule':''" class="navlist"
+                   >
+                    Appraisal
+                </a> -->
+
+                <mat-list-item [ngClass]="(currentselectedmodule == 0 )? 'activemodule':''" class="navlist"  (click)="transactionlist('modrow',0)" >
+                    <mat-icon matListIcon>receipt_long</mat-icon>
+                    <span matLine>Appraisal</span>
+                  </mat-list-item>
 
             </mat-nav-list>
 
@@ -66,22 +74,37 @@
 
             <mat-nav-list id="navlistfooter" class="matnavlistfooter">
 
-                <a class="navlist" mat-list-item (click)="changetransaction()" (click)="transactionlist('modrow','2')" >Home</a>
-                <a class="navlist" mat-list-item (click)="changemaster()">Master</a>
+                <!-- <a class="navlist" mat-list-item (click)="changetransaction()"
+                    (click)="transactionlist('modrow','2')">Home</a> -->
+
+                    <mat-list-item class="navlist" (click)="changetransaction()" >
+                        <mat-icon matListIcon>home</mat-icon>
+                        <span matLine>Home</span>
+                      </mat-list-item>
+    
+
+                      <mat-list-item class="navlist" (click)="changemaster()" >
+                        <mat-icon matListIcon>monitoring</mat-icon>
+                        <span matLine>Master</span>
+                      </mat-list-item>
+                    
+                <!-- <a class="navlist" mat-list-item (click)="changemaster()">Master</a> -->
 
             </mat-nav-list>
+
+            
 
 
         </mat-drawer>
 
-        
+
 
         <div class="main">
             <!-- <app-header></app-header> -->
-            
-                <router-outlet *ngIf="appservice.loginstatus"></router-outlet>
 
-        
+            <router-outlet *ngIf="appservice.loginstatus"></router-outlet>
+
+
 
         </div>
 
@@ -93,4 +116,3 @@
 
 </div>
 <router-outlet *ngIf="!appservice.loginstatus"></router-outlet>
-

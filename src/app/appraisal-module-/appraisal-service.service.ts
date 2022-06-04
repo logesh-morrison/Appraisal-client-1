@@ -186,4 +186,59 @@ export class AppraisalServiceService {
 
   
 
+
+public getcountrydropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/country?query="+value+'&page='+page)
+  }
+
+  public getstatedropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/state?query="+value+'&page='+page)
+  }
+
+  public getdistrictdropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/district?query="+value+'&page='+page)
+  }
+
+  public getcitydropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/city?query="+value+'&page='+page)
+  }
+
+  public getpincodedropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/pincode?query="+value+'&page='+page)
+  }
+  
+  public departmentdropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/department?query="+value+'&page='+page)
+  }
+
 }

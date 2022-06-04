@@ -1,4 +1,4 @@
-:host {
+.hostclass {
   display: flex;
   justify-content: center;
   padding: 150px;
@@ -7,7 +7,7 @@
 
 }
 
-mat-card {
+.mat-card-style {
   padding: 80px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
   /* border: 5px solid #714B67; */
@@ -19,8 +19,8 @@ mat-card {
   min-width: 300px;
 }
 
-mat-card-title,
-mat-card-content {
+.mat-card-title-style,
+.mat-card-content-style {
   display: flex;
   justify-content: center;
 }
@@ -44,3 +44,38 @@ mat-card-content {
   color: white;
   height: 50px;
 }
+
+@media (max-width: 400px){
+
+  .mat-card-style {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+    /* border: 5px solid #714B67; */
+    border-radius: 20px 70px 20px 70px;
+  }
+
+}
+
+  @media (width:412px ){
+
+    .mat-card-style {
+      padding: 40px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+      /* border: 5px solid #714B67; */
+      border-radius: 20px 70px 20px 70px;
+    }
+
+    .hostclass {
+      display: flex;
+      justify-content: center;
+      padding: 230px 0px 0px 0px;
+      /* background-image: linear-gradient(#714B67, white); */
+      background: linear-gradient(to bottom, #714B67 0%,#714B67 73%,#714B67 73%,white 50%,white 100%); /* W3C */
+    
+    }
+    
+
+  
+  }
+
+
