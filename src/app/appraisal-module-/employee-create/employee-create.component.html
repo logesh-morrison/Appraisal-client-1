@@ -1,8 +1,9 @@
 <div>
     <div>
-        <mat-card class="contentcard">
+        <br>
+        <!-- <mat-card class="contentcard"> -->
 
-            <div >
+            <div>
                 <!-- <app-appraisal></app-appraisal> -->
                 <form [formGroup]="employeeform">
                     <table id="commontableinputstyle">
@@ -15,7 +16,7 @@
                             </td>
                             <td rowspan="3" class="rowspanwidthchange">
                                 <!-- <p>asdf</p> -->
-                                <div class="imagediv" [ngStyle]="backgroundfile()">
+                                <div class="imagediv" [ngStyle]="backgroundfile()" >
                                     <mat-icon class="editphoto">edit</mat-icon>
                                     <mat-icon class="deletephoto" (click)="deleteprofilepic()">delete</mat-icon>
 
@@ -75,13 +76,28 @@
                                 <label>Employee Type</label>
                             </td>
                             <td>
-                                <mat-form-field class="employeedepartment">
+                                <mat-form-field class="employeedepartment"
+                                    (click)="employeetypedropdown('',emptypecurrentpage=1)">
 
-                                    <mat-select formControlName="employee_type">
+                                    <!-- <mat-select formControlName="employee_type">
                                         <mat-option *ngFor="let tile of employeetypedatas" [value]="tile.value">
                                             {{tile.name}}
                                         </mat-option>
-                                    </mat-select>
+                                    </mat-select> -->
+                                    <input formControlName="employee_type" #empinput
+                                        (keyup)="employeetypedropdown($event.target.value,emptypecurrentpage=1)"
+                                        matInput [matAutocomplete]="emptypeautocomplete">
+                                    <mat-autocomplete #emptypeautocomplete="matAutocomplete"
+                                        [displayWith]="displayFnemptype">
+
+                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="isLoading">
+                                            <mat-option *ngFor="let tile of employeetypedatas" [value]="tile">
+                                                {{tile.name}}
+                                            </mat-option>
+                                        </ng-container>
+
+                                    </mat-autocomplete>
                                 </mat-form-field>
                             </td>
                         </tr>
@@ -90,13 +106,22 @@
                                 <label>Department</label>
                             </td>
                             <td>
-                                <mat-form-field class="employeeworkemail">
-                                    <!-- <input formControlName="department" matInput> -->
-                                    <mat-select formControlName="department" >
-                                        <mat-option *ngFor="let dept of departmentdropdowndata" [value]="dept"  >
-                                            {{dept.name}}
-                                        </mat-option>
-                                    </mat-select> 
+                                <mat-form-field class="employeeworkemail"
+                                    (click)="departmentdropdown('',deptdropcurrentpage=1)">
+                                    <input formControlName="department" #deptinput
+                                        (keyup)="departmentdropdown($event.target.value,deptdropcurrentpage=1)" matInput
+                                        [matAutocomplete]="departmentautocomplete">
+                                    <mat-autocomplete #departmentautocomplete="matAutocomplete"
+                                        (opened)="autocompletedepartmentScroll()" [displayWith]="displayFncity">
+
+                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                        <ng-container *ngIf="isLoading">
+                                            <mat-option *ngFor="let dept of departmentdropdowndata" [value]="dept">
+                                                ({{dept.code}}) {{dept.name}}
+                                            </mat-option>
+                                        </ng-container>
+
+                                    </mat-autocomplete>
                                 </mat-form-field>
                             </td>
                             <td>
@@ -136,19 +161,50 @@
                         <tr>
 
                             <td>
-                                <label>Role</label>
+                                <label>Designation</label>
                             </td>
                             <td>
-                                <mat-form-field class="employeedepartment">
-                                    <input matInput formControlName="role">
+                                <mat-form-field class="employeedepartment" (click)="designationdropdown('',designationcurrentpage=1)" >
+                                  
                                     <!-- <mat-select formControlName="role">
                             <mat-option *ngFor="let tag of tags" value="tag">
                                 {{tag}}
                             </mat-option>
                         </mat-select> -->
+                        <input formControlName="role" #designationinput
+                        (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                        [matAutocomplete]="designationautocomplete">
+                    <mat-autocomplete #designationautocomplete="matAutocomplete"
+                         [displayWith]="displayFncity">
+
+                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                        <ng-container *ngIf="isLoading">
+                            <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                 {{design.name}}
+                            </mat-option>
+                        </ng-container>
+
+                    </mat-autocomplete>
                                 </mat-form-field>
                             </td>
 
+                            <td>
+                                <label>Grade</label>
+                            </td>
+                            <td>
+                                <mat-form-field (click)="gradedropdown()" class="employeeworkemail">
+                                    <!-- <input formControlName="grade" matInput> -->
+                                    <mat-select formControlName="grade" matInput >
+                                        <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id" >
+                                            {{tab.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+
+
+                        </tr>
+                        <tr>
                             <td>
                                 <label>Email</label>
                             </td>
@@ -157,8 +213,6 @@
                                     <input formControlName="email_id" matInput>
                                 </mat-form-field>
                             </td>
-
-
                         </tr>
                     </table>
 
@@ -213,79 +267,134 @@
                                             </td>
 
                                             <td>
-                                                <p>Pincode Id</p>
+                                                <p>Pincode</p>
                                             </td>
                                             <td>
-                                                <mat-form-field class="privateinformationinputtag">
+                                                <mat-form-field class="privateinformationinputtag"
+                                                    (click)="pincodedropdown('',pincodecurrentpage=1)">
                                                     <!-- <input matInput formControlName="pincode_id"> -->
-                                                    
+
 
                                                     <!-- <mat-select formControlName="pincode_id" >
                                                         <mat-option *ngFor="let pin of pincodedropdowndata" [value]="pin"  >
                                                             {{pin.no}}
                                                         </mat-option>
                                                     </mat-select>  -->
-                                                    <input formControlName="pincode_id" (keyup)="pincodedropdown($event.target.value,1)" matInput [matAutocomplete]="pincodeautocomplete">
-                                                    <mat-autocomplete #pincodeautocomplete="matAutocomplete"  [displayWith]="displayFncity" >
-                                                       <mat-option *ngFor="let city of citydropdowndata" [value]="city">
-                                                         {{city.name}}
-                                                       </mat-option>
-                                                     </mat-autocomplete>
+
+                                                    <input formControlName="pincode_id" #pincodeinput
+                                                        (keyup)="pincodedropdown($event.target.value,1)" matInput
+                                                        [matAutocomplete]="pincodeautocomplete">
+                                                    <mat-autocomplete #pincodeautocomplete="matAutocomplete"
+                                                        [displayWith]="displayFnpincode">
+                                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                        </mat-option>
+                                                        <ng-container *ngIf="isLoading">
+                                                            <mat-option *ngFor="let pin of pincodedropdowndata"
+                                                                [value]="pin">
+                                                                {{pin.no}}
+                                                            </mat-option>
+                                                        </ng-container>
+                                                    </mat-autocomplete>
                                                 </mat-form-field>
                                             </td>
                                         </tr>
                                         <tr>
 
                                             <td>
-                                                <p>City Id</p>
+                                                <p>City</p>
                                             </td>
                                             <td>
-                                                
-                                                <mat-form-field class="privateinformationinputtag">
+
+                                                <mat-form-field class="privateinformationinputtag"
+                                                    (click)="citydropdown('',citycurrentpage=1)">
                                                     <!-- <input matInput formControlName="city_id"> -->
 
-                                                    <mat-select formControlName="city_id" >
-                                                        <mat-option *ngFor="let city of citydropdowndata" [value]="city"  >
+                                                    <!-- <mat-select formControlName="city_id">
+                                                        <mat-option *ngFor="let city of citydropdowndata"
+                                                            [value]="city">
                                                             {{city.name}}
                                                         </mat-option>
-                                                    </mat-select> 
+                                                    </mat-select> -->
 
-                                                    <input formControlName="city_id" (keyup)="citydropdown($event.target.value,1)" matInput [matAutocomplete]="cityautocomplete">
-                                                    <mat-autocomplete #cityautocomplete="matAutocomplete"  [displayWith]="displayFnpincode" >
-                                                       <mat-option *ngFor="let pin of pincodedropdowndata" [value]="pin">
-                                                         {{pin.no}}
-                                                       </mat-option>
-                                                     </mat-autocomplete>
+                                                    <input formControlName="city_id" #cityinput
+                                                        (keyup)="citydropdown($event.target.value,citycurrentpage=1)"
+                                                        matInput [matAutocomplete]="cityautocomplete">
+                                                    <mat-autocomplete #cityautocomplete="matAutocomplete"
+                                                        [displayWith]="displayFncity">
+                                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                        </mat-option>
+                                                        <ng-container *ngIf="isLoading">
+                                                            <mat-option *ngFor="let city of citydropdowndata"
+                                                                [value]="city">
+                                                                {{city.name}}
+                                                            </mat-option>
+                                                        </ng-container>
+                                                    </mat-autocomplete>
                                                 </mat-form-field>
                                             </td>
 
                                             <td>
-                                                <p>District Id</p>
+                                                <p>District</p>
                                             </td>
                                             <td>
-                                                <mat-form-field class="privateinformationinputtag">
+                                                <mat-form-field class="privateinformationinputtag" (click)="districtdropdown('',districtcurrentpage=1)" >
                                                     <!-- <input matInput formControlName="district_id"> -->
-                                                    <mat-select formControlName="district_id" >
-                                                        <mat-option *ngFor="let district of districtdropdowndata" [value]="district"  >
+                                                    <!-- <mat-select formControlName="district_id">
+                                                        <mat-option *ngFor="let district of districtdropdowndata"
+                                                            [value]="district">
                                                             {{district.name}}
                                                         </mat-option>
-                                                    </mat-select> 
+                                                    </mat-select> -->
+
+                                                    <input formControlName="district_id" #districtinput
+                                                    (keyup)="districtdropdown($event.target.value,districtcurrentpage=1)"
+                                                    matInput [matAutocomplete]="districtautocomplete">
+                                                <mat-autocomplete #districtautocomplete="matAutocomplete"
+                                                    [displayWith]="displayFndistrict">
+                                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                    </mat-option>
+                                                    <ng-container *ngIf="isLoading">
+                                                        <mat-option *ngFor="let district of districtdropdowndata"
+                                                        [value]="district">
+                                                        {{district.name}}
+                                                    </mat-option>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+
                                                 </mat-form-field>
                                             </td>
                                         </tr>
                                         <tr>
 
                                             <td>
-                                                <p>State Id</p>
+                                                <p>State</p>
                                             </td>
                                             <td>
-                                                <mat-form-field class="privateinformationinputtag">
+                                                <mat-form-field class="privateinformationinputtag" (click)="statedropdown('',statecurrentpage=1)">
                                                     <!-- <input matInput formControlName="state_id">-->
-                                                       <mat-select formControlName="state_id" >
-                                                        <mat-option *ngFor="let state of statedropdowndata" [value]="state"  >
+                                                    <!-- <mat-select formControlName="state_id">
+                                                        <mat-option *ngFor="let state of statedropdowndata"
+                                                            [value]="state">
                                                             {{state.name}}
                                                         </mat-option>
-                                                    </mat-select> 
+                                                    </mat-select> -->
+
+                                                    <input formControlName="state_id" #stateinput
+                                                    (keyup)="statedropdown($event.target.value,statecurrentpage=1)"
+                                                    matInput [matAutocomplete]="stateautocomplete">
+                                                <mat-autocomplete #stateautocomplete="matAutocomplete"
+                                                    [displayWith]="displayFnstate">
+                                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                    </mat-option>
+                                                    <ng-container *ngIf="isLoading">
+                                                        <mat-option *ngFor="let state of statedropdowndata"
+                                                            [value]="state">
+                                                            {{state.name}}
+                                                        </mat-option>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+
+
                                                 </mat-form-field>
                                             </td>
                                         </tr>
@@ -324,13 +433,28 @@
                                                 <p>Nationality</p>
                                             </td>
                                             <td>
-                                                <mat-form-field class="privateinformationinputtag">
+                                                <mat-form-field class="privateinformationinputtag" (click)="countrydropdown('',countrycurrentpage=1)" >
                                                     <!-- <textarea matInput formControlName="nationality"></textarea> -->
-                                                    <mat-select formControlName="nationality" >
-                                                        <mat-option *ngFor="let country of countrydropdowndata" [value]="country"  >
+                                                    <!-- <mat-select formControlName="nationality">
+                                                        <mat-option *ngFor="let country of countrydropdowndata"
+                                                            [value]="country">
                                                             {{country.name}}
                                                         </mat-option>
-                                                    </mat-select>
+                                                    </mat-select> -->
+                                                    <input formControlName="nationality" #nationalityinput
+                                                    (keyup)="countrydropdown($event.target.value,countrycurrentpage=1)"
+                                                    matInput [matAutocomplete]="nationalityautocomplete">
+                                                <mat-autocomplete #nationalityautocomplete="matAutocomplete"
+                                                    [displayWith]="displayFnnationality">
+                                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                    </mat-option>
+                                                    <ng-container *ngIf="isLoading">
+                                                        <mat-option *ngFor="let country of countrydropdowndata"
+                                                        [value]="country">
+                                                        {{country.name}}
+                                                    </mat-option>
+                                                    </ng-container>
+                                                </mat-autocomplete>
                                                 </mat-form-field>
                                             </td>
 
@@ -339,7 +463,12 @@
                                             </td>
                                             <td>
                                                 <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="martial_status"></textarea>
+                                                    <!-- <textarea matInput formControlName="martial_status"></textarea> -->
+                                                    <mat-select formControlName="martial_status" matInput>
+                                                        <mat-option *ngFor="let martial of martial_status" [value]="martial.id" >
+                                                            {{martial.name}}
+                                                        </mat-option>
+                                                    </mat-select>
                                                 </mat-form-field>
                                             </td>
                                         </tr>
@@ -627,11 +756,11 @@
                 <br>
                 <!-- <button mat-flat-button color="accent" style="text-align: center" (click)="routeget()">appraisalmake</button> -->
                 <div class="centerdiv">
-                    <button  color="primary" class="marginbuttons" 
-                        (click)="employeecreate()" mat-raised-button>Submit</button>
+                    <button color="primary" class="marginbuttons" (click)="employeecreate()"
+                        mat-raised-button>Submit</button>
                     <!-- <button *ngIf="employeeidget" color="primary" class="marginbuttons"
                         (click)="Editform()" mat-raised-button>Submit</button> -->
-                    
+
                     <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
 
                 </div>
@@ -640,7 +769,7 @@
             <pre>
     {{employeeform.value | json}}
     </pre>
-        </mat-card>
+        <!-- </mat-card> -->
     </div>
 </div>
 <ng-template #fileview>

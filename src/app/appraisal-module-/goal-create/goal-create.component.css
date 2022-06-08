@@ -100,3 +100,8 @@
   .heading{
     font-weight: 500;
   }
+
+  .centerdiv{
+    display: flex;
+    justify-content: center;
+  }

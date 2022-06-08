@@ -124,13 +124,13 @@ export class AppraisalServiceService {
 
   
 
-  public employeetype(value): Observable<any> {
+  public employeetype(value,page): Observable<any> {
     this.reset();
     // const getToken = localStorage.getItem("sessionData")
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "empserv/employee_type?employee_type="+value)
+    return this.http.get<any>(url + "empserv/employee_type?employee_type="+value+"&page"+page)
   }
 
   public getappraisalform(id): Observable<any> {
@@ -171,6 +171,15 @@ export class AppraisalServiceService {
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
     return this.http.get<any>(url + "empserv/view_attachment/"+id,{responseType: 'blob' as 'json'})
+  }
+
+  public getuploadedfileimageview(id): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/view_attachment/"+id)
   }
   
 
@@ -240,5 +249,50 @@ public getcountrydropdown(value,page): Observable<any> {
     // const headers = { 'Authorization': 'Token ' + token }
     return this.http.get<any>(url + "mstserv/department?query="+value+'&page='+page)
   }
+
+  public designationdropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/designation?query="+value+'&page='+page)
+  }
+
+  public gradedropdown(): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/grade")
+  }
+
+  public getfiles(id): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/emp_file_get"+id)
+  }
+  
+
+  public goalcreate(CreateList): Observable<any> {
+    this.reset();
+    const getToken = localStorage.getItem("sessionData")
+
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const body = JSON.stringify(CreateList)
+    // const headers = { 'Authorization': 'Token ' + token }
+    
+
+
+    
+    return this.http.post<any>(url + "mstserv/goal", CreateList)
+  }
+
+
 
 }

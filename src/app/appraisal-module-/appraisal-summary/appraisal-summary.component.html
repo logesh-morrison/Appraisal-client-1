@@ -1,5 +1,7 @@
 <div *ngIf="shareservice.currenturl == '/appraisal_module/appraisal_summary'">
     <br>
+    <!-- <mat-card class="matcard" > -->
+
     <div>
         <form [formGroup]="summaryform">
             <table>
@@ -17,26 +19,26 @@
                         </mat-form-field>
                     </td>
                     <td class="tdpadding">
-                        <button (click)="searchsummary()" class="mat-fab-color" mat-fab>
+                        <button (click)="searchsummary()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>search</mat-icon>
                         </button>
                     </td>
                     <td class="tdpadding">
-                        <button (click)="clear()" class="mat-fab-color" mat-fab>
+                        <button (click)="clear()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>clear</mat-icon>
                         </button>
                     </td>
                     <td class="tdpadding">
-                        <button routerLink="employee_form" class="mat-fab-color" mat-fab>
+                        <button routerLink="employee_form" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>add</mat-icon>
                         </button>
                     </td>
                 </tr>
             </table>
 
+            <div class="overflow" >
 
-
-            <table class="styled-table" id="commontableinputstyle">
+            <table class="styled-table" >
                 <tr>
                     <th>S.No</th>
                     <th>Employee Name</th>
@@ -65,11 +67,17 @@
                     <td>{{data.department}}</td>
                     <td>{{data.manager}}</td>
                     <td>{{data.role}}</td>
-                    <td (click)="routing(data.id)" class="linkclass">Edit</td>
+                    <td (click)="routing(data.id)" class="linkclass" >
+                        <!-- <button  (click)="routing(data.id)" class="viewcls" mat-raised-button > -->
+                            <!-- <mat-icon>visibility</mat-icon>  --> Edit
+                        <!-- </button> -->
+                    </td>
 
 
                 </tr>
             </table>
+            </div>
+
 
             <div *ngIf="appraisalsummarydata ?.length == 0; else paginationpage1">
                 <h3>Sorry data not found!.. </h3>
@@ -93,5 +101,8 @@
             </ng-template>
         </form>
     </div>
+<!-- </mat-card> -->
+
 </div>
+
 <router-outlet></router-outlet>
