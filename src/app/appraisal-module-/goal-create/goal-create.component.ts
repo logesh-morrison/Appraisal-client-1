@@ -1,8 +1,14 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NotificationServiceService } from 'src/app/notification-service.service';
 import { AppraisalServiceService } from '../appraisal-service.service';
 
+
+export interface designation {
+  name: string;
+  id: number;
+}
 
 @Component({
   selector: 'app-goal-create',
@@ -19,8 +25,14 @@ export class GoalCreateComponent implements OnInit {
   imageSrc: any;
 
   currenturl: any;
+  isLoading: boolean;
+  designationdropdowndata: any;
+  designation_has_next: any;
+  designation_has_previous: any;
+  designationcurrentpage: any;
+  gradedropdowndata: any;
 
-  constructor(private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) { }
+  constructor(private notification:NotificationServiceService ,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) { }
 
   ngOnInit(): void {
 
@@ -70,6 +82,8 @@ export class GoalCreateComponent implements OnInit {
 
 
     });
+
+    this.gradedropdown()
 
   }
 
@@ -135,11 +149,64 @@ export class GoalCreateComponent implements OnInit {
   }
 
   goalcreate() {
+
+   
+    this.goalform.value.designation_id=this.goalform.value.designation_id.id
+
+
     this.appraisalservice.goalcreate(this.goalform.value).subscribe(result => {
       console.log('res')
+
+      if(result.message== "Successfully Created"){
+        this.notification.showSuccess("Goal Successfully created")
+      }
+      else{
+        this.notification.showError(result)
+      }
+
     }
     )
   }
 
+  designationdropdown(value, page) {
+
+
+    this.isLoading = false
+    this.appraisalservice.designationdropdown(value, page).subscribe(res => {
+      console.log('res')
+      this.designationdropdowndata = res['data']
+      let datapagination = res["pagination"];
+      this.isLoading = true
+
+      if (this.designationdropdowndata.length >= 0) {
+        this.designation_has_next = datapagination.has_next;
+        this.designation_has_previous = datapagination.has_previous;
+        this.designationcurrentpage = datapagination.index;
+      }
+    })
+  }
+
+  
+  displayFndesignation(city: designation): string {
+    return city.name
+  }
+
+  gradedropdown() {
+
+    this.isLoading = false
+    this.appraisalservice.gradedropdown().subscribe(results => {
+      this.gradedropdowndata = results['data']
+      // let datapagination = results["pagination"];
+
+      // if (this.departmentdropdowndata.length >= 0) {
+      //   this.dept_has_next = datapagination.has_next;
+      //   this.dept_has_previous = datapagination.has_previous;
+      //   this.deptdropcurrentpage = datapagination.index;
+      // }
+      this.isLoading = true
+
+    })
+  }
 
 }
+

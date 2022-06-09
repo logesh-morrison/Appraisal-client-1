@@ -1,24 +1,17 @@
-<div *ngIf="shareservice.currenturl == '/appraisal_module/appraisal_summary'">
-    <br>
-    <!-- <mat-card class="matcard" > -->
-
+<div *ngIf="shareservice.currenturl == '/appraisal_module/goal_summary'" >
     <div>
-        <form [formGroup]="summaryform">
+        <br>
+        <form [formGroup]="goalsummaryform">
             <table>
                 <tr>
                     <td>
                         <mat-form-field>
-                            <mat-label>Employee Name</mat-label>
+                            <mat-label>Goal</mat-label>
                             <input matInput formControlName="empname">
                         </mat-form-field>
                     </td>
-                    <td class="tdpadding">
-                        <mat-form-field>
-                            <mat-label>Employee Code</mat-label>
-                            <input matInput formControlName="code">
-                        </mat-form-field>
-                    </td>
-                    <td class="tdpadding">
+               
+                    <!-- <td class="tdpadding">
                         <button (click)="searchsummary()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>search</mat-icon>
                         </button>
@@ -27,9 +20,9 @@
                         <button (click)="clear()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>clear</mat-icon>
                         </button>
-                    </td>
+                    </td> -->
                     <td class="tdpadding">
-                        <button routerLink="employee_form" class="mat-fab-color" mat-mini-fab>
+                        <button routerLink="goal_form" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>add</mat-icon>
                         </button>
                     </td>
@@ -49,13 +42,13 @@
                     <th>Email Id</th>
                     <th>Department</th>
                     <th>Manager</th>
-                    <th>Designation</th>
+                    <th>Role</th>
                     <th>Edit</th>
 
 
 
                 </tr>
-                <tr *ngFor="let data of appraisalsummarydata;let i= index">
+                <tr *ngFor="let data of goalsummarydata;let i= index">
                     <td>{{((currentpage-1)*10)+i+1}}</td>
                     <td>{{data.first_name}}</td>
                     <td>{{data.code}}</td>
@@ -66,11 +59,9 @@
                     <td>{{data.email_id}}</td>
                     <td>{{data.department.name}}</td>
                     <td>{{data.manager}}</td>
-                    <td>{{data.designation.name}}</td>
-                    <td (click)="routing(data.id)" class="linkclass" >
-                        <!-- <button  (click)="routing(data.id)" class="viewcls" mat-raised-button > -->
-                            <!-- <mat-icon>visibility</mat-icon>  --> Edit
-                        <!-- </button> -->
+                    <td>{{data.role}}</td>
+                    <td  class="linkclass" >
+                       Edit
                     </td>
 
 
@@ -79,30 +70,27 @@
             </div>
 
 
-            <div *ngIf="appraisalsummarydata ?.length == 0; else paginationpage1">
+            <!-- <div *ngIf="goalsummarydata ?.length == 0; else paginationpage1">
                 <h3>Sorry data not found!.. </h3>
             </div>
             <ng-template #paginationpage1>
                 <div class="displayend">
                     <div>
                         <button mat-icon-button [disabled]="has_previous === false" color="primary"
-                            (click)="previousappraisalsummary()">
+                            (click)="previousgoalsummary()">
                             <mat-icon>arrow_back</mat-icon>
                         </button>
                         {{currentpage}}
                         <button mat-icon-button [disabled]="has_next === false" color="primary"
-                            (click)="nextappraisalsummary()">
+                            (click)="nextgoalsummary()">
                             <mat-icon>arrow_forward</mat-icon>
                         </button>
 
                     </div>
 
                 </div>
-            </ng-template>
+            </ng-template> -->
         </form>
     </div>
-<!-- </mat-card> -->
-
 </div>
-
 <router-outlet></router-outlet>

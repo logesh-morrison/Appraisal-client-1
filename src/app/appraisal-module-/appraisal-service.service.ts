@@ -238,7 +238,7 @@ public getcountrydropdown(value,page): Observable<any> {
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "mstserv/pincode?query="+value+'&page='+page)
+    return this.http.get<any>(url + "mstserv/pincode_search?query="+value+'&page='+page)
   }
   
   public departmentdropdown(value,page): Observable<any> {
@@ -274,7 +274,7 @@ public getcountrydropdown(value,page): Observable<any> {
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "empserv/emp_file_get"+id)
+    return this.http.get<any>(url + "empserv/emp_file_get/"+id)
   }
   
 
@@ -293,6 +293,13 @@ public getcountrydropdown(value,page): Observable<any> {
     return this.http.post<any>(url + "mstserv/goal", CreateList)
   }
 
-
+  public goalsummary(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/goal?query="+value+'&page='+page)
+  }
 
 }

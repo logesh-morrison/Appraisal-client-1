@@ -8,6 +8,7 @@ import { AppraisalComponent } from './appraisal/appraisal.component';
 import { AppraisalviewComponent } from './appraisalview/appraisalview.component';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
 import { GoalCreateComponent } from './goal-create/goal-create.component';
+import { GoalSummaryComponent } from './goal-summary/goal-summary.component';
 
 
 
@@ -41,7 +42,11 @@ const routes: Routes = [
         path: 'appraisal_edit', component: AppraisalEditComponent
       },
       {
-        path: 'goal_create', component: GoalCreateComponent
+        path: 'goal_summary', component: GoalSummaryComponent,
+        children: [{
+          path: 'goal_form', component: GoalCreateComponent,
+          
+        }],
       },
       // {
       //   path:'employee_create',component:EmployeeCreateComponent

@@ -3,56 +3,55 @@
         <br>
         <!-- <mat-card class="contentcard"> -->
 
-            <div>
-                <!-- <app-appraisal></app-appraisal> -->
-                <form [formGroup]="employeeform">
-                    <table id="commontableinputstyle">
-                        <tr>
-                            <td>
-                                <mat-form-field class="employeedetailinputwidth">
-                                    <mat-label>First Name</mat-label>
-                                    <input formControlName="first_name" matInput>
-                                </mat-form-field>
-                            </td>
-                            <td rowspan="3" class="rowspanwidthchange">
-                                <!-- <p>asdf</p> -->
-                                <div class="imagediv" [ngStyle]="backgroundfile()" >
-                                    <mat-icon class="editphoto">edit</mat-icon>
-                                    <mat-icon class="deletephoto" (click)="deleteprofilepic()">delete</mat-icon>
+        <div>
+            <!-- <app-appraisal></app-appraisal> -->
+            <form [formGroup]="employeeform">
+                <table id="commontableinputstyle">
+                    <tr>
+                        <td>
+                            <mat-form-field class="employeedetailinputwidth">
+                                <mat-label>First Name</mat-label>
+                                <input formControlName="first_name" matInput>
+                            </mat-form-field>
+                        </td>
+                        <td rowspan="3" class="rowspanwidthchange">
+                            <!-- <p>asdf</p> -->
+                            <div class="imagediv" [ngStyle]="backgroundfile()">
+                                <mat-icon class="editphoto">edit</mat-icon>
+                                <mat-icon class="deletephoto" (click)="deleteprofilepic()">delete</mat-icon>
 
-                                    <!-- <img [src]="imageSrc" class="fit"> -->
-                                    <input type="file" id="profilepic" (change)="fileupload($event)"
-                                        class="imageupload">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <mat-form-field class="employeedetailinputwidth">
-                                    <mat-label>Midlle Name</mat-label>
-                                    <input formControlName="middle_name" matInput>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <mat-form-field class="employeedetailinputwidth">
-                                    <mat-label>Last Name</mat-label>
-                                    <input matInput formControlName="last_name">
-                                    <!-- <mat-select formControlName="tags" >
+                                <!-- <img [src]="imageSrc" class="fit"> -->
+                                <input type="file" id="profilepic" (change)="fileupload($event)" class="imageupload">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="employeedetailinputwidth">
+                                <mat-label>Midlle Name</mat-label>
+                                <input formControlName="middle_name" matInput>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="employeedetailinputwidth">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput formControlName="last_name">
+                                <!-- <mat-select formControlName="tags" >
                         <mat-option *ngFor="let tag of tags" value="tag" >
                             {{tag}}
                         </mat-option>
                     </mat-select> -->
-                                </mat-form-field>
-                            </td>
+                            </mat-form-field>
+                        </td>
 
-                        </tr>
-                    </table>
+                    </tr>
+                </table>
 
-                    <table id="commontableinputstyle">
-                        <tr>
-                            <!-- <td>
+                <table id="commontableinputstyle">
+                    <tr>
+                        <!-- <td>
                     <label>Code</label>
                 </td>
                 <td>
@@ -60,293 +59,295 @@
                         <input formControlName="code" matInput>
                     </mat-form-field>
                 </td> -->
-                            <td>
-                                <label>Gender</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeeworkemail">
-                                    <mat-select formControlName="gender" matInput>
-                                        <mat-option *ngFor="let tile of genderlist" [value]="tile.value">
-                                            {{tile.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <label>Employee Type</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeedepartment"
-                                    (click)="employeetypedropdown('',emptypecurrentpage=1)">
+                        <td>
+                            <label>Gender</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeeworkemail">
+                                <mat-select formControlName="gender" matInput>
+                                    <mat-option *ngFor="let tile of genderlist" [value]="tile.value">
+                                        {{tile.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <label>Employee Type</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeedepartment"
+                                (click)="employeetypedropdown('',emptypecurrentpage=1)">
 
-                                    <!-- <mat-select formControlName="employee_type">
+                                <!-- <mat-select formControlName="employee_type">
                                         <mat-option *ngFor="let tile of employeetypedatas" [value]="tile.value">
                                             {{tile.name}}
                                         </mat-option>
                                     </mat-select> -->
-                                    <input formControlName="employee_type" #empinput
-                                        (keyup)="employeetypedropdown($event.target.value,emptypecurrentpage=1)"
-                                        matInput [matAutocomplete]="emptypeautocomplete">
-                                    <mat-autocomplete #emptypeautocomplete="matAutocomplete"
-                                        [displayWith]="displayFnemptype">
+                                <input formControlName="employee_type" #empinput
+                                    (keyup)="employeetypedropdown($event.target.value,emptypecurrentpage=1)" matInput
+                                    [matAutocomplete]="emptypeautocomplete">
+                                <mat-autocomplete #emptypeautocomplete="matAutocomplete"
+                                    [displayWith]="displayFnemptype">
 
-                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
-                                        <ng-container *ngIf="isLoading">
-                                            <mat-option *ngFor="let tile of employeetypedatas" [value]="tile">
-                                                {{tile.name}}
-                                            </mat-option>
-                                        </ng-container>
+                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                    <ng-container *ngIf="isLoading">
+                                        <mat-option *ngFor="let tile of employeetypedatas" [value]="tile">
+                                            {{tile.name}}
+                                        </mat-option>
+                                    </ng-container>
 
-                                    </mat-autocomplete>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Department</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeeworkemail"
-                                    (click)="departmentdropdown('',deptdropcurrentpage=1)">
-                                    <input formControlName="department" #deptinput
-                                        (keyup)="departmentdropdown($event.target.value,deptdropcurrentpage=1)" matInput
-                                        [matAutocomplete]="departmentautocomplete">
-                                    <mat-autocomplete #departmentautocomplete="matAutocomplete"
-                                        (opened)="autocompletedepartmentScroll()" [displayWith]="displayFncity">
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Department</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeeworkemail"
+                                (click)="departmentdropdown('',deptdropcurrentpage=1)">
+                                <input formControlName="department" #deptinput
+                                    (keyup)="departmentdropdown($event.target.value,deptdropcurrentpage=1)" matInput
+                                    [matAutocomplete]="departmentautocomplete">
+                                <mat-autocomplete #departmentautocomplete="matAutocomplete"
+                                    (opened)="autocompletedepartmentScroll()" [displayWith]="displayFncity">
 
-                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
-                                        <ng-container *ngIf="isLoading">
-                                            <mat-option *ngFor="let dept of departmentdropdowndata" [value]="dept">
-                                                ({{dept.code}}) {{dept.name}}
-                                            </mat-option>
-                                        </ng-container>
+                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                    <ng-container *ngIf="isLoading">
+                                        <mat-option *ngFor="let dept of departmentdropdowndata" [value]="dept">
+                                            ({{dept.code}}) {{dept.name}}
+                                        </mat-option>
+                                    </ng-container>
 
-                                    </mat-autocomplete>
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <label>Manager</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeeworkemail">
-                                    <input formControlName="manager" matInput>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Date of Birth</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeeworkphone">
-                                    <!-- <input formControlName="dob"  matInput> -->
-                                    <input matInput readonly [matDatepicker]="dobpicker" autocomplete="off"
-                                        formControlName="dob" aria-readonly="true">
-                                    <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
-                                    <mat-datepicker #dobpicker></mat-datepicker>
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <label>Date of Joining</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeemanager">
-                                    <input matInput readonly [matDatepicker]="dojpicker" autocomplete="off"
-                                        formControlName="doj" aria-readonly="true">
-                                    <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
-                                    <mat-datepicker #dojpicker></mat-datepicker>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <label>Manager</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeeworkemail">
+                                <input formControlName="manager" matInput>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Date of Birth</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeeworkphone">
+                                <!-- <input formControlName="dob"  matInput> -->
+                                <input matInput readonly [matDatepicker]="dobpicker" autocomplete="off"
+                                    formControlName="dob" aria-readonly="true">
+                                <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                                <mat-datepicker #dobpicker></mat-datepicker>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <label>Date of Joining</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeemanager">
+                                <input matInput readonly [matDatepicker]="dojpicker" autocomplete="off"
+                                    formControlName="doj" aria-readonly="true">
+                                <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+                                <mat-datepicker #dojpicker></mat-datepicker>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
 
-                            <td>
-                                <label>Designation</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeedepartment" (click)="designationdropdown('',designationcurrentpage=1)" >
-                                  
-                                    <!-- <mat-select formControlName="role">
+                        <td>
+                            <label>Designation</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeedepartment"
+                                (click)="designationdropdown('',designationcurrentpage=1)">
+
+                                <!-- <mat-select formControlName="role">
                             <mat-option *ngFor="let tag of tags" value="tag">
                                 {{tag}}
                             </mat-option>
                         </mat-select> -->
-                        <input formControlName="role" #designationinput
-                        (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
-                        [matAutocomplete]="designationautocomplete">
-                    <mat-autocomplete #designationautocomplete="matAutocomplete"
-                         [displayWith]="displayFncity">
+                                <input formControlName="designation" #designationinput
+                                    (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                                    [matAutocomplete]="designationautocomplete">
+                                <mat-autocomplete #designationautocomplete="matAutocomplete"
+                                    [displayWith]="displayFncity">
 
-                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
-                        <ng-container *ngIf="isLoading">
-                            <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
-                                 {{design.name}}
-                            </mat-option>
-                        </ng-container>
-
-                    </mat-autocomplete>
-                                </mat-form-field>
-                            </td>
-
-                            <td>
-                                <label>Grade</label>
-                            </td>
-                            <td>
-                                <mat-form-field (click)="gradedropdown()" class="employeeworkemail">
-                                    <!-- <input formControlName="grade" matInput> -->
-                                    <mat-select formControlName="grade" matInput >
-                                        <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id" >
-                                            {{tab.name}}
+                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                    <ng-container *ngIf="isLoading">
+                                        <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                            {{design.name}}
                                         </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </td>
+                                    </ng-container>
+
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </td>
+
+                        <td>
+                            <label>Grade</label>
+                        </td>
+                        <td>
+                            <mat-form-field (click)="gradedropdown()" class="employeeworkemail">
+                                <!-- <input formControlName="grade" matInput> -->
+                                <mat-select formControlName="grade" matInput>
+                                    <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id">
+                                        {{tab.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
 
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Email</label>
-                            </td>
-                            <td>
-                                <mat-form-field class="employeeworkemail">
-                                    <input formControlName="email_id" matInput>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Email</label>
+                        </td>
+                        <td>
+                            <mat-form-field class="employeeworkemail">
+                                <input formControlName="email_id" matInput>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
 
 
-                    <br>
+                <br>
 
-                    <mat-tab-group #matTabGroup>
-                        <mat-tab label="Address">
+                <mat-tab-group #matTabGroup>
+                    <mat-tab label="Address">
 
-                            <br>
+                        <br>
 
-                            <div formArrayName="address">
-                                <div *ngFor="let item of employeeform.controls.address['controls'];let i = index"
-                                    [formGroupName]="i">
-                                    <table id="commontableinputstyle">
-
-
-                                        <h2 *ngIf=" employeeform.value.address[i].type == 1 ">Permanent Address</h2>
-                                        <h2 *ngIf=" employeeform.value.address[i].type == 2 ">Current Address</h2>
-
-                                        <tr>
-
-                                            <td>
-                                                <p>Line 1</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="line1"></textarea>
-                                                </mat-form-field>
-                                            </td>
-
-                                            <td>
-                                                <p>Line 2</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="line2"></textarea>
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>
-                                                <p>Line 3</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="line3"></textarea>
-                                                </mat-form-field>
-                                            </td>
-
-                                            <td>
-                                                <p>Pincode</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag"
-                                                    (click)="pincodedropdown('',pincodecurrentpage=1)">
-                                                    <!-- <input matInput formControlName="pincode_id"> -->
+                        <div formArrayName="address">
+                            <div *ngFor="let item of employeeform.controls.address['controls'];let i = index"
+                                [formGroupName]="i">
+                                <table id="commontableinputstyle">
 
 
-                                                    <!-- <mat-select formControlName="pincode_id" >
+                                    <h2 *ngIf=" employeeform.value.address[i].type == 1 ">Permanent Address</h2>
+                                    <h2 *ngIf=" employeeform.value.address[i].type == 2 ">Current Address</h2>
+
+                                    <tr>
+
+                                        <td>
+                                            <p>Line 1</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <textarea matInput formControlName="line1"></textarea>
+                                            </mat-form-field>
+                                        </td>
+
+                                        <td>
+                                            <p>Line 2</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <textarea matInput formControlName="line2"></textarea>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <p>Line 3</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <textarea matInput formControlName="line3"></textarea>
+                                            </mat-form-field>
+                                        </td>
+
+                                        <td>
+                                            <p>Pincode</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag"
+                                                (click)="pincodedropdown('',pincodecurrentpage=1)">
+                                                <!-- <input matInput formControlName="pincode_id"> -->
+
+
+                                                <!-- <mat-select formControlName="pincode_id" >
                                                         <mat-option *ngFor="let pin of pincodedropdowndata" [value]="pin"  >
                                                             {{pin.no}}
                                                         </mat-option>
                                                     </mat-select>  -->
 
-                                                    <input formControlName="pincode_id" #pincodeinput
-                                                        (keyup)="pincodedropdown($event.target.value,1)" matInput
-                                                        [matAutocomplete]="pincodeautocomplete">
-                                                    <mat-autocomplete #pincodeautocomplete="matAutocomplete"
-                                                        [displayWith]="displayFnpincode">
-                                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                <input formControlName="pincode_id" #pincodeinput
+                                                    (keyup)="pincodedropdown($event.target.value,1)" matInput
+                                                    [matAutocomplete]="pincodeautocomplete">
+                                                <mat-autocomplete #pincodeautocomplete="matAutocomplete"
+                                                    [displayWith]="displayFnpincode">
+                                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                    </mat-option>
+                                                    <ng-container *ngIf="isLoading">
+                                                        <mat-option *ngFor="let pin of pincodedropdowndata"
+                                                            [value]="pin">
+                                                            {{pin.no}}
                                                         </mat-option>
-                                                        <ng-container *ngIf="isLoading">
-                                                            <mat-option *ngFor="let pin of pincodedropdowndata"
-                                                                [value]="pin">
-                                                                {{pin.no}}
-                                                            </mat-option>
-                                                        </ng-container>
-                                                    </mat-autocomplete>
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                                            <td>
-                                                <p>City</p>
-                                            </td>
-                                            <td>
+                                        <td>
+                                            <p>City</p>
+                                        </td>
+                                        <td>
 
-                                                <mat-form-field class="privateinformationinputtag"
-                                                    (click)="citydropdown('',citycurrentpage=1)">
-                                                    <!-- <input matInput formControlName="city_id"> -->
+                                            <mat-form-field class="privateinformationinputtag"
+                                                (click)="citydropdown('',citycurrentpage=1)">
+                                                <!-- <input matInput formControlName="city_id"> -->
 
-                                                    <!-- <mat-select formControlName="city_id">
+                                                <!-- <mat-select formControlName="city_id">
                                                         <mat-option *ngFor="let city of citydropdowndata"
                                                             [value]="city">
                                                             {{city.name}}
                                                         </mat-option>
                                                     </mat-select> -->
 
-                                                    <input formControlName="city_id" #cityinput
-                                                        (keyup)="citydropdown($event.target.value,citycurrentpage=1)"
-                                                        matInput [matAutocomplete]="cityautocomplete">
-                                                    <mat-autocomplete #cityautocomplete="matAutocomplete"
-                                                        [displayWith]="displayFncity">
-                                                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                <input formControlName="city_id" #cityinput
+                                                    (keyup)="citydropdown($event.target.value,citycurrentpage=1)"
+                                                    matInput [matAutocomplete]="cityautocomplete">
+                                                <mat-autocomplete #cityautocomplete="matAutocomplete"
+                                                    [displayWith]="displayFncity">
+                                                    <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                                    </mat-option>
+                                                    <ng-container *ngIf="isLoading">
+                                                        <mat-option *ngFor="let city of citydropdowndata"
+                                                            [value]="city">
+                                                            {{city.name}}
                                                         </mat-option>
-                                                        <ng-container *ngIf="isLoading">
-                                                            <mat-option *ngFor="let city of citydropdowndata"
-                                                                [value]="city">
-                                                                {{city.name}}
-                                                            </mat-option>
-                                                        </ng-container>
-                                                    </mat-autocomplete>
-                                                </mat-form-field>
-                                            </td>
+                                                    </ng-container>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </td>
 
-                                            <td>
-                                                <p>District</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag" (click)="districtdropdown('',districtcurrentpage=1)" >
-                                                    <!-- <input matInput formControlName="district_id"> -->
-                                                    <!-- <mat-select formControlName="district_id">
+                                        <td>
+                                            <p>District</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag"
+                                                (click)="districtdropdown('',districtcurrentpage=1)">
+                                                <!-- <input matInput formControlName="district_id"> -->
+                                                <!-- <mat-select formControlName="district_id">
                                                         <mat-option *ngFor="let district of districtdropdowndata"
                                                             [value]="district">
                                                             {{district.name}}
                                                         </mat-option>
                                                     </mat-select> -->
 
-                                                    <input formControlName="district_id" #districtinput
+                                                <input formControlName="district_id" #districtinput
                                                     (keyup)="districtdropdown($event.target.value,districtcurrentpage=1)"
                                                     matInput [matAutocomplete]="districtautocomplete">
                                                 <mat-autocomplete #districtautocomplete="matAutocomplete"
@@ -355,31 +356,32 @@
                                                     </mat-option>
                                                     <ng-container *ngIf="isLoading">
                                                         <mat-option *ngFor="let district of districtdropdowndata"
-                                                        [value]="district">
-                                                        {{district.name}}
-                                                    </mat-option>
+                                                            [value]="district">
+                                                            {{district.name}}
+                                                        </mat-option>
                                                     </ng-container>
                                                 </mat-autocomplete>
 
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                                            <td>
-                                                <p>State</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag" (click)="statedropdown('',statecurrentpage=1)">
-                                                    <!-- <input matInput formControlName="state_id">-->
-                                                    <!-- <mat-select formControlName="state_id">
+                                        <td>
+                                            <p>State</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag"
+                                                (click)="statedropdown('',statecurrentpage=1)">
+                                                <!-- <input matInput formControlName="state_id">-->
+                                                <!-- <mat-select formControlName="state_id">
                                                         <mat-option *ngFor="let state of statedropdowndata"
                                                             [value]="state">
                                                             {{state.name}}
                                                         </mat-option>
                                                     </mat-select> -->
 
-                                                    <input formControlName="state_id" #stateinput
+                                                <input formControlName="state_id" #stateinput
                                                     (keyup)="statedropdown($event.target.value,statecurrentpage=1)"
                                                     matInput [matAutocomplete]="stateautocomplete">
                                                 <mat-autocomplete #stateautocomplete="matAutocomplete"
@@ -395,53 +397,54 @@
                                                 </mat-autocomplete>
 
 
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <br>
-                                        <tr>
-                                            <td *ngIf="i == 0">
-                                                <mat-checkbox (change)="copytopermanent($event.checked,i)"
-                                                    class="example-margin">
-                                                    Copy permanent address
-                                                </mat-checkbox>
-                                            </td>
-                                        </tr>
-                                        <br>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <br>
+                                    <tr>
+                                        <td *ngIf="i == 0">
+                                            <mat-checkbox (change)="copytopermanent($event.checked,i)"
+                                                class="example-margin">
+                                                Copy permanent address
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <br>
 
 
 
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
+                        </div>
 
 
-                        </mat-tab>
+                    </mat-tab>
 
-                        <mat-tab label="Personal Info">
-                            <br>
-                            <div formArrayName="personal_info">
-                                <div *ngFor="let item of employeeform.controls.personal_info['controls'];let j = index"
-                                    [formGroupName]="j">
+                    <mat-tab label="Personal Info">
+                        <br>
+                        <div formArrayName="personal_info">
+                            <div *ngFor="let item of employeeform.controls.personal_info['controls'];let j = index"
+                                [formGroupName]="j">
 
-                                    <table id="commontableinputstyle">
+                                <table id="commontableinputstyle">
 
 
-                                        <tr>
-                                            <td>
-                                                <p>Nationality</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag" (click)="countrydropdown('',countrycurrentpage=1)" >
-                                                    <!-- <textarea matInput formControlName="nationality"></textarea> -->
-                                                    <!-- <mat-select formControlName="nationality">
+                                    <tr>
+                                        <td>
+                                            <p>Nationality</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag"
+                                                (click)="countrydropdown('',countrycurrentpage=1)">
+                                                <!-- <textarea matInput formControlName="nationality"></textarea> -->
+                                                <!-- <mat-select formControlName="nationality">
                                                         <mat-option *ngFor="let country of countrydropdowndata"
                                                             [value]="country">
                                                             {{country.name}}
                                                         </mat-option>
                                                     </mat-select> -->
-                                                    <input formControlName="nationality" #nationalityinput
+                                                <input formControlName="nationality" #nationalityinput
                                                     (keyup)="countrydropdown($event.target.value,countrycurrentpage=1)"
                                                     matInput [matAutocomplete]="nationalityautocomplete">
                                                 <mat-autocomplete #nationalityautocomplete="matAutocomplete"
@@ -450,323 +453,324 @@
                                                     </mat-option>
                                                     <ng-container *ngIf="isLoading">
                                                         <mat-option *ngFor="let country of countrydropdowndata"
-                                                        [value]="country">
-                                                        {{country.name}}
-                                                    </mat-option>
+                                                            [value]="country">
+                                                            {{country.name}}
+                                                        </mat-option>
                                                     </ng-container>
                                                 </mat-autocomplete>
-                                                </mat-form-field>
-                                            </td>
+                                            </mat-form-field>
+                                        </td>
 
-                                            <td>
-                                                <p>Martial Status</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <!-- <textarea matInput formControlName="martial_status"></textarea> -->
-                                                    <mat-select formControlName="martial_status" matInput>
-                                                        <mat-option *ngFor="let martial of martial_status" [value]="martial.id" >
-                                                            {{martial.name}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                        <td>
+                                            <p>Martial Status</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <!-- <textarea matInput formControlName="martial_status"></textarea> -->
+                                                <mat-select formControlName="martial_status" matInput>
+                                                    <mat-option *ngFor="let martial of martial_status"
+                                                        [value]="martial.id">
+                                                        {{martial.name}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                                            <td>
-                                                <p>Wedding Date</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput readonly [matDatepicker]="wedpicker"
-                                                        placeholder="Wedding Date" autocomplete="off"
-                                                        formControlName="wedding_date" aria-readonly="true">
-                                                    <mat-datepicker-toggle matSuffix [for]="wedpicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #wedpicker></mat-datepicker>
-                                                </mat-form-field>
-                                            </td>
-
-
-                                            <td>
-                                                <p>Emergency Person</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="emc_contact_person">
-                                                </mat-form-field>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>
-                                                <p>Emergency Contact Person Number</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="emc_contact_person_number">
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
+                                        <td>
+                                            <p>Wedding Date</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput readonly [matDatepicker]="wedpicker"
+                                                    placeholder="Wedding Date" autocomplete="off"
+                                                    formControlName="wedding_date" aria-readonly="true">
+                                                <mat-datepicker-toggle matSuffix [for]="wedpicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #wedpicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </td>
 
 
-                                        <br>
+                                        <td>
+                                            <p>Emergency Person</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="emc_contact_person">
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <p>Emergency Contact Person Number</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="emc_contact_person_number">
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+
+
+                                    <br>
 
 
 
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
+                        </div>
 
-                        </mat-tab>
+                    </mat-tab>
 
-                        <mat-tab label="Education">
-                            <br>
+                    <mat-tab label="Education">
+                        <br>
 
-                            <div formArrayName="education">
-                                <div *ngFor="let item of employeeform.controls.education['controls'];let k = index"
-                                    [formGroupName]="k">
-                                    <table id="commontableinputstyle">
-
-
-                                        <tr>
-
-                                            <td>
-                                                <p>Institute Name</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <textarea matInput formControlName="inst_name"></textarea>
-                                                </mat-form-field>
-                                            </td>
-
-                                            <td>
-                                                <p>Passing Year</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="passing_year">
-
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
+                        <div formArrayName="education">
+                            <div *ngFor="let item of employeeform.controls.education['controls'];let k = index"
+                                [formGroupName]="k">
+                                <table id="commontableinputstyle">
 
 
-                                            <td>
-                                                <p>Degree</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="title">
-                                                </mat-form-field>
-                                            </td>
-                                            <td>
-                                                <p>Qualification</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="qualification">
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                    <tr>
+
+                                        <td>
+                                            <p>Institute Name</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <textarea matInput formControlName="inst_name"></textarea>
+                                            </mat-form-field>
+                                        </td>
+
+                                        <td>
+                                            <p>Passing Year</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="passing_year">
+
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
 
 
-
-                                            <td>
-                                                <p>Percentage</p>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="privateinformationinputtag">
-                                                    <input matInput formControlName="percentage">
-                                                </mat-form-field>
-                                            </td>
-
-                                        </tr>
-
-                                        <br>
+                                        <td>
+                                            <p>Degree</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="title">
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <p>Qualification</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="qualification">
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
 
 
+                                        <td>
+                                            <p>Percentage</p>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="privateinformationinputtag">
+                                                <input matInput formControlName="percentage">
+                                            </mat-form-field>
+                                        </td>
 
-                                    </table>
-                                </div>
+                                    </tr>
+
+                                    <br>
+
+
+
+
+                                </table>
                             </div>
-                        </mat-tab>
+                        </div>
+                    </mat-tab>
 
 
-                        <mat-tab label="Experience">
+                    <mat-tab label="Experience">
 
-                            <br>
+                        <br>
 
-                            <div formArrayName="experience">
-                                <div *ngFor="let item of employeeform.controls.experience['controls'];let l = index"
-                                    [formGroupName]="l">
-                                    <table id="commontableinputstyle">
-                                        <tr>
-                                            <td>
-                                                <label>Company Name</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeeworkmobile">
-                                                    <input formControlName="company" matInput>
-                                                </mat-form-field>
-                                            </td>
-                                            <td>
-                                                <label>Work Experience</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeedepartment">
-                                                    <input matInput formControlName="work_experience">
+                        <div formArrayName="experience">
+                            <div *ngFor="let item of employeeform.controls.experience['controls'];let l = index"
+                                [formGroupName]="l">
+                                <table id="commontableinputstyle">
+                                    <tr>
+                                        <td>
+                                            <label>Company Name</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeeworkmobile">
+                                                <input formControlName="company" matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <label>Work Experience</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeedepartment">
+                                                <input matInput formControlName="work_experience">
 
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label>From</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeeworkphone">
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>From</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeeworkphone">
 
-                                                    <input matInput readonly [matDatepicker]="frompicker"
-                                                        placeholder="From Date" autocomplete="off"
-                                                        formControlName="period_from" aria-readonly="true">
-                                                    <mat-datepicker-toggle matSuffix [for]="frompicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #frompicker></mat-datepicker>
-                                                </mat-form-field>
-                                            </td>
-                                            <td>
-                                                <label>To</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeemanager">
-                                                    <input matInput readonly [matDatepicker]="topicker"
-                                                        placeholder="To Date" autocomplete="off"
-                                                        formControlName="period_to" aria-readonly="true">
-                                                    <mat-datepicker-toggle matSuffix [for]="topicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #topicker></mat-datepicker>
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label>Role</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeeworkemail">
-                                                    <input formControlName="exp_role" matInput>
-                                                </mat-form-field>
-                                            </td>
-                                            <td>
-                                                <label>City</label>
-                                            </td>
-                                            <td>
-                                                <mat-form-field class="employeeworkemail">
-                                                    <input matInput formControlName="city">
+                                                <input matInput readonly [matDatepicker]="frompicker"
+                                                    placeholder="From Date" autocomplete="off"
+                                                    formControlName="period_from" aria-readonly="true">
+                                                <mat-datepicker-toggle matSuffix [for]="frompicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #frompicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <label>To</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeemanager">
+                                                <input matInput readonly [matDatepicker]="topicker"
+                                                    placeholder="To Date" autocomplete="off" formControlName="period_to"
+                                                    aria-readonly="true">
+                                                <mat-datepicker-toggle matSuffix [for]="topicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #topicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Role</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeeworkemail">
+                                                <input formControlName="role" matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <label>City</label>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class="employeeworkemail">
+                                                <input matInput formControlName="city">
 
-                                                </mat-form-field>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <br>
-                        </mat-tab>
+                        </div>
+                        <br>
+                    </mat-tab>
 
 
-                    </mat-tab-group>
-                    <br>
-
-                    <div>
-                        <input type="file" (change)="onfileuploadchanges($event)" multiple="multiple">
-                    </div>
-
-
-                </form>
-                <br>
-                <table *ngIf="employeecreatefiles.length != 0" class="fileviewtablewidth">
-                    <tr>
-                        <th>File name</th>
-                        <th>View</th>
-                        <th>Delete</th>
-
-
-                    </tr>
-                    <tr *ngFor="let files of employeecreatefiles;let i=index">
-                        <td>{{files.name}}</td>
-                        <td>
-                            <button mat-icon-button (click)="viewfile(files);opendialog(fileview)">
-                                <mat-icon matTooltip="View File">visibility
-                                </mat-icon>
-                            </button>
-                        </td>
-
-                        <td>
-                            <button mat-icon-button (click)="deletefile(i)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-
+                </mat-tab-group>
                 <br>
 
-                <table *ngIf="uploadeddocument.length != 0" class="fileviewtablewidth">
-                    <tr>
-                        <th>File name</th>
-                        <th>View</th>
-                        <th>Download</th>
-                        <th>Delete</th>
+                <div>
+                    <input type="file" (change)="onfileuploadchanges($event)" multiple="multiple">
+                </div>
 
 
-                    </tr>
-                    <tr *ngFor="let files of uploadeddocument;let i=index">
-                        <td>{{files.file_name}}</td>
-                        <td>
-                            <button mat-icon-button (click)="uploadedfileview(files);opendialog(fileview)">
-                                <mat-icon matTooltip="View File">visibility
-                                </mat-icon>
-                            </button>
-                        </td>
-
-                        <td>
-                            <button mat-icon-button (click)="uploadedfiledownload(files)">
-                                <mat-icon>download</mat-icon>
-                            </button>
-                        </td>
-
-                        <td>
-                            <button mat-icon-button (click)="deleteuploadedfile(files,i)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+            </form>
+            <br>
+            <table *ngIf="employeecreatefiles.length != 0" class="fileviewtablewidth">
+                <tr>
+                    <th>File name</th>
+                    <th>View</th>
+                    <th>Delete</th>
 
 
-                <br>
-                <!-- <button mat-flat-button color="accent" style="text-align: center" (click)="routeget()">appraisalmake</button> -->
-                <div class="centerdiv">
-                    <button color="primary" class="marginbuttons" (click)="employeecreate()"
-                        mat-raised-button>Submit</button>
-                    <!-- <button *ngIf="employeeidget" color="primary" class="marginbuttons"
+                </tr>
+                <tr *ngFor="let files of employeecreatefiles;let i=index">
+                    <td>{{files.name}}</td>
+                    <td>
+                        <button mat-icon-button (click)="viewfile(files);opendialog(fileview)">
+                            <mat-icon matTooltip="View File">visibility
+                            </mat-icon>
+                        </button>
+                    </td>
+
+                    <td>
+                        <button mat-icon-button (click)="deletefile(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table *ngIf="uploadeddocument?.length != 0" class="fileviewtablewidth">
+                <tr>
+                    <th>File name</th>
+                    <th>View</th>
+                    <th>Download</th>
+                    <th>Delete</th>
+
+
+                </tr>
+                <tr *ngFor="let files of uploadeddocument;let i=index">
+                    <td>{{files.file_name}}</td>
+                    <td>
+                        <button mat-icon-button (click)="uploadedfileview(files);opendialog(fileview)">
+                            <mat-icon matTooltip="View File">visibility
+                            </mat-icon>
+                        </button>
+                    </td>
+
+                    <td>
+                        <button mat-icon-button (click)="uploadedfiledownload(files)">
+                            <mat-icon>download</mat-icon>
+                        </button>
+                    </td>
+
+                    <td>
+                        <button mat-icon-button (click)="deleteuploadedfile(files,i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+
+            <br>
+            <!-- <button mat-flat-button color="accent" style="text-align: center" (click)="routeget()">appraisalmake</button> -->
+            <div class="centerdiv">
+                <button color="primary" class="marginbuttons" (click)="employeecreate()"
+                    mat-raised-button>Submit</button>
+                <!-- <button *ngIf="employeeidget" color="primary" class="marginbuttons"
                         (click)="Editform()" mat-raised-button>Submit</button> -->
 
-                    <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
+                <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
 
-                </div>
             </div>
+        </div>
 
-            <pre>
+        <pre>
     {{employeeform.value | json}}
     </pre>
         <!-- </mat-card> -->

@@ -230,7 +230,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 {
   /* background-color:#f5f5f5; */
   /* background-color: #edf0f8e7  ; */
-  padding: 0px 12px 12px 12px;
+  padding: 12px 12px 12px 24px;
   min-height: 85vh !important;
   min-width: 360px;
   margin: 80px 15px 15px 15px ;
@@ -356,3 +356,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   }
 
 }
+
+footer {
+
+  position: fixed;
+  
+  bottom: 0;
+  height: 15px;
+  width: 100%;
+  
+  }

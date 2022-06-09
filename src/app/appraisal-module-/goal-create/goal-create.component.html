@@ -3,43 +3,64 @@
     <form [formGroup]="goalform">
         <table id="fullwidth">
             <tr>
-                <td colspan="4">
-                    <mat-form-field class="goalinputwidth">
-                        <mat-label>Goal</mat-label>
+                <td>
+                    <p class="heading" >Goal</p>
+                </td>
+                <td>
+                    <mat-form-field class="employeewidth">
+                        
                         <input formControlName="goal" matInput>
                     </mat-form-field>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p>Designation</p>
+                    <p class="heading" >Designation</p>
                 </td>
                 <td>
-                    <mat-form-field class="employeewidth">
-                        <input formControlName="designation_id" matInput>
-                    </mat-form-field>
+                    <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)" >
+                
+     
+                    <input formControlName="designation_id" #designationinput
+                        (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                        [matAutocomplete]="designationautocomplete">
+                    <mat-autocomplete #designationautocomplete="matAutocomplete"
+                        [displayWith]="displayFndesignation">
 
-                    <button mat-icon-button (click)="opendialog(dialog)">
-                        <mat-icon>open_in_new</mat-icon>
-                    </button>
+                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                        <ng-container *ngIf="isLoading">
+                            <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                {{design.name}}
+                            </mat-option>
+                        </ng-container>
+
+                    </mat-autocomplete>
+                </mat-form-field>
 
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <p>grade</p>
+                    <p class="heading" >grade</p>
                 </td>
                 <td>
-                    <mat-form-field class="employeewidth">
-                        <input formControlName="grade" matInput>
+                    <mat-form-field (click)="gradedropdown()" class="employeewidth">
+                        <!-- <input formControlName="grade" matInput> -->
+                        <mat-select formControlName="grade" matInput>
+                            <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id">
+                                {{tab.name}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p>Description</p>
+                    <p class="heading" >Description</p>
                 </td>
                 <td>
                     <mat-form-field class="employeewidth">
-                        <input formControlName="description" matInput>
+                        <textarea formControlName="description" matInput></textarea>
                     </mat-form-field>
                 </td>
                 <!-- <td>
@@ -53,6 +74,8 @@
             </tr>
         </table>
 
+        <br>
+        <br>
         <div class="centerdiv">
             <button mat-raised-button (click)="goalcreate()">Submit</button>
         </div>

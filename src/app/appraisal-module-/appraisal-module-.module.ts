@@ -14,10 +14,11 @@ import { GoalCreateComponent } from './goal-create/goal-create.component';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
 import { ToastrModule } from 'ngx-toastr';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { GoalSummaryComponent } from './goal-summary/goal-summary.component';
 
 
 @NgModule({
-  declarations: [AppraisalSummaryComponent, AppraisalComponent, AppraisalviewComponent, AppraisalCreateComponent, AppraisalEditComponent, GoalCreateComponent, EmployeeCreateComponent],
+  declarations: [AppraisalSummaryComponent, AppraisalComponent, AppraisalviewComponent, AppraisalCreateComponent, AppraisalEditComponent, GoalCreateComponent, EmployeeCreateComponent, GoalSummaryComponent],
   imports: [
     ToastrModule.forRoot(),
     CommonModule,PdfViewerModule,
