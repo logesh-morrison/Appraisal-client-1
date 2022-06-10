@@ -293,13 +293,13 @@ public getcountrydropdown(value,page): Observable<any> {
     return this.http.post<any>(url + "mstserv/goal", CreateList)
   }
 
-  public goalsummary(value,page): Observable<any> {
+  public goalsummary(value,designation,page): Observable<any> {
     this.reset();
     // const getToken = localStorage.getItem("sessionData")
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "mstserv/goal?query="+value+'&page='+page)
+    return this.http.get<any>(url + "mstserv/goal?queryk\="+designation+'&grade='+value+'&page='+page)
   }
 
 }

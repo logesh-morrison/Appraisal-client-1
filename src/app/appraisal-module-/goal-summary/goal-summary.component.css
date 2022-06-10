@@ -12,7 +12,7 @@
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
-    width: 140%;
+    width: 100%;
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
 } 
 
@@ -42,4 +42,15 @@ border: 1px solid lightgray;
 .mat-fab-color{
     background-color:white;
     color: black;
+  }
+
+  .linkclass{
+    color: blue;
+  }
+  
+  .linkclass:hover{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  
   }

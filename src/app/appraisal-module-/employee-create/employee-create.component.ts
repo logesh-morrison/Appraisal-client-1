@@ -876,7 +876,7 @@ export class EmployeeCreateComponent implements OnInit {
         console.log('res')
 
         if (res.message == "Successfully Created") {
-          this.notification.showSuccess('Successfully Created')
+          this.notification.showSuccess('Successfully Updated')
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
 
         } else {
@@ -893,7 +893,7 @@ export class EmployeeCreateComponent implements OnInit {
         console.log('res')
 
         if (res.message == "Successfully Created") {
-          this.notification.showSuccess('Successfully Updated')
+          this.notification.showSuccess('Successfully Created')
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
 
         } else {

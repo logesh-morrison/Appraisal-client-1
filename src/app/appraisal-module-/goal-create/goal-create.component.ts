@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NotificationServiceService } from 'src/app/notification-service.service';
 import { AppraisalServiceService } from '../appraisal-service.service';
 
@@ -32,7 +33,7 @@ export class GoalCreateComponent implements OnInit {
   designationcurrentpage: any;
   gradedropdowndata: any;
 
-  constructor(private notification:NotificationServiceService ,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) { }
+  constructor(private notification:NotificationServiceService, private router:Router,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) { }
 
   ngOnInit(): void {
 
@@ -150,6 +151,28 @@ export class GoalCreateComponent implements OnInit {
 
   goalcreate() {
 
+    if(this.goalform.value.goal == ""){
+      this.notification.showError("Please enter Goal")
+      return false
+    }
+
+    if(this.goalform.value.designation_id == ""){
+      this.notification.showError("Please enter Designation")
+      return false
+
+    }
+
+    if(this.goalform.value.grade == ""){
+      this.notification.showError("Please Choose Grade")
+      return false
+
+    }
+    if(this.goalform.value.description == ""){
+      this.notification.showError("Please enter Description")
+      return false
+
+    }
+
    
     this.goalform.value.designation_id=this.goalform.value.designation_id.id
 
@@ -159,6 +182,8 @@ export class GoalCreateComponent implements OnInit {
 
       if(result.message== "Successfully Created"){
         this.notification.showSuccess("Goal Successfully created")
+        this.router.navigateByUrl('appraisal_module/goal_summary')
+
       }
       else{
         this.notification.showError(result)

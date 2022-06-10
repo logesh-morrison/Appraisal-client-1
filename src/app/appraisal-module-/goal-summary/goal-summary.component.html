@@ -6,12 +6,26 @@
                 <tr>
                     <td>
                         <mat-form-field>
-                            <mat-label>Goal</mat-label>
-                            <input matInput formControlName="empname">
+                            <mat-label>Designation</mat-label>
+                            <input matInput formControlName="designation">
                         </mat-form-field>
                     </td>
+
+                    <td class="tdpadding" >
+                        <mat-form-field (click)="gradedropdown()" class="employeewidth">
+                            <!-- <input formControlName="grade" matInput> -->
+                            <mat-label>Grade</mat-label>
+
+                            <mat-select formControlName="grade" matInput>
+                                <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id">
+                                    {{tab.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    
                
-                    <!-- <td class="tdpadding">
+                    <td class="tdpadding">
                         <button (click)="searchsummary()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>search</mat-icon>
                         </button>
@@ -20,7 +34,7 @@
                         <button (click)="clear()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>clear</mat-icon>
                         </button>
-                    </td> -->
+                    </td> 
                     <td class="tdpadding">
                         <button routerLink="goal_form" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>add</mat-icon>
@@ -34,15 +48,10 @@
             <table class="styled-table" >
                 <tr>
                     <th>S.No</th>
-                    <th>Employee Name</th>
-                    <th>Employee Code</th>
-                    <th>Gender</th>
-                    <th>Date Of Birth</th>
-                    <th>Date Of Joining</th>
-                    <th>Email Id</th>
-                    <th>Department</th>
-                    <th>Manager</th>
-                    <th>Role</th>
+                    <th>Goal</th>
+                    <th>Designation</th>
+                    <th>Grade</th>
+                    <th>Description</th>
                     <th>Edit</th>
 
 
@@ -50,20 +59,16 @@
                 </tr>
                 <tr *ngFor="let data of goalsummarydata;let i= index">
                     <td>{{((currentpage-1)*10)+i+1}}</td>
-                    <td>{{data.first_name}}</td>
-                    <td>{{data.code}}</td>
-                    <td>{{data.gender.text}}</td>
-                    <td>{{data.dob}}</td>
+                    <td>{{data.goal}}</td>
+                    <td>{{data.designation_id.name}}</td>
+                    <td>{{data.grade.name}}</td>
 
-                    <td>{{data.doj}}</td>
-                    <td>{{data.email_id}}</td>
-                    <td>{{data.department.name}}</td>
-                    <td>{{data.manager}}</td>
-                    <td>{{data.role}}</td>
+                    <td>{{data.description}}</td>
+
                     <td  class="linkclass" >
-                       Edit
+                        Edit
+                       
                     </td>
-
 
                 </tr>
             </table>
