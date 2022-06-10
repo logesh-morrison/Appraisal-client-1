@@ -299,7 +299,25 @@ public getcountrydropdown(value,page): Observable<any> {
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "mstserv/goal?queryk\="+designation+'&grade='+value+'&page='+page)
+    return this.http.get<any>(url + "mstserv/goal?query="+designation+'&grade='+value+'&page='+page)
+  }
+
+  public getgoaledit(value): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/get_goal/"+value)
+  }
+
+  public getgoaleditsubmit(id,value): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/get_goal/"+id,value)
   }
 
 }

@@ -32,8 +32,11 @@ export class GoalCreateComponent implements OnInit {
   designation_has_previous: any;
   designationcurrentpage: any;
   gradedropdowndata: any;
+  goalid:any
 
-  constructor(private notification:NotificationServiceService, private router:Router,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) { }
+  constructor(private notification:NotificationServiceService, private router:Router,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) {
+    this.goalid = this.router.getCurrentNavigation().extras.state;
+   }
 
   ngOnInit(): void {
 
@@ -42,6 +45,8 @@ export class GoalCreateComponent implements OnInit {
       designation_id: ['', Validators.required],
       grade: ['', Validators.required],
       description: ['', Validators.required],
+      id: ['', Validators.required],
+
     })
 
 
@@ -84,7 +89,13 @@ export class GoalCreateComponent implements OnInit {
 
     });
 
-    this.gradedropdown()
+    this.getiddetails()
+
+    if(this.goalid){
+      this.gradedropdown()
+
+    }
+
 
   }
 
@@ -176,6 +187,31 @@ export class GoalCreateComponent implements OnInit {
    
     this.goalform.value.designation_id=this.goalform.value.designation_id.id
 
+    if(this.goalid){
+      
+      this.appraisalservice.goalcreate(this.goalform.value).subscribe(result => {
+        console.log('res')
+  
+        if(result.message== "Successfully Created"){
+          this.notification.showSuccess("Goal Successfully created")
+          this.router.navigateByUrl('appraisal_module/goal_summary')
+  
+        }
+        else if(result.message == "Successfully Updated"){
+          this.notification.showSuccess("Goal Successfully Updated")
+          this.router.navigateByUrl('appraisal_module/goal_summary')
+        } 
+        else{
+          this.notification.showError(result)
+        }
+  
+      }
+      )
+
+    }else{
+      delete this.goalform.value.id
+
+    
 
     this.appraisalservice.goalcreate(this.goalform.value).subscribe(result => {
       console.log('res')
@@ -185,6 +221,10 @@ export class GoalCreateComponent implements OnInit {
         this.router.navigateByUrl('appraisal_module/goal_summary')
 
       }
+      else if(result.message == "Successfully Updated"){
+        this.notification.showSuccess("Goal Successfully Updated")
+        this.router.navigateByUrl('appraisal_module/goal_summary')
+      } 
       else{
         this.notification.showError(result)
       }
@@ -192,11 +232,13 @@ export class GoalCreateComponent implements OnInit {
     }
     )
   }
+  }
 
   designationdropdown(value, page) {
 
 
     this.isLoading = false
+
     this.appraisalservice.designationdropdown(value, page).subscribe(res => {
       console.log('res')
       this.designationdropdowndata = res['data']
@@ -229,6 +271,25 @@ export class GoalCreateComponent implements OnInit {
       //   this.deptdropcurrentpage = datapagination.index;
       // }
       this.isLoading = true
+
+    })
+  }
+
+  getiddetails(){
+    this.appraisalservice.getgoaledit(this.goalid).subscribe(results => {
+      
+
+      this.goalform.patchValue({
+         goal:results.goal,
+         designation_id:results.designation_id,
+         grade:results.grade.id,
+         description:results.description,
+         id:results.id
+      })
+
+      console.log(results)
+      
+      
 
     })
   }
