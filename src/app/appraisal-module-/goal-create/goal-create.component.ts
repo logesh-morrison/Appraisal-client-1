@@ -88,11 +88,11 @@ export class GoalCreateComponent implements OnInit {
 
 
     });
+    this.gradedropdown()
 
-    this.getiddetails()
 
     if(this.goalid){
-      this.gradedropdown()
+      this.getiddetails()
 
     }
 

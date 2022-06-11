@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     //command this code when connected to token generate
     this.appservice.loginstatus = true
     this.sharedservice.username.next(this.loginform.value)
-    this.router.navigateByUrl(this.returnUrl);
+    this.router.navigateByUrl(this.returnUrl,{ skipLocationChange: true });
 
 
   }
