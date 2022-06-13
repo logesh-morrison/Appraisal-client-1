@@ -48,9 +48,7 @@
             <table class="styled-table" >
                 <tr>
                     <th>S.No</th>
-                    <th>Goal</th>
-                    <th>Designation</th>
-                    <th>Grade</th>
+                    <!-- y -->
                     <th>Description</th>
                     <th>Edit</th>
 
@@ -59,9 +57,9 @@
                 </tr>
                 <tr *ngFor="let data of goalsummarydata;let i= index">
                     <td>{{((currentpage-1)*10)+i+1}}</td>
-                    <td>{{data.goal}}</td>
+                    <!-- <td>{{data.goal}}</td>
                     <td>{{data.designation_id.name}}</td>
-                    <td>{{data.grade.name}}</td>
+                    <td>{{data.grade.name}}</td> -->
 
                     <td>{{data.description}}</td>
 

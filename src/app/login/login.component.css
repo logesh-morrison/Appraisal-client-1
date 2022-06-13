@@ -45,6 +45,22 @@
   height: 50px;
 }
 
+.centerdiv{
+  display: flex;
+  justify-content: center;
+}
+
+.linkclass{
+  color: blue;
+}
+
+.linkclass:hover{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
 @media (max-width: 400px){
 
   .mat-card-style {
@@ -54,6 +70,10 @@
     border-radius: 20px 70px 20px 70px;
   }
 
+}
+
+.tdpadding{
+  padding-left: 50px;
 }
 
   @media (width:412px ){
@@ -76,6 +96,152 @@
     
 
   
+  
   }
 
 
+
+  .divall {
+  /* background: #714B67;*/
+  background: linear-gradient(to bottom, #714B67 0%,#714B67 50%,#714B67 50%,white 50%,white 100%); 
+  /* background:linear-gradient(-45deg, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #7e5a7c 50%, #714b67 62%, #714b67 75%, #714b67 87%, #714B67 100%); */
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  min-height: 600px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont {
+  background-color: white;
+  min-width: 380px;
+ 
+  margin: auto;
+  min-height: 500px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px black;
+  transition: 0.5s;
+
+}
+
+.cont1 {
+  background-color: white;
+  
+  width: 718px;
+  margin: auto;
+  min-height: 500px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px black;
+  transition: 0.5s;
+
+}
+
+#account {
+width: 100px;
+height: 100px;
+}
+
+.tabs {
+  display: flex;
+  position: relative;
+  top: -25px;
+  justify-content: center;
+  color: rgb(73, 71, 71);
+  height: 25px;
+}
+
+.reg-tab,
+.login-tab {
+  width: 50%;
+  text-align: center;
+  padding-bottom: 10px;
+  margin: auto 25px;
+  cursor: pointer;
+}
+
+.reg-tab:hover,
+.login-tab:hover {
+  color: rgb(10, 51, 98);
+  border-bottom: 4px solid rgb(10, 51, 98);
+}
+.active{
+  color: rgb(10, 51, 98);
+  border-bottom: 4px solid rgb(10, 51, 98);
+}
+#login-form {
+  display: block;
+  padding-top: 25px;
+}
+
+form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 15px auto;
+}
+
+
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  font-style: italic;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  text-align: center;
+}
+
+button {
+  margin: 20px auto;
+  font-size: 20px;
+  background-color: rgb(10, 51, 98);
+  color: white;
+  padding: 10px 45px;
+  border-radius: 18px;
+  box-shadow: 0 0 2px rgb(117, 113, 113);
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(0, 81, 255, 0.781);
+}
+
+.tnc{
+  display: flex;
+  align-items: center;
+  margin: auto;
+  color: rgb(54, 52, 52);
+  font-style: italic;
+}
+
+/* making design responsive */
+
+@media screen and (max-width:600px) {
+  .container {
+      width: 90%;
+  }
+}
+
+@media screen and (max-width:350px) {
+  .container {
+      width: 320px;
+  }
+}

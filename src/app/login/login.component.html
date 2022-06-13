@@ -10,12 +10,14 @@
     </div>
   </div> -->
 
-<div class="hostclass" >
+<!-- <div class="hostclass">
 
   <mat-card class="mat-card-style">
-    <mat-card-title class="mat-card-title-style">Login</mat-card-title>
+    <mat-card-title *ngIf="loginpage=='login'" class="mat-card-title-style">Login</mat-card-title>
+    <mat-card-title *ngIf="loginpage=='singup'" class="mat-card-title-style">SingUp</mat-card-title>
+
     <mat-card-content class="mat-card-content-style">
-      <form [formGroup]="loginform">
+      <form [formGroup]="loginform" *ngIf="loginpage == 'login'">
         <p>
           <mat-form-field>
             <input type="text" matInput placeholder="Username" formControlName="username">
@@ -33,8 +35,209 @@
         <div class="button">
           <button class="buttonlogin" type="submit" (click)="login()" mat-raised-button>Login</button>
         </div>
+      </form>
+
+      <form [formGroup]="singupform" *ngIf="loginpage == 'singup'">
+
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Name" formControlName="username">
+          </mat-form-field>
+        </p>
+
+
+        <div [formGroup]="singupform.controls.employee">
+          <tr>
+            <td>
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="First Name" formControlName="first_name">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding" >
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+              </p>
+            </td>
+          <tr>
+            <td>
+
+
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Employee Type" formControlName="employee_type">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding" >
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Grade" formControlName="grade">
+                </mat-form-field>
+              </p>
+            </td>
+          <tr>
+            <td>
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Department" formControlName="department">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding" >
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Designation" formControlName="designation">
+                </mat-form-field>
+              </p>
+            </td>
+          </tr>
+        </div>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Password" formControlName="password">
+          </mat-form-field>
+        </p>
+
+        <div class="button">
+          <button class="buttonlogin" type="submit" (click)="singup()" mat-raised-button>SingUp</button>
+        </div>
+
 
       </form>
+
+
+
+      <br>
+
+
+
     </mat-card-content>
+
+    <mat-card-footer>
+      <div class="centerdiv linkclass">
+        <a *ngIf="loginpage=='login'" (click)="loginpage='singup'">Singup</a>
+        <a *ngIf="loginpage=='singup'" (click)="loginpage='login'">Login</a>
+      </div>
+
+    </mat-card-footer>
   </mat-card>
+</div> -->
+
+
+<div class="divall">
+
+  <div [ngClass]="(loginpage == 'login')? 'cont':'cont1' ">
+    <!-- <i id="account" class="fas fa-users"></i> -->
+    <!-- <mat-icon >account_circle</mat-icon> -->
+    <div class="centerdiv">
+      <img id="account" src=".\assets\images\user.png">
+    </div>
+    <div class="tabs">
+      <h2 class="reg-tab" [ngClass]="(loginpage == 'login')? '':'active'" (click)="loginpage='singup'">Register</h2>
+      <h2 class="login-tab" [ngClass]="(loginpage == 'login')? 'active':''" (click)="loginpage='login'">Login</h2>
+    </div>
+    <!-- login part -->
+    <div id="login-form" *ngIf="loginpage=='login'">
+      <form [formGroup]="loginform" *ngIf="loginpage == 'login'">
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Username" formControlName="username">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+          </mat-form-field>
+        </p>
+
+
+
+        <div class="button">
+          <button class="buttonlogin" type="submit" (click)="login()" mat-raised-button>Login</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- Lets add registration form -->
+    <div id="registration-form" *ngIf="loginpage=='singup'">
+      <form [formGroup]="singupform" *ngIf="loginpage == 'singup'">
+
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Name" formControlName="username">
+          </mat-form-field>
+        </p>
+
+
+        <div [formGroup]="singupform.controls.employee">
+          <tr>
+            <td>
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="First Name" formControlName="first_name">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding">
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+              </p>
+            </td>
+          <tr>
+            <td>
+
+
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Employee Type" formControlName="employee_type">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding">
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Grade" formControlName="grade">
+                </mat-form-field>
+              </p>
+            </td>
+          <tr>
+            <td>
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Department" formControlName="department">
+                </mat-form-field>
+              </p>
+            </td>
+            <td class="tdpadding">
+              <p>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Designation" formControlName="designation">
+                </mat-form-field>
+              </p>
+            </td>
+          </tr>
+        </div>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Password" formControlName="password">
+          </mat-form-field>
+        </p>
+
+        <div class="button">
+          <button class="buttonlogin" type="submit" (click)="singup()" mat-raised-button>SingUp</button>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
 </div>

@@ -79,4 +79,16 @@ export class AppserviceService {
   }
 
 
+  public singup(CreateList): Observable<any> {
+    
+    const getToken = localStorage.getItem("sessionData")
+
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const body = JSON.stringify(CreateList)
+    // const headers = { 'Authorization': 'Token ' + token }
+      
+    return this.http.post<any>(url + "empserv/signup", CreateList)
+  }
+
 }

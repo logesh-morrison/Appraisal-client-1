@@ -109,7 +109,7 @@ export class GoalSummaryComponent implements OnInit {
   }
 
   routing(id){
-    this.router.navigateByUrl('appraisal_module/goal_summary/goal_form',{ state: id })
+    this.router.navigate(['appraisal_module/goal_summary/goal_form'], { queryParams: { goalid: id}})
 
   }
 

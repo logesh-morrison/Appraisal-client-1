@@ -238,7 +238,7 @@ export class AppraisalSummaryComponent implements OnInit {
   }
 
   routing(id){
-    this.rout.navigateByUrl('appraisal_module/appraisal_summary/employee_form',{ state: id })
+    this.rout.navigate(['appraisal_module/appraisal_summary/employee_form'],{ queryParams: { employeeid: id}})
   }
 
 

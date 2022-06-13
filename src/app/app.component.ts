@@ -9,6 +9,7 @@ import { Idle } from '@ng-idle/core';
 import { MatDialog } from '@angular/material/dialog';
 // import { CookieService } from 'ngx-cookie-service';
 import { LogoutpopupComponent } from './logoutpopup/logoutpopup.component';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 
 export let browserRefresh = false;
@@ -34,6 +35,7 @@ export class AppComponent {
 
   username: any;
   modules: any[];
+
   masters: any[];
   transactionlistshow = true;
   mastershow = false;
@@ -82,6 +84,8 @@ export class AppComponent {
       // alert(message)
 
       localStorage.removeItem("sessionData");
+      Cookie.delete('my-key', '/');
+
       // this.cookieService.delete('my-key', '/');
       // this.isLogged = false;
       // this.Loginname = undefined;
@@ -115,7 +119,7 @@ export class AppComponent {
       if (countdown === 30) {
         // this.showModal = true;
         if(this.appservice.loginstatus){
-        this.openDialog()
+        this.openDialog() 
         }
       }
 
@@ -129,6 +133,9 @@ export class AppComponent {
     this.reset();
 
     
+
+    const data = Cookie.get("my-key")
+    const item = localStorage.setItem('sessionData', data);
 
     // router.events
     //   .subscribe((event: NavigationStart) => {
@@ -158,43 +165,50 @@ export class AppComponent {
 
   ngOnInit(): void {
 
+    const item = localStorage.getItem('sessionData');
+    console.log("LOCAL STORAGE APP.COMPONENT.TS",item)
+    if (item !== null) {
+      this.appservice.loginstatus = true;
 
-    this.router.events.pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-      .subscribe(event => {
-        // console.log("event", event)
-        // console.log("event id", event.id)
-        // console.log("event url", event.url)
-
-        // console.log("event urlAfterRedirects", event.urlAfterRedirects)
+    }
 
 
-        // console.log("this.router", this.router)
-        if (event.id === 2 && event.url === event.urlAfterRedirects) {
-          // console.log("hhh1111111iiiiiii")
+    // this.router.events.pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+    //   .subscribe(event => {
+    //     // console.log("event", event)
+    //     // console.log("event id", event.id)
+    //     // console.log("event url", event.url)
 
-          const localdata: any = localStorage.getItem('sessionData')
-
-          // console.log("localdata sessiondata", localdata)
-
-          let authdata = JSON.parse(localdata);
-          let loginSelectedTab = authdata.name
-          // console.log("loginSelectedTab", loginSelectedTab)
+    //     // console.log("event urlAfterRedirects", event.urlAfterRedirects)
 
 
-          if (loginSelectedTab) {
+    //     // console.log("this.router", this.router)
+    //     if (event.id === 2 && event.url === event.urlAfterRedirects) {
+    //       // console.log("hhh1111111iiiiiii")
 
-            this.appservice.loginstatus = true
-            this.router.navigateByUrl('/about');
+    //       const localdata: any = localStorage.getItem('sessionData')
 
-            // console.log("appservice auth", this.appservice.loginstatus)
-            return true
-          } else {
-            this.appservice.loginstatus = false
-            this.router.navigateByUrl('/login');
-          }
+    //       // console.log("localdata sessiondata", localdata)
 
-        }
-      })
+    //       let authdata = JSON.parse(localdata);
+    //       let loginSelectedTab = authdata.name
+    //       // console.log("loginSelectedTab", loginSelectedTab)
+
+
+    //       if (loginSelectedTab) {
+
+    //         this.appservice.loginstatus = true
+    //         this.router.navigateByUrl('/about');
+
+    //         // console.log("appservice auth", this.appservice.loginstatus)
+    //         return true
+    //       } else {
+    //         this.appservice.loginstatus = false
+    //         this.router.navigateByUrl('/login');
+    //       }
+
+    //     }
+    //   })
 
 
   }
@@ -215,6 +229,8 @@ export class AppComponent {
   
 
     localStorage.removeItem("sessionData");
+    Cookie.delete('my-key', '/');
+
     this.aboutpage = false
     this.appservice.loginstatus = false
     this.router.navigateByUrl('/login')
@@ -345,11 +361,13 @@ export class AppComponent {
       for (let i = 0; i < urlarray.length; i++) {
         if(i != 0 && i !=1 ){
           let pathname;
+         
+          
           if(urlarray[i].includes('_')){
-            pathname= (urlarray[i].replace(/_/g, " ")).toUpperCase() ;
+            pathname= (urlarray[i].split('?')[0].replace(/_/g, " ")).toUpperCase() ;
            }
            else{
-            pathname= urlarray[i].toUpperCase()
+            pathname= urlarray[i].split('?')[0].toUpperCase()
            }
 
            if(i == 2){

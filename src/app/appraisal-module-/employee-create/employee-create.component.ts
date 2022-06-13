@@ -3,7 +3,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { NotificationServiceService } from 'src/app/notification-service.service';
@@ -148,13 +148,20 @@ export class EmployeeCreateComponent implements OnInit {
   gradedropdowndata: any;
   profilepicturefiledetails: any;
 
-  constructor(private notification: NotificationServiceService, private datePipe: DatePipe, private formbuilder: FormBuilder,
+  constructor(private notification: NotificationServiceService, private activateroute:ActivatedRoute,private datePipe: DatePipe, private formbuilder: FormBuilder,
     private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) {
     this.employeeidget = this.router.getCurrentNavigation().extras.state;
   }
 
   ngOnInit(): void {
 
+    this.activateroute.queryParams.subscribe(
+      params => {
+        console.log('logs',params)
+        console.log('Got the JWT as: ', params['employeeid']);
+        this.employeeidget =  params['employeeid'];
+      }
+    )
 
     console.log('employee id', this.employeeidget)
 

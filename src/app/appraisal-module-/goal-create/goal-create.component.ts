@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationServiceService } from 'src/app/notification-service.service';
 import { AppraisalServiceService } from '../appraisal-service.service';
 
@@ -34,11 +34,21 @@ export class GoalCreateComponent implements OnInit {
   gradedropdowndata: any;
   goalid:any
 
-  constructor(private notification:NotificationServiceService, private router:Router,private dialog: MatDialog, private formbuilder: FormBuilder, private appraisalservice: AppraisalServiceService) {
-    this.goalid = this.router.getCurrentNavigation().extras.state;
+  constructor(private notification:NotificationServiceService, private router:Router,private dialog: MatDialog, private formbuilder: FormBuilder, 
+    private appraisalservice: AppraisalServiceService, private activateroute:ActivatedRoute) {
+    // this.goalid = this.router.getCurrentNavigation().extras.state;
    }
 
   ngOnInit(): void {
+
+    this.activateroute.queryParams.subscribe(
+      params => {
+        console.log('logs',params)
+        console.log('Got the JWT as: ', params['goalid']);
+        
+        this.goalid =  params['goalid'];
+      }
+    )
 
     this.goalform = this.formbuilder.group({
       goal: ['', Validators.required],

@@ -286,10 +286,7 @@ public getcountrydropdown(value,page): Observable<any> {
     // let token = tokenValue.token
     // const body = JSON.stringify(CreateList)
     // const headers = { 'Authorization': 'Token ' + token }
-    
-
-
-    
+      
     return this.http.post<any>(url + "mstserv/goal", CreateList)
   }
 
@@ -320,4 +317,7 @@ public getcountrydropdown(value,page): Observable<any> {
     return this.http.get<any>(url + "mstserv/get_goal/"+id,value)
   }
 
+  
+
+  
 }
