@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationServiceService } from 'src/app/notification-service.service';
 import { AppraisalServiceService } from '../appraisal-service.service';
+import { AppraisalSummaryComponent } from '../appraisal-summary/appraisal-summary.component';
 
 export interface designation {
   name: string;
@@ -37,7 +38,7 @@ export class AppraisalviewComponent implements OnInit {
   employee_has_previous=true;
   employeecurrentpage=1;
 
-  constructor(private formbuilder: FormBuilder,private activateroute:ActivatedRoute ,private appraisalservice: AppraisalServiceService, private notification: NotificationServiceService,
+  constructor(private appsummaray:AppraisalSummaryComponent,private formbuilder: FormBuilder,private activateroute:ActivatedRoute ,private appraisalservice: AppraisalServiceService, private notification: NotificationServiceService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -190,10 +191,13 @@ export class AppraisalviewComponent implements OnInit {
   
         if (result.message == "Successfully Created") {
           this.notification.showSuccess("Appraisal created Successfully ")
+          this.appsummaray.ngOnInit()
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
   
         }
         else if (result.message == "Successfully Updated") {
+          this.appsummaray.ngOnInit()
+
           this.notification.showSuccess("Appraisal Successfully Updated")
           this.router.navigateByUrl('appraisal_module/appraisal_summary')
         }

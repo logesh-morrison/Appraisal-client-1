@@ -71,7 +71,7 @@
                         <!-- <div class="submenu" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab">
                             <a class="submoduletag" mat-list-item routerLink="{{tag.route}}">{{tag.name}}</a>
                         </div> -->
-                        <mat-list-item class="submenu" (click)="routingsubmodules(tag.route)" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab" >
+                        <mat-list-item [@displayState]="tab.selectedtab" class="submenu" (click)="routingsubmodules(tag.route)" [ngClass]="{'expanded' : tab.selectedtab}"  >
                             <mat-icon matListIcon>chevron_right</mat-icon>
                             <span matLine>{{tag.name}}</span>
                         </mat-list-item>

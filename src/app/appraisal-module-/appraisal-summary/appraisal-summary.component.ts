@@ -58,7 +58,7 @@ export class AppraisalSummaryComponent implements OnInit {
   has_next = true;
   has_previous = true;
   currentpage = 1;
-  searchedemployeename: any;
+  searchedemployeename='';
   searchedemployeecode: any;
 
   showhtmlcontent=false;
@@ -123,7 +123,9 @@ export class AppraisalSummaryComponent implements OnInit {
     });
 
 
-    this.searchsummary()
+    // this.searchsummary()
+
+    this.employeesummary(this.searchedemployeename,this.currentpage)
 
   }
 
@@ -215,10 +217,11 @@ export class AppraisalSummaryComponent implements OnInit {
   }
 
   searchsummary() {
-    this.employeesummary(this.summaryform.value.empname?.id, 1)
     this.currentpage=1
 
-    this.searchedemployeename=this.summaryform.value.empname?.id
+    this.searchedemployeename=(this.summaryform.value.empname?.id)? this.summaryform.value.empname?.id:''
+    this.employeesummary(this.searchedemployeename, 1)
+
     this.searchedemployeecode=this.summaryform.value.code
 
   }

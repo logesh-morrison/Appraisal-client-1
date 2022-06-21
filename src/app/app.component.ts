@@ -11,6 +11,7 @@ import { LogoutpopupComponent } from './logoutpopup/logoutpopup.component';
 
 import { CookieService } from 'ngx-cookie-service';
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 export let browserRefresh = false;
 
@@ -19,7 +20,15 @@ export let browserRefresh = false;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('displayState', [
+      state('false', style({ overflow: 'hidden', height: '0px',opacity: '0',})),
+      state('true',  style({ overflow: 'hidden', height:  '*' ,opacity: '*'})),
+      transition('false => true', animate('200ms ease-in')),
+      transition('true => false', animate('200ms ease-out'))
+    ]),
+  ]
 })
 export class AppComponent {
 
@@ -75,7 +84,8 @@ export class AppComponent {
       route:'/appraisal_module/appraisal_summary',
     }
   ]
-  },
+  }
+  
   ]
 
 
