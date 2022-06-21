@@ -9,6 +9,11 @@ export interface designation {
   id: number;
 }
 
+export interface employee {
+  first_name: string;
+  id: number;
+}
+
 @Component({
   selector: 'app-appraisalview',
   templateUrl: './appraisalview.component.html',
@@ -27,6 +32,10 @@ export class AppraisalviewComponent implements OnInit {
 
   appraisalid:any
   appraisalstatusdropdown: any;
+  employeedropdown: any;
+  employee_has_next=true;
+  employee_has_previous=true;
+  employeecurrentpage=1;
 
   constructor(private formbuilder: FormBuilder,private activateroute:ActivatedRoute ,private appraisalservice: AppraisalServiceService, private notification: NotificationServiceService,
     private router: Router) { }
@@ -270,6 +279,26 @@ export class AppraisalviewComponent implements OnInit {
       this.isLoading = true
 
     })
+  }
+
+  getemployeedropdown(value, page) {
+    this.isLoading = false
+    this.appraisalservice.getemployeedropdown(value, page).subscribe(results => {
+      this.employeedropdown = results['data']
+      let datapagination = results["pagination"];
+      this.isLoading = true
+
+      if (this.employeedropdown.length >= 0) {
+        this.employee_has_next = datapagination.has_next;
+        this.employee_has_previous = datapagination.has_previous;
+        this.employeecurrentpage = datapagination.index;
+      }
+    })
+
+  }
+
+  displayFnname(employee: employee): string {
+    return employee.first_name
   }
 
 }

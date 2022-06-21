@@ -7,9 +7,9 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Idle } from '@ng-idle/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { CookieService } from 'ngx-cookie-service';
 import { LogoutpopupComponent } from './logoutpopup/logoutpopup.component';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+
+import { CookieService } from 'ngx-cookie-service';
 
 
 export let browserRefresh = false;
@@ -80,6 +80,7 @@ export class AppComponent {
 
 
   constructor(private router: Router, public appservice: AppserviceService,public dialog: MatDialog,
+    public cookieservice:CookieService,
      public sharedservice: SharedserviceService,private location:Location,private idle:Idle ) {
     
       
@@ -102,7 +103,7 @@ export class AppComponent {
       // alert(message)
 
       localStorage.removeItem("sessionData");
-      Cookie.delete('my-key', '/');
+      this.cookieservice.delete('my-key', '/');
 
       // this.cookieService.delete('my-key', '/');
       // this.isLogged = false;
@@ -152,7 +153,7 @@ export class AppComponent {
 
     
 
-    const data = Cookie.get("my-key")
+    const data = this.cookieservice.get("my-key")
     const item = localStorage.setItem('sessionData', data);
 
     // router.events
@@ -247,7 +248,7 @@ export class AppComponent {
   
 
     localStorage.removeItem("sessionData");
-    Cookie.delete('my-key', '/');
+    this.cookieservice.delete('my-key', '/');
 
     this.aboutpage = false
     this.appservice.loginstatus = false

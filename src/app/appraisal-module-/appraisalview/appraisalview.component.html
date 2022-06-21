@@ -10,8 +10,22 @@
                         <label>Employee</label>
                     </td>
                     <td class="paddingtd">
-                        <mat-form-field class="employeewidth">
-                            <input matInput formControlName="employee">
+                        <mat-form-field class="employeewidth" (click)="getemployeedropdown('',employeecurrentpage=1)">
+                         
+
+                            <input formControlName="employee" #employeeinput
+                                (keyup)="getemployeedropdown($event.target.value,employeecurrentpage=1)" matInput
+                                [matAutocomplete]="employeeautocomplete">
+                            <mat-autocomplete #employeeautocomplete="matAutocomplete" [displayWith]="displayFnname">
+                                <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                </mat-option>
+                                <ng-container *ngIf="isLoading">
+                                    <mat-option *ngFor="let name of employeedropdown" [value]="name">
+                                        {{name.first_name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-autocomplete>
+
                         </mat-form-field>
                     </td>
                 </tr>
@@ -24,7 +38,8 @@
                             <input matInput formControlName="designation">
                         </mat-form-field> -->
 
-                        <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)">
+                        <mat-form-field class="employeewidth"
+                            (click)="designationdropdown('',designationcurrentpage=1)">
 
 
                             <input formControlName="designation" #designationinput
@@ -32,14 +47,14 @@
                                 [matAutocomplete]="designationautocomplete">
                             <mat-autocomplete #designationautocomplete="matAutocomplete"
                                 [displayWith]="displayFndesignation">
-    
+
                                 <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
                                 <ng-container *ngIf="isLoading">
                                     <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
                                         {{design.name}}
                                     </mat-option>
                                 </ng-container>
-    
+
                             </mat-autocomplete>
                         </mat-form-field>
 
@@ -53,8 +68,8 @@
                         <mat-form-field class="employeewidth">
                             <!-- <input matInput formControlName="appraisal_status"> -->
 
-                            <mat-select formControlName="appraisal_status" >
-                                <mat-option *ngFor="let status of appraisalstatusdropdown" [value]="status.id"  >
+                            <mat-select formControlName="appraisal_status">
+                                <mat-option *ngFor="let status of appraisalstatusdropdown" [value]="status.id">
                                     {{status.name}}
                                 </mat-option>
                             </mat-select>
@@ -83,61 +98,65 @@
                             </mat-select>
                         </mat-form-field>
 
-                    </td> 
+                    </td>
                 </tr>
                 <tr>
-                    <td class="descriptiontd" >
+                    <td class="descriptiontd">
                         <label>Details</label>
                     </td>
-                    <td class="paddingtd" >
+                    <td class="paddingtd">
                         <div formArrayName="details">
                             <div *ngFor="let item of appraisalform.get('details')['controls'];let i = index"
                                 [formGroupName]="i">
                                 <div>
-                                    <tr>
-                                        <td>
-                                    <mat-form-field class="employeeformarraywidth">
-                                        <mat-label>Remarks</mat-label>
-                                        <input formControlName="remarks" matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td class="paddingtd" >
-                                    <mat-form-field class="employeeformarraywidth">
-                                        <mat-label>Rating</mat-label>
-
-                                        <input formControlName="rating" matInput>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <button [disabled]="appraisalform.value.details.length == 1" mat-icon-button (click)="cleararray(i)" ><mat-icon>clear</mat-icon></button>
-                                    <button  *ngIf="i == appraisalform.value.details.length-1" mat-icon-button (click)="adddetailsarraytoform()">
-                                        <mat-icon>add</mat-icon>
-                                    </button>
-                                </td>
-                                </tr>
-                                </div>
-                              
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <br>
-                <br>
-                <br>
-                <br>
                 <tr>
-                    <td colspan="2">
-                        <div class="centerdiv">
-                            <button mat-raised-button (click)="appraisalsubmit()">
-                                Submit
-                            </button>
-                        </div>
+                    <td>
+                        <mat-form-field class="employeeformarraywidth">
+                            <mat-label>Remarks</mat-label>
+                            <input formControlName="remarks" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td class="paddingtd">
+                        <mat-form-field class="employeeformarraywidth">
+                            <mat-label>Rating</mat-label>
+
+                            <input formControlName="rating" matInput>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <button [disabled]="appraisalform.value.details.length == 1" mat-icon-button
+                            (click)="cleararray(i)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <button *ngIf="i == appraisalform.value.details.length-1" mat-icon-button
+                            (click)="adddetailsarraytoform()">
+                            <mat-icon>add</mat-icon>
+                        </button>
                     </td>
                 </tr>
-            </table>
-        </form>
     </div>
-    <pre>
+
+</div>
+</div>
+</td>
+</tr>
+<br>
+<br>
+<br>
+<br>
+<tr>
+    <td colspan="2">
+        <div class="centerdiv">
+            <button mat-raised-button (click)="appraisalsubmit()">
+                Submit
+            </button>
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+</div>
+<!-- <pre>
         {{ appraisalform.value |json}}
     </pre>
-</div>
+</div> -->

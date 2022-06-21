@@ -393,3 +393,7 @@ footer {
   .submoduletag{
     height: 50px;
   }
+
+  .scroll{
+    overflow-y: scroll;
+  }
