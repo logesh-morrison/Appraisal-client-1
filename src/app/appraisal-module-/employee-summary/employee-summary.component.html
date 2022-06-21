@@ -1,4 +1,4 @@
-<div *ngIf="shareservice.currenturl == '/appraisal_module/appraisal_summary'">
+<div *ngIf="shareservice.currenturl == '/appraisal_module/Employee_summary'">
     <br>
     <!-- <mat-card class="matcard" > -->
 
@@ -12,12 +12,12 @@
                             <input matInput formControlName="empname">
                         </mat-form-field>
                     </td>
-                    <!-- <td class="tdpadding">
+                    <td class="tdpadding">
                         <mat-form-field>
                             <mat-label>Employee Code</mat-label>
                             <input matInput formControlName="code">
                         </mat-form-field>
-                    </td> -->
+                    </td>
                     <td class="tdpadding">
                         <button (click)="searchsummary()" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>search</mat-icon>
@@ -29,7 +29,7 @@
                         </button>
                     </td>
                     <td class="tdpadding">
-                        <button routerLink="appraisal_view" class="mat-fab-color" mat-mini-fab>
+                        <button routerLink="employee_form" class="mat-fab-color" mat-mini-fab>
                             <mat-icon>add</mat-icon>
                         </button>
                     </td>
@@ -42,10 +42,14 @@
                 <tr>
                     <th>S.No</th>
                     <th>Employee Name</th>
+                    <th>Employee Code</th>
+                    <th>Gender</th>
+                    <th>Date Of Birth</th>
+                    <th>Date Of Joining</th>
+                    <th>Email Id</th>
+                    <th>Department</th>
+                    <th>Manager</th>
                     <th>Designation</th>
-                    <th>Grade</th>
-                    <th>Status</th>
-                    
                     <th>Edit</th>
 
 
@@ -53,11 +57,16 @@
                 </tr>
                 <tr *ngFor="let data of appraisalsummarydata;let i= index">
                     <td>{{((currentpage-1)*10)+i+1}}</td>
-                    <td>{{data.employee.first_name}}</td>
-                    <td>{{data.designation.name}}</td>
-                    <td>{{data?.grade?.name}}</td>
-                    <td>{{data.appraisal_status.name}}</td>
+                    <td>{{data.first_name}}</td>
+                    <td>{{data.code}}</td>
+                    <td>{{data?.gender?.text}}</td>
+                    <td>{{data.dob}}</td>
 
+                    <td>{{data.doj}}</td>
+                    <td>{{data.email_id}}</td>
+                    <td>{{data.department.name}}</td>
+                    <td>{{data.manager}}</td>
+                    <td>{{data.designation.name}}</td>
                     <td (click)="routing(data.id)" class="linkclass" >
                         <!-- <button  (click)="routing(data.id)" class="viewcls" mat-raised-button > -->
                             <!-- <mat-icon>visibility</mat-icon>  --> Edit

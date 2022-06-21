@@ -35,7 +35,7 @@
 
 
 
-    <mat-drawer-container class="drawer-container"  >
+    <mat-drawer-container class="drawer-container">
 
 
 
@@ -49,17 +49,36 @@
                 <!-- <a  [ngClass]="(currentselectedmodule == i )? 'activemodule':''" class="navlist"
                     *ngFor="let modrow of sharedservice.transactionList;let i = index "
                     (click)="transactionlist(modrow,i)" mat-list-item>{{modrow.name}}</a> -->
-                    <!-- <mat-icon matListIcon >receipt_long</mat-icon>
+                <!-- <mat-icon matListIcon >receipt_long</mat-icon>
 
                 <a mat-list-item matLine [ngClass]="(currentselectedmodule == 0 )? 'activemodule':''" class="navlist"
                    >
                     Appraisal
                 </a> -->
 
-                <mat-list-item [ngClass]="(currentselectedmodule == 0 )? 'activemodule':''" class="navlist"  (click)="transactionlist('modrow',0)" >
+                <!-- <mat-list-item [ngClass]="(currentselectedmodule == 0 )? 'activemodule':''" class="navlist"  (click)="transactionlist('modrow',0)" >
                     <mat-icon matListIcon>receipt_long</mat-icon>
                     <span matLine>Appraisal</span>
-                  </mat-list-item>
+                </mat-list-item> -->
+
+                <div *ngFor="let tab of moduleslist;let i=index">
+                    <mat-list-item  routerLink="{{tab.route}}"  (click)="tab.selectedtab = !tab.selectedtab">
+                        <mat-icon matListIcon>equalizer</mat-icon>
+                        <span matLine>{{tab.name}}</span>
+                        <mat-icon class="menubutton" [ngClass]="(tab.selectedtab)? 'rotated':''" >expand_more</mat-icon>
+                    </mat-list-item>
+                    <div *ngFor="let tag of tab.submodules">
+                        <!-- <div class="submenu" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab">
+                            <a class="submoduletag" mat-list-item routerLink="{{tag.route}}">{{tag.name}}</a>
+                        </div> -->
+                        <mat-list-item class="submenu" routerLink="{{tag.route}}" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab" >
+                            <mat-icon matListIcon>chevron_right</mat-icon>
+                            <span matLine>{{tag.name}}</span>
+                        </mat-list-item>
+
+                    </div>
+                </div>
+
 
             </mat-nav-list>
 
@@ -77,22 +96,22 @@
                 <!-- <a class="navlist" mat-list-item (click)="changetransaction()"
                     (click)="transactionlist('modrow','2')">Home</a> -->
 
-                    <mat-list-item class="navlist" (click)="changetransaction()" >
-                        <mat-icon matListIcon>home</mat-icon>
-                        <span matLine>Home</span>
-                      </mat-list-item>
-    
+                <mat-list-item class="navlist" (click)="changetransaction()">
+                    <mat-icon matListIcon>home</mat-icon>
+                    <span matLine>Home</span>
+                </mat-list-item>
 
-                      <mat-list-item class="navlist" (click)="changemaster()" >
-                        <mat-icon matListIcon>monitoring</mat-icon>
-                        <span matLine>Master</span>
-                      </mat-list-item>
-                    
+
+                <mat-list-item class="navlist" (click)="changemaster()">
+                    <mat-icon matListIcon>monitoring</mat-icon>
+                    <span matLine>Master</span>
+                </mat-list-item>
+
                 <!-- <a class="navlist" mat-list-item (click)="changemaster()">Master</a> -->
 
             </mat-nav-list>
 
-            
+
 
 
         </mat-drawer>
@@ -102,15 +121,15 @@
         <div>
             <!-- <app-header></app-header> -->
 
-            <mat-card  class="main" >
-            <router-outlet *ngIf="appservice.loginstatus"></router-outlet>
+            <mat-card class="main">
+                <router-outlet *ngIf="appservice.loginstatus"></router-outlet>
 
             </mat-card>
 
-            
+
 
         </div>
-<!-- 
+        <!-- 
         <div class="footer" >
             <p>Hello</p>
         </div> -->

@@ -9,35 +9,15 @@ import { MatTabGroup } from '@angular/material/tabs';
 
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
-
-export const PICK_FORMATS = {
-  parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
-  display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'short' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' }
-  }
-};
-class PickDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    if (displayFormat === 'input') {
-      return formatDate(date, 'dd-MMM-yyyy, EEE', this.locale);
-    } else {
-      return date.toDateString();
-    }
-  }
-}
-
 @Component({
-  selector: 'app-appraisal-summary',
-  templateUrl: './appraisal-summary.component.html',
-  styleUrls: ['./appraisal-summary.component.css']
+  selector: 'app-employee-summary',
+  templateUrl: './employee-summary.component.html',
+  styleUrls: ['./employee-summary.component.css']
 })
-export class AppraisalSummaryComponent implements OnInit {
+export class EmployeeSummaryComponent implements OnInit {
 
   @ViewChild('matTabGroup', { static: true }) matTabGroup: MatTabGroup;
-
+  
   registrationform: FormGroup;
 
   summaryform: FormGroup;
@@ -63,9 +43,8 @@ export class AppraisalSummaryComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
-
-
     this.summaryform = this.formbuilder.group({
       empname: [''],
       code: ['']
@@ -186,8 +165,8 @@ export class AppraisalSummaryComponent implements OnInit {
 
 
 
-  employeesummary(value, page) {
-    this.appraisalservice.getappraisalsummary(value, page).subscribe(results => {
+  employeesummary(value, code, page) {
+    this.appraisalservice.appraisalsummary(value, code, page).subscribe(results => {
       console.log('res')
       let datas = results["data"];
       this.appraisalsummarydata = datas;
@@ -204,7 +183,7 @@ export class AppraisalSummaryComponent implements OnInit {
   }
 
   searchsummary() {
-    this.employeesummary(this.summaryform.value.empname, 1)
+    this.employeesummary(this.summaryform.value.empname, this.summaryform.value.code, 1)
     this.currentpage=1
 
     this.searchedemployeename=this.summaryform.value.empname
@@ -214,18 +193,18 @@ export class AppraisalSummaryComponent implements OnInit {
 
   previousappraisalsummary(){
     if(this.has_previous){
-      this.employeesummary(this.searchedemployeename,this.currentpage - 1)
+      this.employeesummary(this.searchedemployeename, this.searchedemployeecode,this.currentpage - 1)
     }
   }
 
   nextappraisalsummary(){
     if(this.has_next){
-      this.employeesummary(this.searchedemployeename,this.currentpage + 1)
+      this.employeesummary(this.searchedemployeename, this.searchedemployeecode,this.currentpage + 1)
     }
   }
 
   clear(){
-    this.employeesummary('',1)
+    this.employeesummary('','',1)
     this.currentpage=1;
     this.summaryform.reset({
       empname:'',
@@ -237,7 +216,7 @@ export class AppraisalSummaryComponent implements OnInit {
   }
 
   routing(id){
-    this.rout.navigate(['appraisal_module/appraisal_summary/appraisal_view'],{ queryParams: { employeeid: btoa(id)}})
+    this.rout.navigate(['appraisal_module/Employee_summary/employee_form'],{ queryParams: { employeeid: btoa(id)}})
   }
 
 

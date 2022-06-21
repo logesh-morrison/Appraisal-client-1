@@ -106,7 +106,7 @@ noimagesrc:any;
   }
 
   routeto() {
-    this.router.navigate(['appraisal_summary'], { relativeTo: this.route })
+    this.router.navigate(['Employee_summary'], { relativeTo: this.route })
 
   }
 

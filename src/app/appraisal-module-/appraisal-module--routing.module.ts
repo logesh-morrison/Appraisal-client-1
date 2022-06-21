@@ -7,6 +7,7 @@ import { AppraisalSummaryComponent } from './appraisal-summary/appraisal-summary
 import { AppraisalComponent } from './appraisal/appraisal.component';
 import { AppraisalviewComponent } from './appraisalview/appraisalview.component';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
+import { EmployeeSummaryComponent } from './employee-summary/employee-summary.component';
 import { GoalCreateComponent } from './goal-create/goal-create.component';
 import { GoalSummaryComponent } from './goal-summary/goal-summary.component';
 
@@ -18,22 +19,26 @@ const routes: Routes = [
     children: [
 
       {
-      
 
-        path: 'appraisal_summary', component: AppraisalSummaryComponent,
+
+        path: 'Employee_summary', component: EmployeeSummaryComponent,
         children: [{
           path: 'employee_form', component: EmployeeCreateComponent,
           children: [{
             path: 'appraisal_create', component: AppraisalCreateComponent,
-            
+
           }],
-          
+
         }],
-        
+
 
       },
       {
-        path: 'appraisalview', component: AppraisalviewComponent
+        path: 'appraisal_summary', component: AppraisalSummaryComponent,
+        children: [{
+
+          path: 'appraisal_view', component: AppraisalviewComponent
+        }]
       },
       {
         path: 'employee_form', component: EmployeeCreateComponent,
@@ -45,7 +50,7 @@ const routes: Routes = [
         path: 'goal_summary', component: GoalSummaryComponent,
         children: [{
           path: 'goal_form', component: GoalCreateComponent,
-          
+
         }],
       },
       // {

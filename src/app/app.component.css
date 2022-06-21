@@ -366,3 +366,30 @@ footer {
   width: 100%;
   
   }
+
+  .submenu {
+    overflow-y: hidden ;
+    transition: 300ms ease-in-out;
+    
+    transform: scaleY(0) ;
+    transform-origin: top !important ;
+    padding-left: 15px !important;
+
+  }
+  .submenu.expanded {
+    transform: scaleY(1);
+  }
+
+  .menubutton{
+    transition: 300ms ease-in-out;
+
+  }
+
+  .menubutton.rotated{
+  transform: rotate(0deg);
+    transform: rotate(180deg);
+  }
+
+  .submoduletag{
+    height: 50px;
+  }

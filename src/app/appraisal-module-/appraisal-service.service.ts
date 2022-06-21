@@ -317,7 +317,89 @@ public getcountrydropdown(value,page): Observable<any> {
     return this.http.get<any>(url + "mstserv/get_goal/"+id,value)
   }
 
-  
 
   
+  
+  public goalmapping(CreateList): Observable<any> {
+    this.reset();
+    const getToken = localStorage.getItem("sessionData")
+
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const body = JSON.stringify(CreateList)
+    // const headers = { 'Authorization': 'Token ' + token }
+      
+    return this.http.post<any>(url + "mstserv/goal_mapping", CreateList)
+  }
+
+
+  public getgoalmappingdatas(value,designation,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/goal_mapping?query="+designation+'&grade='+value+'&page='+page)
+  }
+  
+
+  public getgoalmapptingid(id): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "mstserv/goal_mapping/"+id)
+  }
+
+
+
+  public appraisalcreate(CreateList): Observable<any> {
+    this.reset();
+    const getToken = localStorage.getItem("sessionData")
+
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const body = JSON.stringify(CreateList)
+    // const headers = { 'Authorization': 'Token ' + token }
+      
+    return this.http.post<any>(url + "empserv/appraisal_create", CreateList)
+  }
+
+  public appraisalstatus(): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/appraisal_drop_down")
+  }
+
+  public appraisalget(id): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/appraisal_create/"+id+"/appraisal_get")
+  }
+
+  public getappraisalsummary(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/appraisal_create?query="+value+"&page="+page)
+  }
+
+  public getemployeedropdown(value,page): Observable<any> {
+    this.reset();
+    // const getToken = localStorage.getItem("sessionData")
+    // let tokenValue = JSON.parse(getToken);
+    // let token = tokenValue.token
+    // const headers = { 'Authorization': 'Token ' + token }
+    return this.http.get<any>(url + "empserv/appraisal_create?query="+value+"&page="+page)
+  }
+
 }

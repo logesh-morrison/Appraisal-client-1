@@ -1,1 +1,143 @@
-<p>appraisalview works!</p>
+<br>
+<br>
+
+<div>
+    <div>
+        <form [formGroup]="appraisalform">
+            <table>
+                <tr>
+                    <td>
+                        <label>Employee</label>
+                    </td>
+                    <td class="paddingtd">
+                        <mat-form-field class="employeewidth">
+                            <input matInput formControlName="employee">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Designation</label>
+                    </td>
+                    <td class="paddingtd">
+                        <!-- <mat-form-field class="employeewidth">
+                            <input matInput formControlName="designation">
+                        </mat-form-field> -->
+
+                        <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)">
+
+
+                            <input formControlName="designation" #designationinput
+                                (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                                [matAutocomplete]="designationautocomplete">
+                            <mat-autocomplete #designationautocomplete="matAutocomplete"
+                                [displayWith]="displayFndesignation">
+    
+                                <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                <ng-container *ngIf="isLoading">
+                                    <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                        {{design.name}}
+                                    </mat-option>
+                                </ng-container>
+    
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Appraisal Status</label>
+                    </td>
+                    <td class="paddingtd">
+                        <mat-form-field class="employeewidth">
+                            <!-- <input matInput formControlName="appraisal_status"> -->
+
+                            <mat-select formControlName="appraisal_status" >
+                                <mat-option *ngFor="let status of appraisalstatusdropdown" [value]="status.id"  >
+                                    {{status.name}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Grade</label>
+                    </td>
+                    <td class="paddingtd">
+                        <!-- <mat-form-field class="employeewidth">
+                            <input matInput formControlName="grade">
+
+                            
+
+                        </mat-form-field> -->
+
+                        <mat-form-field (click)="gradedropdown()" class="employeewidth">
+                            <!-- <input formControlName="grade" matInput> -->
+                            <mat-select formControlName="grade" matInput>
+                                <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id">
+                                    {{tab.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="descriptiontd" >
+                        <label>Details</label>
+                    </td>
+                    <td class="paddingtd" >
+                        <div formArrayName="details">
+                            <div *ngFor="let item of appraisalform.get('details')['controls'];let i = index"
+                                [formGroupName]="i">
+                                <div>
+                                    <tr>
+                                        <td>
+                                    <mat-form-field class="employeeformarraywidth">
+                                        <mat-label>Remarks</mat-label>
+                                        <input formControlName="remarks" matInput>
+                                    </mat-form-field>
+                                </td>
+                                <td class="paddingtd" >
+                                    <mat-form-field class="employeeformarraywidth">
+                                        <mat-label>Rating</mat-label>
+
+                                        <input formControlName="rating" matInput>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <button [disabled]="appraisalform.value.details.length == 1" mat-icon-button (click)="cleararray(i)" ><mat-icon>clear</mat-icon></button>
+                                    <button  *ngIf="i == appraisalform.value.details.length-1" mat-icon-button (click)="adddetailsarraytoform()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </td>
+                                </tr>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <br>
+                <br>
+                <br>
+                <br>
+                <tr>
+                    <td colspan="2">
+                        <div class="centerdiv">
+                            <button mat-raised-button (click)="appraisalsubmit()">
+                                Submit
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <pre>
+        {{ appraisalform.value |json}}
+    </pre>
+</div>

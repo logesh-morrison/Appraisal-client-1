@@ -54,3 +54,7 @@ border: 1px solid lightgray;
     cursor: pointer;
   
   }
+  .displayend{
+    display: flex;
+    justify-content:flex-end;
+  }

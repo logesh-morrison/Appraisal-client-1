@@ -1,0 +1,21 @@
+.paddingtd {
+    padding-left: 20px;
+}
+
+.employeewidth {
+    width: 500px;
+}
+
+.centerdiv{
+    display: flex;
+    justify-content: center; 
+  }
+
+  .employeeformarraywidth{
+      width: 240px;
+  }
+
+  .descriptiontd{
+    vertical-align: initial;
+    padding-top: 30px;
+  }

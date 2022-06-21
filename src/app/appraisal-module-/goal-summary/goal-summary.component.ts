@@ -22,8 +22,8 @@ export class GoalSummaryComponent implements OnInit {
   searchgoal: any;
   isLoading: boolean;
   gradedropdowndata: any;
-  searchgrade: any;
-  searchdesignation: any;
+  searchgrade='';
+  searchdesignation='';
 
   constructor(private notification: NotificationServiceService, public shareservice: SharedserviceService, private datePipe: DatePipe, private formbuilder: FormBuilder,
     private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) { }
@@ -43,7 +43,7 @@ export class GoalSummaryComponent implements OnInit {
   getsummarypage(value,designation,page){
 
 
-    this.appraisalservice.goalsummary(value,designation, page).subscribe(results => {
+    this.appraisalservice.getgoalmappingdatas(value,designation, page).subscribe(results => {
       console.log('res')
       let datas = results["data"];
       this.goalsummarydata = datas;
@@ -109,8 +109,10 @@ export class GoalSummaryComponent implements OnInit {
   }
 
   routing(id){
-    this.router.navigate(['appraisal_module/goal_summary/goal_form'], { queryParams: { goalid: id}})
+    this.router.navigate(['appraisal_module/goal_summary/goal_form'], { queryParams: { goalid: btoa(id)}})
 
   }
+
+ 
 
 }

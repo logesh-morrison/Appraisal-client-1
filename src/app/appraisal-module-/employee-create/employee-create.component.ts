@@ -158,8 +158,11 @@ export class EmployeeCreateComponent implements OnInit {
     this.activateroute.queryParams.subscribe(
       params => {
         console.log('logs',params)
-        console.log('Got the JWT as: ', params['employeeid']);
-        this.employeeidget =  params['employeeid'];
+        
+        if(params['employeeid']){
+          this.employeeidget = atob(params['employeeid']);
+
+        }
       }
     )
 
@@ -429,6 +432,7 @@ export class EmployeeCreateComponent implements OnInit {
     return personal
     // }
   }
+  
 
   addeducationformarray() {
     // if(typeof this.employeeidget == "undefined"){
@@ -996,7 +1000,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   routingto() {
     // this.router.navigate(['appraisal_summary'])
-    this.router.navigateByUrl('appraisal_module/appraisal_summary')
+    this.router.navigateByUrl('appraisal_module/Employee_summary')
 
 
   }

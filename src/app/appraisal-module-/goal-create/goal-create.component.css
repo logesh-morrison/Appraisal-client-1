@@ -105,3 +105,27 @@
     display: flex;
     justify-content: center;
   }
+
+  .descriptiontd{
+    vertical-align: initial;
+    padding-top: 30px;
+  }
+
+  .paddingtd{
+    padding-left: 40px;
+  }
+
+  .tdend{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mat-fab-color{
+    background-color:white;
+    color: black;
+  }
+
+  .matdialogheader{
+    display: flex;
+    justify-content: space-between;
+  }

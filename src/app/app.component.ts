@@ -60,6 +60,24 @@ export class AppComponent {
   isExpanded=false;
 
 
+  moduleslist=[{
+    name:'Appraisal',
+    route:'/appraisal_module',
+    selectedtab:false,
+    submodules:[{
+      name:'Employee',
+      route:'/appraisal_module/Employee_summary',
+    },{
+      name:'Goal',
+      route:'/appraisal_module/goal_summary',
+    },{
+      name:'Appraisal',
+      route:'/appraisal_module/appraisal_summary',
+    }
+  ]
+  },
+  ]
+
 
   constructor(private router: Router, public appservice: AppserviceService,public dialog: MatDialog,
      public sharedservice: SharedserviceService,private location:Location,private idle:Idle ) {

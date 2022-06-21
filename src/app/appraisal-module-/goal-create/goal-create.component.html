@@ -1,49 +1,77 @@
+
 <div>
-    <br>
-    <form [formGroup]="goalform">
-        <table id="fullwidth">
+    <form [formGroup]="goalmapform">
+
+        <br>
+        <table>
             <tr>
                 <td>
-                    <p class="heading" >Goal</p>
+                    <p class="heading">Goal</p>
                 </td>
-                <td>
-                    <mat-form-field class="employeewidth">
-                        
-                        <input formControlName="goal" matInput>
+                <td class="paddingtd">
+                    <!-- <mat-form-field class="employeewidth">
+
+                        <input formControlName="goal_id" matInput>
+                    </mat-form-field> -->
+                    <mat-form-field class="employeewidth" (click)="getsummarypage('',goalcurrentpage=1)">
+
+
+                        <input formControlName="goal_id" #goalinput
+                            (keyup)="getsummarypage($event.target.value,goalcurrentpage=1)" matInput
+                            [matAutocomplete]="goalautocomplete">
+                        <mat-autocomplete #goalautocomplete="matAutocomplete" [displayWith]="displayFndesignation">
+                            <!-- <mat-option (click)="opendialog(goal)" >
+                                
+                                <mat-icon matSuffix >post_add</mat-icon>  
+                                Create Goal
+                            </mat-option> -->
+
+                            <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                            <ng-container *ngIf="isLoading">
+                                <mat-option *ngFor="let goal of goalsummarydata" [value]="goal">
+                                    {{goal.name}}
+                                </mat-option>
+                            </ng-container>
+
+                        </mat-autocomplete>
                     </mat-form-field>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="heading" >Designation</p>
-                </td>
-                <td>
-                    <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)" >
-                
-     
-                    <input formControlName="designation_id" #designationinput
-                        (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
-                        [matAutocomplete]="designationautocomplete">
-                    <mat-autocomplete #designationautocomplete="matAutocomplete"
-                        [displayWith]="displayFndesignation">
-
-                        <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
-                        <ng-container *ngIf="isLoading">
-                            <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
-                                {{design.name}}
-                            </mat-option>
-                        </ng-container>
-
-                    </mat-autocomplete>
-                </mat-form-field>
+                    <button mat-icon-button (click)="opendialog(goal)">
+                        <mat-icon>post_add</mat-icon>
+                    </button>
 
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p class="heading" >grade</p>
+                    <p class="heading">Designation</p>
                 </td>
+                <td class="paddingtd">
+                    <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)">
+
+
+                        <input formControlName="designation_id" #designationinput
+                            (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                            [matAutocomplete]="designationautocomplete">
+                        <mat-autocomplete #designationautocomplete="matAutocomplete"
+                            [displayWith]="displayFndesignation">
+
+                            <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                            <ng-container *ngIf="isLoading">
+                                <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                    {{design.name}}
+                                </mat-option>
+                            </ng-container>
+
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr>
                 <td>
+                    <p class="heading">grade</p>
+                </td>
+                <td class="paddingtd">
                     <mat-form-field (click)="gradedropdown()" class="employeewidth">
                         <!-- <input formControlName="grade" matInput> -->
                         <mat-select formControlName="grade" matInput>
@@ -55,36 +83,157 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <p class="heading" >Description</p>
+                <td class="descriptiontd">
+                    <p class="heading">Description</p>
                 </td>
-                <td>
-                    <mat-form-field class="employeewidth">
-                        <textarea formControlName="description" matInput></textarea>
-                    </mat-form-field>
+                <td class="paddingtd">
+                    <div formArrayName="sub_goal">
+                        <div *ngFor="let item of goalmapform.get('sub_goal')['controls'];let i = index"
+                            [formGroupName]="i">
+                            <div>
+                                <mat-form-field class="employeewidth">
+                                    <textarea formControlName="description" matInput></textarea>
+                                </mat-form-field>
+                                <button [disabled]="goalmapform.value.sub_goal.length == 1" mat-icon-button
+                                    (click)="cleararray(i)">
+                                    <mat-icon>clear</mat-icon>
+                                </button>
+                                <button *ngIf="i == goalmapform.value.sub_goal.length-1" mat-icon-button
+                                    (click)="adddescriptionarray()">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </td>
-                <!-- <td>
-                    <p>Deadline</p>
+
+
+            </tr>
+            <br>
+
+            <br>
+            <br>
+            <br>
+            <tr>
+                <td colspan="2">
+                    <div class="centerdiv">
+                        <button mat-raised-button (click)="goalsubmit()">
+                            Submit
+                        </button>
+                    </div>
                 </td>
-                <td>
-                    <mat-form-field class="employeewidth">
-                        <input formControlName="deadline" matInput>
-                    </mat-form-field>
-                </td> -->
             </tr>
         </table>
 
-        <br>
-        <br>
-        <div class="centerdiv">
-            <button mat-raised-button (click)="goalcreate()">Submit</button>
-        </div>
-    </form>
 
+
+
+
+    </form>
 </div>
 
-<ng-template #dialog >
+<pre>
+    {{goalmapform.value | json}}
+</pre>
+
+<!-- <ng-template #dialog>
     <div>
         <p>Hello</p>
     </div>
+</ng-template> -->
+
+
+<ng-template #goal>
+
+
+    <div mat-dialog-title class="matdialogheader">
+
+        <div>
+            Goal Create
+        </div>
+        <div (click)="close()">
+            &#10060;
+        </div>
+    </div>
+
+    <br>
+    <div class="centerdiv">
+        <form [formGroup]="goalform">
+            <table id="fullwidth">
+                <tr>
+                    <td>
+                        <p class="heading">Goal</p>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeewidth">
+
+                            <input formControlName="name" matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <p class="heading">Designation</p>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeewidth"
+                            (click)="designationdropdown('',designationcurrentpage=1)">
+
+
+                            <input formControlName="designation_id" #designationinput
+                                (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                                [matAutocomplete]="designationautocomplete">
+                            <mat-autocomplete #designationautocomplete="matAutocomplete"
+                                [displayWith]="displayFndesignation">
+
+                                <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                <ng-container *ngIf="isLoading">
+                                    <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                        {{design.name}}
+                                    </mat-option>
+                                </ng-container>
+
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                    </td>
+                </tr> -->
+                <!-- <tr>
+                    <td>
+                        <p class="heading">grade</p>
+                    </td>
+                    <td>
+                        <mat-form-field (click)="gradedropdown()" class="employeewidth">
+
+                            <mat-select formControlName="grade" matInput>
+                                <mat-option *ngFor="let tab of gradedropdowndata" [value]="tab.id">
+                                    {{tab.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>
+                        <p class="heading">Description</p>
+                    </td>
+                    <td>
+                        <mat-form-field class="employeewidth">
+                            <textarea formControlName="description" matInput></textarea>
+                        </mat-form-field>
+                    </td>
+
+                </tr>
+            </table>
+
+            <br>
+            <br>
+            <div class="centerdiv">
+                <button type="button" mat-raised-button (click)="goalcreate()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
 </ng-template>
