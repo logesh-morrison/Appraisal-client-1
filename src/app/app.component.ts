@@ -336,6 +336,26 @@ export class AppComponent {
 
   }
 
+  routing(value){
+
+    if(this.sharedservice.currenturl.includes(value)){
+      return false
+    }
+    else{
+      this.router.navigateByUrl(value);
+    }
+
+  }
+
+  routingsubmodules(value){
+    if(this.sharedservice.currenturl.includes(value)){
+      return false
+    }
+    else{
+      this.router.navigateByUrl(value);
+    }
+  }
+
   continue() {
     this.showModal = false;
     this.appservice.getRefresh()
@@ -413,6 +433,8 @@ export class AppComponent {
     }
     
   }
+
+  
 
 }
 

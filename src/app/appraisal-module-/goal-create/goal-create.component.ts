@@ -460,5 +460,10 @@ cleararray(i){
   (this.goalmapform.get('sub_goal') as FormArray).removeAt(i)
 }
 
+routingto(){
+  this.router.navigateByUrl('appraisal_module/goal_summary')
+
+}
+
 }
 

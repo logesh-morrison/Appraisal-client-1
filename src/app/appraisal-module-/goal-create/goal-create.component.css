@@ -129,3 +129,11 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .marginbuttons{
+    margin: 10px;
+  }
+
+  .tdpadding{
+    padding-left: 30px;
+  }

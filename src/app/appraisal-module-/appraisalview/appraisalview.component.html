@@ -146,11 +146,19 @@
 <br>
 <tr>
     <td colspan="2">
-        <div class="centerdiv">
+        <!-- <div class="centerdiv">
             <button mat-raised-button (click)="appraisalsubmit()">
                 Submit
             </button>
+        </div> -->
+
+        <div class="centerdiv">
+            <button color="primary" class="marginbuttons" (click)="appraisalsubmit()"
+                mat-raised-button>Submit</button>
+            <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
+
         </div>
+
     </td>
 </tr>
 </table>

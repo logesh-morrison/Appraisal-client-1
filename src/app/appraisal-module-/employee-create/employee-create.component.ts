@@ -604,16 +604,16 @@ export class EmployeeCreateComponent implements OnInit {
       return false
     }
 
-    if (this.employeeform.value.middle_name == '') {
-      this.notification.showError('Please enter Middle name')
-      return false
+    // if (this.employeeform.value.middle_name == '') {
+    //   this.notification.showError('Please enter Middle name')
+    //   return false
 
-    }
-    if (this.employeeform.value.last_name == '') {
-      this.notification.showError('Please enter Last name')
-      return false
+    // }
+    // if (this.employeeform.value.last_name == '') {
+    //   this.notification.showError('Please enter Last name')
+    //   return false
 
-    }
+    // }
 
     if (this.employeeidget) {
       if (this.profilepicturefiledetails == null) {
@@ -743,8 +743,11 @@ export class EmployeeCreateComponent implements OnInit {
         return false
       }
       if (this.employeeform.value.personal_info[i].wedding_date == '') {
-        this.notification.showError('Please enter Wedding date')
-        return false
+        if(this.employeeform.value.personal_info[i].martial_status != 1){
+          this.notification.showError('Please enter Wedding date')
+          return false
+        }
+       
       }
       if (this.employeeform.value.personal_info[i].emc_contact_person == '') {
         this.notification.showError('Please enter Emergency person')
@@ -813,30 +816,34 @@ export class EmployeeCreateComponent implements OnInit {
 
 
 
+    
+
     let addressdelete = this.employeeform.value.address
     for (let j = 0; j < addressdelete.length; j++) {
+
+        if (addressdelete[j].type == '2') {
+
+        if (addressdelete[j].line1 == '' && addressdelete[j].pincode_id == '' && addressdelete[j].city_id == '' && addressdelete[j].district_id == '' && addressdelete[j].state_id == '') { 
+          (<FormArray>this.employeeform.get('address')).removeAt(j)
+          console.log('delete permanent address')
+        }
+
+      }
 
       addressdelete[j].pincode_id = addressdelete[j].pincode_id.id
       addressdelete[j].city_id = addressdelete[j].city_id.id
       addressdelete[j].district_id = addressdelete[j].district_id.id
       addressdelete[j].state_id = addressdelete[j].state_id.id
 
-      if (this.employeeidget) {
-        addressdelete[j].type = addressdelete[j].type.id
+      // if (this.employeeidget) {
+      //   addressdelete[j].type = addressdelete[j].type.id
 
-      }
-
-
+      // }
 
 
-      if (addressdelete[j].type == '2') {
 
-        if (addressdelete[j].line1 == '' && addressdelete[j].pincode_id == '' && addressdelete[j].city_id == '' && addressdelete[j].district_id == '' && addressdelete[j].state_id == '') {
-          (<FormArray>this.employeeform.get('address')).removeAt(j)
-          console.log('delete permanent address')
-        }
 
-      }
+    
 
     }
 
@@ -853,8 +860,10 @@ export class EmployeeCreateComponent implements OnInit {
 
       // personal_info[i].nationality=personal_info[i].nationality.id
       this.employeeform.get('personal_info')["controls"][i].get('nationality').setValue(this.employeeform.value.personal_info[i].nationality.id)
-
+      if(this.employeeform.value.personal_info[i].martial_status != 1){
       this.employeeform.get('personal_info')["controls"][i].get('wedding_date').setValue(this.datePipe.transform(this.employeeform.value.personal_info[i].wedding_date, 'yyyy-MM-dd'))
+
+      }
     }
 
     // for(let i=0;i<personal_info.length;i++){
@@ -888,7 +897,7 @@ export class EmployeeCreateComponent implements OnInit {
 
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Updated')
-          this.router.navigateByUrl('appraisal_module/appraisal_summary')
+          this.router.navigateByUrl('appraisal_module/Employee_summary')
 
         } else {
           this.notification.showError(res)
@@ -905,7 +914,7 @@ export class EmployeeCreateComponent implements OnInit {
 
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Created')
-          this.router.navigateByUrl('appraisal_module/appraisal_summary')
+          this.router.navigateByUrl('appraisal_module/Employee_summary')
 
         } else {
           this.notification.showError(res)

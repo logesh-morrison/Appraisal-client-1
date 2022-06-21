@@ -62,7 +62,7 @@
                 </mat-list-item> -->
 
                 <div *ngFor="let tab of moduleslist;let i=index">
-                    <mat-list-item  routerLink="{{tab.route}}"  (click)="tab.selectedtab = !tab.selectedtab">
+                    <mat-list-item   (click)="routing(tab.route)"  (click)="tab.selectedtab = !tab.selectedtab">
                         <mat-icon matListIcon>equalizer</mat-icon>
                         <span matLine>{{tab.name}}</span>
                         <mat-icon class="menubutton" [ngClass]="(tab.selectedtab)? 'rotated':''" >expand_more</mat-icon>
@@ -71,7 +71,7 @@
                         <!-- <div class="submenu" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab">
                             <a class="submoduletag" mat-list-item routerLink="{{tag.route}}">{{tag.name}}</a>
                         </div> -->
-                        <mat-list-item class="submenu" routerLink="{{tag.route}}" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab" >
+                        <mat-list-item class="submenu" (click)="routingsubmodules(tag.route)" [ngClass]="{'expanded' : tab.selectedtab}" *ngIf="tab.selectedtab" >
                             <mat-icon matListIcon>chevron_right</mat-icon>
                             <span matLine>{{tag.name}}</span>
                         </mat-list-item>

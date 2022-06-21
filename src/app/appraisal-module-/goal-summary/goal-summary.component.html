@@ -7,8 +7,30 @@
                     <td>
                         <mat-form-field>
                             <mat-label>Designation</mat-label>
-                            <input matInput formControlName="designation">
+                            <!-- <input matInput formControlName="designation"> -->
+                            <mat-select matInput formControlName="designation"   >
+                                <mat-option *ngFor="let design of designationdropdowndata" [value]="design.id" >{{design.name}}</mat-option>
+                            </mat-select>
                         </mat-form-field>
+                        <!-- <mat-form-field class="employeewidth" (click)="designationdropdown('',designationcurrentpage=1)">
+
+
+                            <input formControlName="designation" #designationinput
+                                (keyup)="designationdropdown($event.target.value,designationcurrentpage=1)" matInput
+                                [matAutocomplete]="designationautocomplete">
+                            <mat-autocomplete #designationautocomplete="matAutocomplete"
+                                [displayWith]="displayFndesignation">
+    
+                                <mat-option *ngIf="!isLoading" class="is-loading">Loading...</mat-option>
+                                <ng-container *ngIf="isLoading">
+                                    <mat-option *ngFor="let design of designationdropdowndata" [value]="design">
+                                        {{design.name}}
+                                    </mat-option>
+                                </ng-container>
+    
+                            </mat-autocomplete>
+                        </mat-form-field>
+     -->
                     </td>
 
                     <td class="tdpadding" >
@@ -49,10 +71,10 @@
                 <tr>
                     <th>S.No</th>
                     <th>Goal</th>
-                    <!-- <th>Sub Goal</th>
+                    <!-- <th>Sub Goal</th> -->
 
                     <th>Designation</th>
-                    <th>Grade</th> -->
+                    <th>Grade</th>
 
 
                     <th>Edit</th>
@@ -63,8 +85,8 @@
                 <tr *ngFor="let data of goalsummarydata;let i= index">
                     <td>{{((currentpage-1)*10)+i+1}}</td>
                      <td>{{data.goal_id.name}}</td>
-                   <!-- <td>{{data.designation_id.name}}</td>
-                    <td>{{data.grade.name}}</td> -->
+                   <td>{{data.designation_id.name}}</td>
+                    <td>{{data.grade.name}}</td>
                     <!-- <td>{{data.sub_goal}}</td>
 
                     <td>{{data.designation_id}}</td>

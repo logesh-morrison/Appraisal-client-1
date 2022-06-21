@@ -238,7 +238,7 @@ public getcountrydropdown(value,page): Observable<any> {
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "mstserv/pincode_search?query="+value+'&page='+page)
+    return this.http.get<any>(url + "mstserv/pincode?query="+value+'&page='+page)
   }
   
   public departmentdropdown(value,page): Observable<any> {
@@ -339,7 +339,7 @@ public getcountrydropdown(value,page): Observable<any> {
     // let tokenValue = JSON.parse(getToken);
     // let token = tokenValue.token
     // const headers = { 'Authorization': 'Token ' + token }
-    return this.http.get<any>(url + "mstserv/goal_mapping?query="+designation+'&grade='+value+'&page='+page)
+    return this.http.get<any>(url + "mstserv/goal_mapping?grade="+value+'&designation='+designation+'&page='+page)
   }
   
 

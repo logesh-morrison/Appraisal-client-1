@@ -177,6 +177,7 @@ export class AppraisalviewComponent implements OnInit {
 
 
     // this.appraisalform.value.employee = this.appraisalform.value.employee.id
+    this.appraisalform.value.employee=this.appraisalform.value.employee.id
 
 
     this.appraisalform.value.designation=this.appraisalform.value.designation.id
@@ -299,6 +300,11 @@ export class AppraisalviewComponent implements OnInit {
 
   displayFnname(employee: employee): string {
     return employee.first_name
+  }
+
+  routingto(){
+  this.router.navigateByUrl('appraisal_module/appraisal_summary')
+
   }
 
 }

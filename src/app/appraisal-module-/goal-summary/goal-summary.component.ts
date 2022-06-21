@@ -7,11 +7,20 @@ import { NotificationServiceService } from 'src/app/notification-service.service
 import { SharedserviceService } from 'src/app/sharedservice.service';
 import { AppraisalServiceService } from '../appraisal-service.service';
 
+
+export interface designation {
+  name: string;
+  id: number;
+}
+
 @Component({
   selector: 'app-goal-summary',
   templateUrl: './goal-summary.component.html',
   styleUrls: ['./goal-summary.component.css']
 })
+
+
+
 export class GoalSummaryComponent implements OnInit {
 
   goalsummaryform:FormGroup;
@@ -24,6 +33,11 @@ export class GoalSummaryComponent implements OnInit {
   gradedropdowndata: any;
   searchgrade='';
   searchdesignation='';
+
+  designationdropdowndata: any;
+  designation_has_next=true;
+  designation_has_previous=true;
+  designationcurrentpage=1;
 
   constructor(private notification: NotificationServiceService, public shareservice: SharedserviceService, private datePipe: DatePipe, private formbuilder: FormBuilder,
     private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) { }
@@ -38,6 +52,9 @@ export class GoalSummaryComponent implements OnInit {
 
     this.getsummarypage('','',this.currentpage=1)
     this.gradedropdown()
+
+    this.designationdropdown('',this.designationcurrentpage=1)
+
   }
 
   getsummarypage(value,designation,page){
@@ -67,6 +84,8 @@ export class GoalSummaryComponent implements OnInit {
     this.getsummarypage(this.searchgrade,this.searchdesignation,this.currentpage=1)
   }
 
+  
+
   previousgoalsummary(){
 
     if(this.has_next){
@@ -81,6 +100,30 @@ export class GoalSummaryComponent implements OnInit {
     }
   }
 
+
+  designationdropdown(value, page) {
+
+
+    this.isLoading = false
+
+    this.appraisalservice.designationdropdown(value, page).subscribe(res => {
+      console.log('res')
+      this.designationdropdowndata = res['data']
+      let datapagination = res["pagination"];
+      this.isLoading = true
+
+      if (this.designationdropdowndata.length >= 0) {
+        this.designation_has_next = datapagination.has_next;
+        this.designation_has_previous = datapagination.has_previous;
+        this.designationcurrentpage = datapagination.index;
+      }
+    })
+  }
+
+  displayFndesignation(name: designation): string {
+    return name.name
+  }
+  
   clear(){
     this.goalsummaryform.patchValue({
       grade:'',

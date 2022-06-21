@@ -7,9 +7,21 @@
             <table>
                 <tr>
                     <td>
-                        <mat-form-field>
+                        <mat-form-field (click)="getemployeedropdown('',employeecurrentpage=1)" >
                             <mat-label>Employee Name</mat-label>
-                            <input matInput formControlName="empname">
+                            <!-- <input matInput formControlName="empname"> -->
+                            <input formControlName="empname" #employeeinput
+                                (keyup)="getemployeedropdown($event.target.value,employeecurrentpage=1)" matInput
+                                [matAutocomplete]="employeeautocomplete">
+                            <mat-autocomplete #employeeautocomplete="matAutocomplete" [displayWith]="displayFnname">
+                                <mat-option *ngIf="!isLoading" class="is-loading">Loading...
+                                </mat-option>
+                                <ng-container *ngIf="isLoading">
+                                    <mat-option *ngFor="let name of employeedropdown" [value]="name">
+                                        {{name.first_name}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </td>
                     <!-- <td class="tdpadding">

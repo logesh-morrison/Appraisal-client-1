@@ -19,6 +19,12 @@ export const PICK_FORMATS = {
     monthYearA11yLabel: { year: 'numeric', month: 'long' }
   }
 };
+
+export interface employee {
+  first_name: string;
+  id: number;
+}
+
 class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
     if (displayFormat === 'input') {
@@ -56,6 +62,11 @@ export class AppraisalSummaryComponent implements OnInit {
   searchedemployeecode: any;
 
   showhtmlcontent=false;
+  isLoading=false;
+  employeedropdown: any;
+  employee_has_next=true;
+  employee_has_previous=true;
+  employeecurrentpage=1;
 
   constructor(private appraisalservice: AppraisalServiceService, private datepipe: DatePipe, private formbuilder: FormBuilder, public shareservice: SharedserviceService, private rout: Router, private route: ActivatedRoute, private location: Location) {
 
@@ -204,10 +215,10 @@ export class AppraisalSummaryComponent implements OnInit {
   }
 
   searchsummary() {
-    this.employeesummary(this.summaryform.value.empname, 1)
+    this.employeesummary(this.summaryform.value.empname?.id, 1)
     this.currentpage=1
 
-    this.searchedemployeename=this.summaryform.value.empname
+    this.searchedemployeename=this.summaryform.value.empname?.id
     this.searchedemployeecode=this.summaryform.value.code
 
   }
@@ -248,4 +259,25 @@ export class AppraisalSummaryComponent implements OnInit {
     //   console.log(results['data'])
     // })
   }
+
+  getemployeedropdown(value, page) {
+    this.isLoading = false
+    this.appraisalservice.getemployeedropdown(value, page).subscribe(results => {
+      this.employeedropdown = results['data']
+      let datapagination = results["pagination"];
+      this.isLoading = true
+
+      if (this.employeedropdown.length >= 0) {
+        this.employee_has_next = datapagination.has_next;
+        this.employee_has_previous = datapagination.has_previous;
+        this.employeecurrentpage = datapagination.index;
+      }
+    })
+
+  }
+
+  displayFnname(employee: employee): string {
+    return employee.first_name
+  }
+
 }

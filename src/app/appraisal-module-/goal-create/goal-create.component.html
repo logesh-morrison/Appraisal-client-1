@@ -117,11 +117,19 @@
             <br>
             <tr>
                 <td colspan="2">
-                    <div class="centerdiv">
+                    <!-- <div class="centerdiv">
                         <button mat-raised-button (click)="goalsubmit()">
                             Submit
                         </button>
+                    </div> -->
+
+                    <div class="centerdiv">
+                        <button color="primary" class="marginbuttons" (click)="goalsubmit()"
+                            mat-raised-button>Submit</button>
+                        <button color="primary" class="marginbuttons" (click)="routingto()" mat-raised-button>Back</button>
+        
                     </div>
+
                 </td>
             </tr>
         </table>
@@ -165,7 +173,7 @@
                     <td>
                         <p class="heading">Goal</p>
                     </td>
-                    <td>
+                    <td class="paddingtd" >
                         <mat-form-field class="employeewidth">
 
                             <input formControlName="name" matInput>
@@ -218,7 +226,7 @@
                     <td>
                         <p class="heading">Description</p>
                     </td>
-                    <td>
+                    <td class="paddingtd" >
                         <mat-form-field class="employeewidth">
                             <textarea formControlName="description" matInput></textarea>
                         </mat-form-field>
