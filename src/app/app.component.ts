@@ -164,7 +164,11 @@ export class AppComponent {
     
 
     const data = this.cookieservice.get("my-key")
-    const item = localStorage.setItem('sessionData', data);
+  
+    if(data){ 
+      const item = localStorage.setItem('sessionData', data);
+
+    }
 
     // router.events
     //   .subscribe((event: NavigationStart) => {

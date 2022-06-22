@@ -27,7 +27,7 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
     
 
-    this.getmenus()
+    // this.getmenus()
 
     this.username = this.sharedservice.username.value
     // this.username = item.name 

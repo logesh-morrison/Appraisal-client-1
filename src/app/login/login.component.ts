@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.loginform = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      login:true
     });
 
 
@@ -54,30 +55,25 @@ export class LoginComponent implements OnInit {
     })
 
 
-    const item = localStorage.getItem('sessionData');
-    console.log('LOCALSTORAGE LOGIN PAGE',item)
-    if (item !== null) {
-      this.appservice.loginstatus = true;
 
-    }
 
   }
 
   login() {
 
-    this.appservice.login(this.loginform.value).subscribe(result => {
-      localStorage.setItem("sessionData", JSON.stringify(result))
-      console.log(result)
+    // this.appservice.login(this.loginform.value).subscribe(result => {
+    //   localStorage.setItem("sessionData", JSON.stringify(result))
+    //   console.log(result)
 
 
 
-    //uncommand this code token generate
-      // this.appservice.loginstatus=true
-      // this.sharedservice.username.next(result.name)
-      // this.router.navigateByUrl(this.returnUrl);
-      // this.router.navigateByUrl('/app')
+    // //uncommand this code token generate
+    //   // this.appservice.loginstatus=true
+    //   // this.sharedservice.username.next(result.name)
+    //   // this.router.navigateByUrl(this.returnUrl);
+    //   // this.router.navigateByUrl('/app')
 
-    })
+    // })
 
     //command this code when connected to token generate
     localStorage.setItem("sessionData", JSON.stringify(this.loginform.value))

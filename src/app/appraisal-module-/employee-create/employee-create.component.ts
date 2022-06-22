@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, finalize, map, switchMap, takeUntil
 import { NotificationServiceService } from 'src/app/notification-service.service';
 import { environment } from 'src/environments/environment';
 import { AppraisalServiceService } from '../appraisal-service.service';
+import { EmployeeSummaryComponent } from '../employee-summary/employee-summary.component';
 
 export interface pincode {
   no: number;
@@ -149,7 +150,7 @@ export class EmployeeCreateComponent implements OnInit {
   profilepicturefiledetails: any;
 
   constructor(private notification: NotificationServiceService, private activateroute:ActivatedRoute,private datePipe: DatePipe, private formbuilder: FormBuilder,
-    private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog) {
+    private router: Router, private appraisalservice: AppraisalServiceService, private dialog: MatDialog, private employeesummary:EmployeeSummaryComponent) {
     this.employeeidget = this.router.getCurrentNavigation().extras.state;
   }
 
@@ -860,10 +861,10 @@ export class EmployeeCreateComponent implements OnInit {
 
       // personal_info[i].nationality=personal_info[i].nationality.id
       this.employeeform.get('personal_info')["controls"][i].get('nationality').setValue(this.employeeform.value.personal_info[i].nationality.id)
-      if(this.employeeform.value.personal_info[i].martial_status != 1){
+      // if(this.employeeform.value.personal_info[i].martial_status != 1){
       this.employeeform.get('personal_info')["controls"][i].get('wedding_date').setValue(this.datePipe.transform(this.employeeform.value.personal_info[i].wedding_date, 'yyyy-MM-dd'))
 
-      }
+      // }
     }
 
     // for(let i=0;i<personal_info.length;i++){
@@ -897,6 +898,7 @@ export class EmployeeCreateComponent implements OnInit {
 
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Updated')
+          this.employeesummary.ngOnInit()
           this.router.navigateByUrl('appraisal_module/Employee_summary')
 
         } else {
@@ -914,6 +916,8 @@ export class EmployeeCreateComponent implements OnInit {
 
         if (res.message == "Successfully Created") {
           this.notification.showSuccess('Successfully Created')
+          this.employeesummary.ngOnInit()
+
           this.router.navigateByUrl('appraisal_module/Employee_summary')
 
         } else {

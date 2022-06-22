@@ -91,7 +91,8 @@ export class EmployeeSummaryComponent implements OnInit {
     });
 
 
-    this.searchsummary()
+    // this.searchsummary()
+    this.employeesummary(this.summaryform.value.empname, this.summaryform.value.code, this.currentpage)
 
   }
 
